@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blockchain -- Visual Explainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0d12;
+  --panel: #161b2b;
+  --panel-strong: #1f2538;
+  --text: #f4f1ec;
+  --muted: #b3b1ac;
+  --accent: #59c3c3;
+  --warm: #f4a261;
+  --red: #e76f51;
+  --green: #2a9d8f;
+  --purple: #9d8df1;
+  --line: rgba(244, 241, 236, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11,13,18,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 0 2rem;
+  display: flex; align-items: center; gap: 1.5rem;
+  height: 56px; overflow-x: auto;
+}
+nav a {
+  color: var(--muted); text-decoration: none; font-size: 0.85rem;
+  font-weight: 500; white-space: nowrap; transition: color 0.2s;
+}
+nav a:hover, nav a.active { color: var(--accent); }
+.nav-home { color: var(--accent); font-weight: 600; }
+.nav-sep { color: var(--line); margin: 0 0.25rem; }
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  max-width: 800px; margin: 0 auto;
+}
+.eyebrow {
+  text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem;
+  color: var(--accent); margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: 'Fraunces', serif; font-weight: 700;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  line-height: 1.15; margin-bottom: 1.2rem;
+}
+.hero .subtitle {
+  font-size: 1.15rem; color: var(--muted); max-width: 560px; margin: 0 auto 2rem;
+}
+
+/* SECTIONS */
+.section {
+  max-width: 860px; margin: 0 auto;
+  padding: 4rem 2rem;
+}
+.section h2 {
+  font-family: 'Fraunces', serif; font-weight: 600;
+  font-size: 1.8rem; margin-bottom: 1.2rem;
+}
+.section h3 {
+  font-size: 1.15rem; font-weight: 600; margin-bottom: 0.6rem;
+}
+.section p { color: var(--muted); margin-bottom: 1rem; }
+.section p strong { color: var(--text); }
+
+.divider {
+  max-width: 860px; margin: 0 auto;
+  border: none; border-top: 1px solid var(--line);
+}
+
+/* CARDS */
+.card {
+  background: var(--panel);
+  border-radius: 12px; padding: 1.8rem;
+  border: 1px solid var(--line);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem; margin: 1.5rem 0;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem; margin: 1.5rem 0;
+}
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.2rem; margin: 1.5rem 0;
+}
+
+/* ANALOGY BOX */
+.analogy-box {
+  background: var(--panel);
+  border-left: 4px solid var(--warm);
+  border-radius: 0 12px 12px 0;
+  padding: 1.5rem 1.8rem; margin: 1.5rem 0;
+}
+.analogy-box h4 {
+  color: var(--warm); font-size: 0.85rem;
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 0.6rem;
+}
+.analogy-box p { color: var(--text); margin-bottom: 0; }
+
+/* CALLOUT BOX (like analogy but different colors) */
+.callout-box {
+  background: var(--panel);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  padding: 1.5rem 1.8rem; margin: 1.5rem 0;
+}
+.callout-box h4 {
+  color: var(--accent); font-size: 0.85rem;
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 0.6rem;
+}
+.callout-box p { color: var(--text); margin-bottom: 0.5rem; }
+.callout-box p:last-child { margin-bottom: 0; }
+
+/* SVG CONTAINER */
+.diagram-container {
+  background: var(--panel);
+  border-radius: 12px; padding: 2rem;
+  border: 1px solid var(--line);
+  margin: 1.5rem 0; text-align: center;
+  overflow-x: auto;
+}
+.diagram-container svg { max-width: 100%; height: auto; }
+.diagram-label {
+  font-size: 0.8rem; color: var(--muted); margin-top: 0.8rem;
+}
+
+/* INTERACTIVE CHAIN */
+.chain-demo {
+  display: flex; gap: 0; align-items: stretch;
+  overflow-x: auto; padding: 1rem 0;
+  margin: 1.5rem 0;
+}
+.block-card {
+  min-width: 200px; flex-shrink: 0;
+  background: var(--panel); border: 2px solid var(--line);
+  border-radius: 12px; padding: 1.2rem;
+  position: relative; transition: all 0.4s ease;
+  cursor: pointer;
+}
+.block-card.tampered { border-color: var(--red); background: rgba(231,111,81,0.08); }
+.block-card.tampered .block-hash { color: var(--red); text-decoration: line-through; }
+.block-card.valid { border-color: var(--green); }
+.block-card .block-num {
+  font-family: 'Fraunces', serif; font-weight: 700;
+  font-size: 1.1rem; color: var(--accent); margin-bottom: 0.4rem;
+}
+.block-card .block-data {
+  font-size: 0.85rem; color: var(--muted); margin-bottom: 0.6rem;
+  min-height: 2.4rem;
+}
+.block-card .block-hash {
+  font-size: 0.7rem; font-family: monospace;
+  color: var(--green); word-break: break-all;
+  background: rgba(42,157,143,0.1); padding: 0.4rem;
+  border-radius: 6px; transition: all 0.3s;
+}
+.chain-arrow {
+  display: flex; align-items: center; flex-shrink: 0;
+  color: var(--accent); font-size: 1.4rem; padding: 0 0.3rem;
+  min-width: 30px; justify-content: center;
+}
+.chain-arrow.broken { color: var(--red); }
+
+/* STEP FLOW */
+.flow-steps { margin: 1.5rem 0; }
+.flow-step {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1rem 1.2rem; border-radius: 10px;
+  margin-bottom: 0.5rem; transition: all 0.3s;
+  border: 1px solid transparent; cursor: pointer;
+}
+.flow-step:hover { background: var(--panel); border-color: var(--line); }
+.flow-step.active { background: var(--panel); border-color: var(--accent); }
+.step-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--panel-strong); color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 0.85rem; flex-shrink: 0;
+}
+.flow-step.active .step-num { background: var(--accent); color: var(--bg); }
+.step-text h4 { font-size: 0.95rem; margin-bottom: 0.2rem; }
+.step-text p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+
+/* COMPARISON TABLE */
+.compare-table {
+  width: 100%; border-collapse: collapse; margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+.compare-table th {
+  text-align: left; padding: 0.8rem 1rem;
+  border-bottom: 2px solid var(--line);
+  color: var(--accent); font-weight: 600;
+}
+.compare-table td {
+  padding: 0.7rem 1rem; border-bottom: 1px solid var(--line);
+  color: var(--muted);
+}
+.compare-table tr:hover td { color: var(--text); }
+
+/* BUTTONS */
+.btn {
+  display: inline-block; padding: 0.6rem 1.4rem;
+  border-radius: 8px; font-size: 0.9rem; font-weight: 500;
+  text-decoration: none; cursor: pointer; transition: all 0.2s;
+  border: none; font-family: inherit;
+}
+.btn-accent { background: var(--accent); color: var(--bg); }
+.btn-accent:hover { filter: brightness(1.15); }
+.btn-outline { background: transparent; border: 1px solid var(--line); color: var(--text); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.btn-red { background: var(--red); color: white; }
+.btn-red:hover { filter: brightness(1.15); }
+.btn-green { background: var(--green); color: white; }
+.btn-green:hover { filter: brightness(1.15); }
+
+.btn-group { display: flex; gap: 0.8rem; flex-wrap: wrap; margin: 1.5rem 0; }
+
+/* FOOTER */
+footer {
+  max-width: 860px; margin: 0 auto;
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted); font-size: 0.8rem;
+  text-align: center;
+}
+
+/* PILL */
+.pill {
+  display: inline-block; padding: 0.2rem 0.7rem;
+  border-radius: 20px; font-size: 0.75rem; font-weight: 500;
+}
+.pill-green { background: rgba(42,157,143,0.15); color: var(--green); }
+.pill-red { background: rgba(231,111,81,0.15); color: var(--red); }
+.pill-accent { background: rgba(89,195,195,0.15); color: var(--accent); }
+.pill-purple { background: rgba(157,141,241,0.15); color: var(--purple); }
+.pill-warm { background: rgba(244,162,97,0.15); color: var(--warm); }
+
+/* GLOW */
+.glow-box {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.glow-box::before {
+  content: '';
+  position: absolute; inset: -2px;
+  background: linear-gradient(135deg, var(--accent), var(--purple), var(--warm));
+  border-radius: 14px;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+/* STAT */
+.stat-row {
+  display: flex; gap: 2rem; flex-wrap: wrap;
+  justify-content: center; margin: 2rem 0;
+}
+.stat {
+  text-align: center;
+}
+.stat .num {
+  font-family: 'Fraunces', serif; font-weight: 700;
+  font-size: 2.2rem; color: var(--accent);
+}
+.stat .label {
+  font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem;
+}
+
+/* HALVING TIMELINE */
+.timeline {
+  position: relative;
+  padding: 1rem 0;
+  margin: 1.5rem 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 24px; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--line);
+}
+.timeline-item {
+  position: relative;
+  padding-left: 60px;
+  margin-bottom: 1.8rem;
+}
+.timeline-item:last-child { margin-bottom: 0; }
+.timeline-dot {
+  position: absolute; left: 14px; top: 4px;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--panel-strong);
+  border: 2px solid var(--accent);
+  z-index: 1;
+}
+.timeline-item.future .timeline-dot {
+  border-color: var(--muted);
+  border-style: dashed;
+}
+.timeline-item.current .timeline-dot {
+  border-color: var(--green);
+  background: var(--green);
+  box-shadow: 0 0 12px rgba(42,157,143,0.4);
+}
+.timeline-year {
+  font-weight: 600; font-size: 0.9rem; color: var(--text);
+  margin-bottom: 0.2rem;
+}
+.timeline-detail {
+  font-size: 0.85rem; color: var(--muted);
+}
+
+/* WALLET VISUAL */
+.wallet-pair {
+  display: flex; gap: 1.5rem; align-items: stretch;
+  margin: 1.5rem 0; flex-wrap: wrap;
+}
+.wallet-key {
+  flex: 1; min-width: 260px;
+  background: var(--panel);
+  border-radius: 12px; padding: 1.5rem;
+  border: 1px solid var(--line);
+}
+.wallet-key h4 {
+  font-size: 0.9rem; margin-bottom: 0.6rem;
+}
+.key-display {
+  font-family: monospace; font-size: 0.8rem;
+  padding: 0.8rem;
+  border-radius: 8px;
+  word-break: break-all;
+  margin-bottom: 0.6rem;
+}
+.key-public {
+  background: rgba(42,157,143,0.1);
+  border: 1px solid rgba(42,157,143,0.3);
+  color: var(--green);
+}
+.key-private {
+  background: rgba(231,111,81,0.1);
+  border: 1px solid rgba(231,111,81,0.3);
+  color: var(--red);
+}
+
+/* TX FLOW */
+.tx-flow {
+  display: flex; align-items: center; gap: 0;
+  overflow-x: auto; padding: 1rem 0; margin: 1.5rem 0;
+  justify-content: center;
+}
+.tx-node {
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 12px; padding: 1rem 1.2rem;
+  text-align: center; min-width: 120px;
+  flex-shrink: 0;
+}
+.tx-node h4 { font-size: 0.85rem; margin-bottom: 0.3rem; }
+.tx-node p { font-size: 0.75rem; color: var(--muted); margin: 0; }
+.tx-arrow {
+  color: var(--accent); font-size: 1.2rem; padding: 0 0.4rem;
+  flex-shrink: 0;
+}
+
+/* FEE METER */
+.fee-bar-container {
+  margin: 1.5rem 0;
+}
+.fee-bar-label {
+  display: flex; justify-content: space-between;
+  font-size: 0.8rem; color: var(--muted); margin-bottom: 0.4rem;
+}
+.fee-bar-track {
+  height: 28px; border-radius: 14px;
+  background: var(--panel-strong);
+  position: relative; overflow: hidden;
+}
+.fee-bar-fill {
+  height: 100%; border-radius: 14px;
+  position: absolute; left: 0; top: 0;
+  transition: width 0.6s ease;
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 4rem 1.2rem 2.5rem; }
+  .section { padding: 2.5rem 1.2rem; }
+  nav { gap: 1rem; padding: 0 1rem; }
+  .grid, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .chain-demo { flex-direction: column; align-items: center; }
+  .chain-arrow { transform: rotate(90deg); }
+  .stat-row { gap: 1rem; }
+  .stat .num { font-size: 1.6rem; }
+  .wallet-pair { flex-direction: column; }
+  .tx-flow { flex-direction: column; }
+  .tx-arrow { transform: rotate(90deg); }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="nav-home">&larr; All</a>
+  <span class="nav-sep">|</span>
+  <a href="#analogy" class="active">Analogy</a>
+  <a href="#blocks">Blocks</a>
+  <a href="#chain">The Chain</a>
+  <a href="#tamper">Tamper Test</a>
+  <a href="#network">Network</a>
+  <a href="#mining">Mining</a>
+  <a href="#new-coins">New Coins</a>
+  <a href="#fees">Fees</a>
+  <a href="#wallets">Wallets</a>
+  <a href="#sending">Sending BTC</a>
+  <a href="#why">Why It Matters</a>
+  <a href="#bottom-line">Bottom Line</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow">Visual Explainer</div>
+  <h1>Blockchain, Demystified</h1>
+  <p class="subtitle">A shared notebook that nobody controls and nobody can erase. From how it works to how you actually use it.</p>
+  <div class="btn-group" style="justify-content: center;">
+    <a href="#analogy" class="btn btn-accent">Start with the Analogy</a>
+    <a href="#wallets" class="btn btn-outline">How Do I Actually Use It?</a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 1: ANALOGY -->
+<section class="section" id="analogy">
+  <h2>The Town Notebook</h2>
+
+  <div class="analogy-box">
+    <h4>The Analogy</h4>
+    <p>Imagine a town with <strong>no bank</strong>. Every transaction is announced in the town square, and every person carries an <strong>identical notebook</strong>. When someone shouts "Alice paid Bob $50," everyone writes it down on the same page. You can add to the notebook. You can never rip out a page.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card" style="border-top: 3px solid var(--red);">
+      <h3>Traditional Bank</h3>
+      <p style="color: var(--muted); font-size: 0.9rem;">One notebook, in a vault, controlled by one institution. You trust them to not rewrite history.</p>
+      <span class="pill pill-red">Single point of failure</span>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3>Blockchain</h3>
+      <p style="color: var(--muted); font-size: 0.9rem;">Thousands of identical notebooks. If one person rewrites their copy, everyone else's copy proves them wrong.</p>
+      <span class="pill pill-green">No single point of failure</span>
+    </div>
+  </div>
+
+  <!-- SVG: One vs Many -->
+  <div class="diagram-container">
+    <svg viewBox="0 0 700 200" role="img" aria-label="Centralized bank vs decentralized blockchain network">
+      <!-- Centralized -->
+      <text x="150" y="22" fill="#b3b1ac" font-size="13" font-family="Space Grotesk" text-anchor="middle" font-weight="600">Centralized (Bank)</text>
+      <rect x="120" y="60" width="60" height="44" rx="6" fill="#1f2538" stroke="#e76f51" stroke-width="2"/>
+      <text x="150" y="87" fill="#e76f51" font-size="10" font-family="Space Grotesk" text-anchor="middle" font-weight="600">BANK</text>
+      <line x1="150" y1="104" x2="80" y2="160" stroke="#b3b1ac" stroke-width="1" opacity="0.4"/>
+      <line x1="150" y1="104" x2="120" y2="170" stroke="#b3b1ac" stroke-width="1" opacity="0.4"/>
+      <line x1="150" y1="104" x2="180" y2="170" stroke="#b3b1ac" stroke-width="1" opacity="0.4"/>
+      <line x1="150" y1="104" x2="220" y2="160" stroke="#b3b1ac" stroke-width="1" opacity="0.4"/>
+      <circle cx="80" cy="165" r="10" fill="#1f2538" stroke="#b3b1ac" stroke-width="1"/>
+      <circle cx="120" cy="175" r="10" fill="#1f2538" stroke="#b3b1ac" stroke-width="1"/>
+      <circle cx="180" cy="175" r="10" fill="#1f2538" stroke="#b3b1ac" stroke-width="1"/>
+      <circle cx="220" cy="165" r="10" fill="#1f2538" stroke="#b3b1ac" stroke-width="1"/>
+
+      <text x="350" y="105" fill="#b3b1ac" font-size="22" text-anchor="middle">vs</text>
+
+      <!-- Decentralized -->
+      <text x="540" y="22" fill="#b3b1ac" font-size="13" font-family="Space Grotesk" text-anchor="middle" font-weight="600">Decentralized (Blockchain)</text>
+      <line x1="480" y1="70" x2="540" y2="55" stroke="#2a9d8f" stroke-width="1.5" opacity="0.5"/>
+      <line x1="540" y1="55" x2="610" y2="75" stroke="#2a9d8f" stroke-width="1.5" opacity="0.5"/>
+      <line x1="480" y1="70" x2="470" y2="140" stroke="#2a9d8f" stroke-width="1.5" opacity="0.5"/>
+      <line x1="610" y1="75" x2="620" y2="140" stroke="#2a9d8f" stroke-width="1.5" opacity="0.5"/>
+      <line x1="470" y1="140" x2="540" y2="170" stroke="#2a9d8f" stroke-width="1.5" opacity="0.5"/>
+      <line x1="620" y1="140" x2="540" y2="170" stroke="#2a9d8f" stroke-width="1.5" opacity="0.5"/>
+      <line x1="480" y1="70" x2="610" y2="75" stroke="#2a9d8f" stroke-width="1.5" opacity="0.3"/>
+      <line x1="470" y1="140" x2="620" y2="140" stroke="#2a9d8f" stroke-width="1.5" opacity="0.3"/>
+      <line x1="540" y1="55" x2="540" y2="170" stroke="#2a9d8f" stroke-width="1.5" opacity="0.2"/>
+      <circle cx="480" cy="70" r="14" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <circle cx="540" cy="55" r="14" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <circle cx="610" cy="75" r="14" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <circle cx="470" cy="140" r="14" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <circle cx="540" cy="170" r="14" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <circle cx="620" cy="140" r="14" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+    </svg>
+    <div class="diagram-label">Left: everyone depends on one ledger keeper. Right: everyone keeps their own copy and cross-checks.</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 2: WHAT IS A BLOCK -->
+<section class="section" id="blocks">
+  <h2>What's Inside a Block?</h2>
+  <p>Every ~10 minutes, transactions get bundled into a <strong>block</strong> -- a page in the notebook. Each block has three parts:</p>
+
+  <div class="grid-3">
+    <div class="card" style="border-top: 3px solid var(--accent);">
+      <span class="pill pill-accent" style="margin-bottom: 0.8rem; display: inline-block;">Part 1</span>
+      <h3>Transactions</h3>
+      <p style="font-size: 0.85rem; color: var(--muted);">The actual records. "Alice sent Bob 0.5 BTC." A block typically holds <strong>~2,000</strong> transactions.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--purple);">
+      <span class="pill pill-purple" style="margin-bottom: 0.8rem; display: inline-block;">Part 2</span>
+      <h3>Its Own Fingerprint</h3>
+      <p style="font-size: 0.85rem; color: var(--muted);">A <strong>hash</strong> -- a unique code computed from everything in this block. Change one character and the hash changes completely.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--warm);">
+      <span class="pill pill-warm" style="margin-bottom: 0.8rem; display: inline-block;">Part 3</span>
+      <h3>Previous Block's Fingerprint</h3>
+      <p style="font-size: 0.85rem; color: var(--muted);">Each block carries the hash of the block before it. <strong>This is the chain.</strong> It's what makes everything tamper-proof.</p>
+    </div>
+  </div>
+
+  <div class="diagram-container">
+    <svg viewBox="0 0 500 260" role="img" aria-label="Anatomy of a single block showing transactions, hash, and previous hash">
+      <rect x="50" y="20" width="400" height="220" rx="14" fill="#1f2538" stroke="#59c3c3" stroke-width="2"/>
+      <text x="250" y="52" fill="#59c3c3" font-size="14" font-family="Fraunces" text-anchor="middle" font-weight="700">Block #4,821</text>
+      <rect x="80" y="70" width="340" height="36" rx="6" fill="rgba(244,162,97,0.1)" stroke="#f4a261" stroke-width="1"/>
+      <text x="96" y="93" fill="#f4a261" font-size="11" font-family="Space Grotesk" font-weight="600">Prev Hash:</text>
+      <text x="186" y="93" fill="#b3b1ac" font-size="10" font-family="monospace">0a3f8c...7e21b4</text>
+      <rect x="80" y="116" width="340" height="72" rx="6" fill="rgba(89,195,195,0.06)" stroke="rgba(244,241,236,0.12)" stroke-width="1"/>
+      <text x="96" y="137" fill="#59c3c3" font-size="11" font-family="Space Grotesk" font-weight="600">Transactions:</text>
+      <text x="96" y="156" fill="#b3b1ac" font-size="10" font-family="monospace">Alice -> Bob:  0.5 BTC</text>
+      <text x="96" y="172" fill="#b3b1ac" font-size="10" font-family="monospace">Carol -> Dave: 1.2 BTC</text>
+      <text x="96" y="182" fill="#656360" font-size="9" font-family="Space Grotesk">... ~2,000 more transactions</text>
+      <rect x="80" y="198" width="340" height="36" rx="6" fill="rgba(42,157,143,0.1)" stroke="#2a9d8f" stroke-width="1"/>
+      <text x="96" y="221" fill="#2a9d8f" font-size="11" font-family="Space Grotesk" font-weight="600">This Hash:</text>
+      <text x="186" y="221" fill="#2a9d8f" font-size="10" font-family="monospace">7b92d1...f483ae</text>
+    </svg>
+    <div class="diagram-label">A block is a sealed envelope: transactions inside, fingerprint on the outside, linked to the envelope before it.</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 3: THE CHAIN -->
+<section class="section" id="chain">
+  <h2>How Blocks Form a Chain</h2>
+  <p>Each block's hash is computed from <strong>its data + the previous block's hash</strong>. This creates a domino effect: change any block and every block after it breaks.</p>
+
+  <div class="chain-demo" id="validChain">
+    <div class="block-card valid">
+      <div class="block-num">Block 1</div>
+      <div class="block-data">Genesis block (the first page)</div>
+      <div class="block-hash">prev: 0000...0000<br>hash: a1b2c3...d4e5</div>
+    </div>
+    <div class="chain-arrow">&#8594;</div>
+    <div class="block-card valid">
+      <div class="block-num">Block 2</div>
+      <div class="block-data">Alice -> Bob: 3 BTC</div>
+      <div class="block-hash">prev: a1b2c3...d4e5<br>hash: f6g7h8...i9j0</div>
+    </div>
+    <div class="chain-arrow">&#8594;</div>
+    <div class="block-card valid">
+      <div class="block-num">Block 3</div>
+      <div class="block-data">Carol -> Dave: 1 BTC</div>
+      <div class="block-hash">prev: f6g7h8...i9j0<br>hash: k1l2m3...n4o5</div>
+    </div>
+    <div class="chain-arrow">&#8594;</div>
+    <div class="block-card valid">
+      <div class="block-num">Block 4</div>
+      <div class="block-data">Eve -> Frank: 0.5 BTC</div>
+      <div class="block-hash">prev: k1l2m3...n4o5<br>hash: p6q7r8...s9t0</div>
+    </div>
+  </div>
+  <p style="text-align: center; font-size: 0.85rem;"><span class="pill pill-green">All hashes match</span> &mdash; Each block's "prev" field matches the preceding block's hash.</p>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 4: INTERACTIVE TAMPER -->
+<section class="section" id="tamper">
+  <h2>Try to Tamper With It</h2>
+  <p>Click the button below to change Block 2's data from "3 BTC" to "300 BTC." Watch what happens to the chain.</p>
+
+  <div class="btn-group" style="justify-content: center;">
+    <button class="btn btn-red" id="tamperBtn" onclick="tamperChain()">Tamper with Block 2</button>
+    <button class="btn btn-green" id="resetBtn" onclick="resetChain()" style="display: none;">Reset Chain</button>
+  </div>
+
+  <div class="chain-demo" id="interactiveChain">
+    <div class="block-card valid" id="ib1">
+      <div class="block-num">Block 1</div>
+      <div class="block-data" id="ib1-data">Genesis block</div>
+      <div class="block-hash" id="ib1-hash">prev: 0000...0000<br>hash: a1b2c3...d4e5</div>
+    </div>
+    <div class="chain-arrow" id="arrow1">&#8594;</div>
+    <div class="block-card valid" id="ib2">
+      <div class="block-num">Block 2</div>
+      <div class="block-data" id="ib2-data">Alice -> Bob: 3 BTC</div>
+      <div class="block-hash" id="ib2-hash">prev: a1b2c3...d4e5<br>hash: f6g7h8...i9j0</div>
+    </div>
+    <div class="chain-arrow" id="arrow2">&#8594;</div>
+    <div class="block-card valid" id="ib3">
+      <div class="block-num">Block 3</div>
+      <div class="block-data" id="ib3-data">Carol -> Dave: 1 BTC</div>
+      <div class="block-hash" id="ib3-hash">prev: f6g7h8...i9j0<br>hash: k1l2m3...n4o5</div>
+    </div>
+    <div class="chain-arrow" id="arrow3">&#8594;</div>
+    <div class="block-card valid" id="ib4">
+      <div class="block-num">Block 4</div>
+      <div class="block-data" id="ib4-data">Eve -> Frank: 0.5 BTC</div>
+      <div class="block-hash" id="ib4-hash">prev: k1l2m3...n4o5<br>hash: p6q7r8...s9t0</div>
+    </div>
+  </div>
+
+  <div id="tamperMsg" style="text-align: center; margin-top: 1rem; display: none;">
+    <div class="card" style="border: 2px solid var(--red); max-width: 600px; margin: 0 auto;">
+      <p style="color: var(--red); font-weight: 600; margin-bottom: 0.4rem;">Chain Broken!</p>
+      <p style="font-size: 0.85rem;">Changing Block 2's data changed its hash. Now Block 3's "prev" pointer is wrong -- and so is Block 4's. <strong>Every node in the network rejects these blocks instantly.</strong></p>
+    </div>
+  </div>
+  <div id="validMsg" style="text-align: center; margin-top: 1rem;">
+    <p style="font-size: 0.85rem; color: var(--muted);"><span class="pill pill-green">Chain intact</span> &mdash; All hash links are valid.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 5: THE NETWORK -->
+<section class="section" id="network">
+  <h2>Why Thousands of Copies?</h2>
+  <p>Even if you rewrite Block 2 <em>and</em> recompute every hash after it, you've only tampered with <strong>your</strong> copy. The other 15,000+ nodes still have the original. Your fake chain is outvoted instantly.</p>
+
+  <div class="diagram-container">
+    <svg viewBox="0 0 600 300" role="img" aria-label="Network of nodes where one attacker's tampered copy is rejected by the majority">
+      <line x1="300" y1="60" x2="160" y2="130" stroke="#2a9d8f" stroke-width="1" opacity="0.3"/>
+      <line x1="300" y1="60" x2="440" y2="130" stroke="#2a9d8f" stroke-width="1" opacity="0.3"/>
+      <line x1="300" y1="60" x2="300" y2="160" stroke="#2a9d8f" stroke-width="1" opacity="0.3"/>
+      <line x1="160" y1="130" x2="100" y2="220" stroke="#2a9d8f" stroke-width="1" opacity="0.3"/>
+      <line x1="160" y1="130" x2="220" y2="230" stroke="#2a9d8f" stroke-width="1" opacity="0.3"/>
+      <line x1="440" y1="130" x2="380" y2="230" stroke="#2a9d8f" stroke-width="1" opacity="0.3"/>
+      <line x1="440" y1="130" x2="500" y2="220" stroke="#2a9d8f" stroke-width="1" opacity="0.3"/>
+      <line x1="300" y1="160" x2="220" y2="230" stroke="#2a9d8f" stroke-width="1" opacity="0.3"/>
+      <line x1="300" y1="160" x2="380" y2="230" stroke="#2a9d8f" stroke-width="1" opacity="0.3"/>
+      <line x1="160" y1="130" x2="60" y2="140" stroke="#e76f51" stroke-width="1.5" opacity="0.5" stroke-dasharray="4 3"/>
+      <circle cx="300" cy="60" r="20" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <text x="300" y="65" fill="#2a9d8f" font-size="9" font-family="Space Grotesk" text-anchor="middle" font-weight="600">Node</text>
+      <circle cx="160" cy="130" r="20" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <text x="160" y="135" fill="#2a9d8f" font-size="9" font-family="Space Grotesk" text-anchor="middle" font-weight="600">Node</text>
+      <circle cx="440" cy="130" r="20" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <text x="440" y="135" fill="#2a9d8f" font-size="9" font-family="Space Grotesk" text-anchor="middle" font-weight="600">Node</text>
+      <circle cx="300" cy="160" r="20" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <text x="300" y="165" fill="#2a9d8f" font-size="9" font-family="Space Grotesk" text-anchor="middle" font-weight="600">Node</text>
+      <circle cx="100" cy="220" r="20" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <text x="100" y="225" fill="#2a9d8f" font-size="9" font-family="Space Grotesk" text-anchor="middle" font-weight="600">Node</text>
+      <circle cx="220" cy="230" r="20" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <text x="220" y="235" fill="#2a9d8f" font-size="9" font-family="Space Grotesk" text-anchor="middle" font-weight="600">Node</text>
+      <circle cx="380" cy="230" r="20" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <text x="380" y="235" fill="#2a9d8f" font-size="9" font-family="Space Grotesk" text-anchor="middle" font-weight="600">Node</text>
+      <circle cx="500" cy="220" r="20" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <text x="500" y="225" fill="#2a9d8f" font-size="9" font-family="Space Grotesk" text-anchor="middle" font-weight="600">Node</text>
+      <circle cx="60" cy="140" r="22" fill="rgba(231,111,81,0.1)" stroke="#e76f51" stroke-width="2.5"/>
+      <text x="60" y="137" fill="#e76f51" font-size="8" font-family="Space Grotesk" text-anchor="middle" font-weight="600">Fake</text>
+      <text x="60" y="149" fill="#e76f51" font-size="8" font-family="Space Grotesk" text-anchor="middle" font-weight="600">chain</text>
+      <text x="108" y="140" fill="#e76f51" font-size="18" font-family="Space Grotesk" text-anchor="middle" font-weight="700">&#10005;</text>
+      <text x="300" y="286" fill="#b3b1ac" font-size="11" font-family="Space Grotesk" text-anchor="middle">8 honest nodes reject the attacker's modified chain.</text>
+    </svg>
+    <div class="diagram-label">The majority always wins. One fake copy cannot overrule thousands of honest ones.</div>
+  </div>
+
+  <div class="analogy-box">
+    <h4>Why This Works</h4>
+    <p>It's like shouting a lie in a room where 15,000 people heard the truth. Your version doesn't just sound wrong -- <strong>every mathematical fingerprint proves it's wrong.</strong></p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 6: MINING -->
+<section class="section" id="mining">
+  <h2>Mining: The Stamp Contest</h2>
+  <p>Someone has to decide which transactions go into the next block. But <strong>who gets to write the next page?</strong> In a system with no boss, this is solved with a contest.</p>
+
+  <div class="flow-steps">
+    <div class="flow-step active" onclick="activateStep(this)">
+      <span class="step-num">1</span>
+      <div class="step-text">
+        <h4>Collect Transactions</h4>
+        <p>Miners gather unconfirmed transactions waiting in the network (the "mempool") into a candidate block. They prioritize transactions that offer higher fees.</p>
+      </div>
+    </div>
+    <div class="flow-step" onclick="activateStep(this)">
+      <span class="step-num">2</span>
+      <div class="step-text">
+        <h4>The Guessing Game (Proof of Work)</h4>
+        <p>Each miner tries trillions of random numbers (nonces), looking for one that makes the block's hash start with enough zeros. It's pure brute force -- like trying every combination on a lock with 20 digits. This requires specialized hardware (ASICs) and massive amounts of electricity.</p>
+      </div>
+    </div>
+    <div class="flow-step" onclick="activateStep(this)">
+      <span class="step-num">3</span>
+      <div class="step-text">
+        <h4>Winner Broadcasts</h4>
+        <p>First to find a valid hash broadcasts the block to the network. Other nodes verify it in milliseconds -- checking a solution is trivial, finding one is astronomically hard. This asymmetry is what makes the system work.</p>
+      </div>
+    </div>
+    <div class="flow-step" onclick="activateStep(this)">
+      <span class="step-num">4</span>
+      <div class="step-text">
+        <h4>Miner Gets Paid</h4>
+        <p>The winning miner earns <strong>two kinds of income</strong>: the block reward (brand-new coins created from thin air) plus all the transaction fees from every transaction in that block. More on both of these below.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="analogy-box">
+    <h4>Why Make it Hard?</h4>
+    <p>The difficulty is the <strong>security</strong>. If writing a page were free, anyone could spam fake pages. Making it expensive (electricity, hardware) means cheating costs more than playing fair. The contest ensures that honesty is always the most profitable strategy.</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="num">~10 min</div>
+      <div class="label">Average time per block</div>
+    </div>
+    <div class="stat">
+      <div class="num">~600Q</div>
+      <div class="label">Hash guesses/sec (network)</div>
+    </div>
+    <div class="stat">
+      <div class="num">~$30K</div>
+      <div class="label">Electricity cost per block</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 7: WHERE DO NEW COINS COME FROM? -->
+<section class="section" id="new-coins">
+  <h2>Where Do New Coins Come From?</h2>
+  <p>This is one of the most misunderstood parts of Bitcoin. <strong>Nobody pays for the newly minted coins.</strong> They are created out of nothing by the protocol itself -- written into the rules of the software from day one.</p>
+
+  <div class="analogy-box">
+    <h4>The Gold Mine Analogy</h4>
+    <p>Think of it like gold in the ground. Nobody "pays" for the gold -- it exists in nature, waiting to be extracted. Miners spend real resources (equipment, energy) to dig it up. Similarly, Bitcoin miners spend electricity and hardware to earn newly created coins. <strong>The coins are the reward for securing the network.</strong></p>
+  </div>
+
+  <div class="grid">
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3>Block Reward (New Coins)</h3>
+      <p style="font-size: 0.85rem;">When a miner wins the guessing game, the protocol lets them add one special transaction at the top of the block: <strong>"Create 3.125 BTC and give them to me."</strong> This is called the <em>coinbase transaction</em>. These coins didn't exist before -- they are brand new Bitcoin entering circulation for the first time.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--warm);">
+      <h3>Transaction Fees (Existing Coins)</h3>
+      <p style="font-size: 0.85rem;">Every transaction in the block includes a small fee set by the sender. The miner <strong>collects all of these fees</strong> as additional income. This isn't new money -- it's money the senders chose to pay for the service of having their transaction included. More on fees in the next section.</p>
+    </div>
+  </div>
+
+  <!-- Miner income SVG -->
+  <div class="diagram-container">
+    <svg viewBox="0 0 600 240" role="img" aria-label="Miner income breakdown: block reward plus transaction fees">
+      <text x="300" y="28" fill="#f4f1ec" font-size="14" font-family="Fraunces" text-anchor="middle" font-weight="700">What a Miner Earns Per Block</text>
+
+      <!-- Block reward bar -->
+      <rect x="60" y="55" width="360" height="50" rx="8" fill="rgba(42,157,143,0.2)" stroke="#2a9d8f" stroke-width="1.5"/>
+      <text x="80" y="85" fill="#2a9d8f" font-size="12" font-family="Space Grotesk" font-weight="600">Block Reward: 3.125 BTC</text>
+      <text x="358" y="85" fill="#b3b1ac" font-size="10" font-family="Space Grotesk" text-anchor="end">New coins, created from nothing</text>
+
+      <!-- Fee bar -->
+      <rect x="60" y="115" width="140" height="50" rx="8" fill="rgba(244,162,97,0.2)" stroke="#f4a261" stroke-width="1.5"/>
+      <text x="80" y="145" fill="#f4a261" font-size="12" font-family="Space Grotesk" font-weight="600">Fees: ~0.1-1 BTC</text>
+
+      <!-- Plus sign -->
+      <text x="42" y="100" fill="#b3b1ac" font-size="24" font-family="Space Grotesk" text-anchor="middle">&#65291;</text>
+
+      <!-- Equals -->
+      <text x="42" y="175" fill="#b3b1ac" font-size="16" font-family="Space Grotesk" text-anchor="middle">=</text>
+
+      <!-- Total -->
+      <rect x="60" y="175" width="480" height="50" rx="8" fill="rgba(89,195,195,0.15)" stroke="#59c3c3" stroke-width="2"/>
+      <text x="80" y="205" fill="#59c3c3" font-size="13" font-family="Space Grotesk" font-weight="600">Total miner income: ~3.2 - 4+ BTC per block</text>
+
+      <!-- annotation -->
+      <text x="250" y="145" fill="#b3b1ac" font-size="10" font-family="Space Grotesk">Paid by senders</text>
+    </svg>
+    <div class="diagram-label">The block reward dominates today. As halvings reduce it, transaction fees will become the primary incentive.</div>
+  </div>
+
+  <h3 style="margin-top: 2rem;">The Halving: Bitcoin's Built-In Scarcity</h3>
+  <p>The block reward is <strong>cut in half every 210,000 blocks</strong> (~4 years). This is hardcoded into Bitcoin's software and cannot be changed by anyone. It means the supply of new coins slows down on a fixed schedule, approaching -- but never reaching -- <strong>21 million total Bitcoin</strong>.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2009 -- Bitcoin launches</div>
+      <div class="timeline-detail">Block reward: <strong>50 BTC</strong> per block. Early miners earned coins worth fractions of a penny.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2012 -- First halving</div>
+      <div class="timeline-detail">Block reward drops to <strong>25 BTC</strong>. ~10.5 million BTC already exist.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2016 -- Second halving</div>
+      <div class="timeline-detail">Block reward drops to <strong>12.5 BTC</strong>. ~15.75 million BTC exist.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2020 -- Third halving</div>
+      <div class="timeline-detail">Block reward drops to <strong>6.25 BTC</strong>. ~18.375 million BTC exist.</div>
+    </div>
+    <div class="timeline-item current">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2024 -- Fourth halving (current era)</div>
+      <div class="timeline-detail">Block reward drops to <strong>3.125 BTC</strong>. ~19.7 million BTC exist. Over 93% of all Bitcoin that will ever exist has already been mined.</div>
+    </div>
+    <div class="timeline-item future">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2028 -- Fifth halving</div>
+      <div class="timeline-detail">Block reward will drop to <strong>1.5625 BTC</strong>.</div>
+    </div>
+    <div class="timeline-item future">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">~2140 -- Last Bitcoin mined</div>
+      <div class="timeline-detail">Block reward reaches zero. Miners will earn <strong>only transaction fees</strong>. Total supply: exactly <strong>21,000,000 BTC</strong>. No more will ever be created.</div>
+    </div>
+  </div>
+
+  <div class="callout-box">
+    <h4>Key Insight</h4>
+    <p>Unlike dollars, where a central bank can print unlimited money (inflation), <strong>Bitcoin's supply schedule is fixed and public</strong>. Everyone knows exactly how many new coins will be created and when. This predictability is a core part of its value proposition -- it cannot be inflated away by any government or institution.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 8: TRANSACTION FEES -->
+<section class="section" id="fees">
+  <h2>Transaction Fees: How They Actually Work</h2>
+  <p><strong>Yes, there are fees when you send Bitcoin.</strong> But they work very differently from bank fees. The fee doesn't depend on how much money you send -- it depends on how much <em>space</em> your transaction takes up in a block.</p>
+
+  <div class="analogy-box">
+    <h4>The Shipping Box Analogy</h4>
+    <p>Imagine each block is a shipping container with limited space. Your transaction is a box. The fee is what you pay for space in the container. <strong>A box containing $10 and a box containing $10 million take up the same space</strong> -- so the fee is the same. What makes a transaction bigger (in bytes) is complexity: more inputs and outputs (like combining coins from multiple sources) takes more space.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card" style="border-top: 3px solid var(--accent);">
+      <h3>How Fees Are Set</h3>
+      <p style="font-size: 0.85rem;"><strong>You choose your own fee.</strong> Your wallet software suggests a fee based on current network congestion. Higher fee = faster confirmation (miners pick the most profitable transactions first). Lower fee = you wait longer.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--purple);">
+      <h3>What Fees Cost</h3>
+      <p style="font-size: 0.85rem;">Fees are measured in <strong>satoshis per virtual byte</strong> (sat/vB). A typical transaction is ~140 vB. During quiet periods, fees can be <strong>under $1</strong>. During congestion spikes, they can surge to <strong>$20-80+</strong>. This is purely supply and demand.</p>
+    </div>
+  </div>
+
+  <!-- Fee comparison -->
+  <h3 style="margin-top: 2rem;">What You'd Actually Pay</h3>
+  <p>The counterintuitive part: <strong>sending $10 and sending $1,000,000 costs the same fee.</strong></p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>You Send</th>
+        <th>Bitcoin Fee (typical)</th>
+        <th>Bank Wire Fee</th>
+        <th>PayPal/Venmo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>$50</strong></td>
+        <td>$1 - $5</td>
+        <td>$25 - $50</td>
+        <td>Free (domestic)</td>
+      </tr>
+      <tr>
+        <td><strong>$1,000</strong></td>
+        <td>$1 - $5</td>
+        <td>$25 - $50</td>
+        <td>$10 - $30</td>
+      </tr>
+      <tr>
+        <td><strong>$100,000</strong></td>
+        <td>$1 - $5</td>
+        <td>$25 - $50</td>
+        <td>$2,900 (2.9%)</td>
+      </tr>
+      <tr>
+        <td><strong>$10,000,000</strong></td>
+        <td style="color: var(--green);"><strong>$1 - $5</strong></td>
+        <td>$25 - $50 + compliance</td>
+        <td>Not possible</td>
+      </tr>
+      <tr>
+        <td><strong>International</strong></td>
+        <td style="color: var(--green);"><strong>Same fee</strong></td>
+        <td>$40 - $80 + FX markup</td>
+        <td>$50+ with FX</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout-box">
+    <h4>Where Do Fees Go?</h4>
+    <p>Every satoshi of every fee goes <strong>directly to the miner who includes your transaction in a block</strong>. There is no company, no intermediary, no payment processor taking a cut. The fee is a direct payment from sender to miner for the service of recording the transaction permanently.</p>
+    <p>When there's a backlog of transactions waiting, miners naturally pick the highest-fee transactions first. Your wallet shows you the current "market rate" so you can decide how fast you need your transaction confirmed.</p>
+  </div>
+
+  <!-- Fee priority visualization -->
+  <h3 style="margin-top: 2rem;">Fee Priority: How Miners Choose</h3>
+  <div class="diagram-container">
+    <svg viewBox="0 0 600 220" role="img" aria-label="Miners prioritize higher-fee transactions for inclusion in blocks">
+      <text x="300" y="24" fill="#f4f1ec" font-size="13" font-family="Fraunces" text-anchor="middle" font-weight="700">Mempool (Waiting Room) --> Next Block</text>
+
+      <!-- Mempool transactions sorted by fee -->
+      <rect x="30" y="45" width="260" height="165" rx="10" fill="rgba(244,241,236,0.03)" stroke="rgba(244,241,236,0.12)" stroke-width="1"/>
+      <text x="160" y="65" fill="#b3b1ac" font-size="10" font-family="Space Grotesk" text-anchor="middle">Waiting transactions (sorted by fee)</text>
+
+      <rect x="50" y="78" width="220" height="24" rx="4" fill="rgba(42,157,143,0.25)" stroke="#2a9d8f" stroke-width="1"/>
+      <text x="60" y="95" fill="#2a9d8f" font-size="10" font-family="monospace">Tx A: 80 sat/vB</text>
+      <text x="258" y="95" fill="#2a9d8f" font-size="9" font-family="Space Grotesk" text-anchor="end">$4.20</text>
+
+      <rect x="50" y="108" width="220" height="24" rx="4" fill="rgba(42,157,143,0.18)" stroke="#2a9d8f" stroke-width="1"/>
+      <text x="60" y="125" fill="#2a9d8f" font-size="10" font-family="monospace">Tx B: 50 sat/vB</text>
+      <text x="258" y="125" fill="#2a9d8f" font-size="9" font-family="Space Grotesk" text-anchor="end">$2.60</text>
+
+      <rect x="50" y="138" width="220" height="24" rx="4" fill="rgba(244,162,97,0.15)" stroke="#f4a261" stroke-width="1"/>
+      <text x="60" y="155" fill="#f4a261" font-size="10" font-family="monospace">Tx C: 10 sat/vB</text>
+      <text x="258" y="155" fill="#f4a261" font-size="9" font-family="Space Grotesk" text-anchor="end">$0.50</text>
+
+      <rect x="50" y="168" width="220" height="24" rx="4" fill="rgba(231,111,81,0.12)" stroke="#e76f51" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="60" y="185" fill="#e76f51" font-size="10" font-family="monospace">Tx D:  3 sat/vB</text>
+      <text x="258" y="185" fill="#e76f51" font-size="9" font-family="Space Grotesk" text-anchor="end">$0.15</text>
+
+      <!-- Arrow -->
+      <text x="330" y="130" fill="#59c3c3" font-size="28" text-anchor="middle">&#8594;</text>
+      <text x="330" y="150" fill="#b3b1ac" font-size="9" font-family="Space Grotesk" text-anchor="middle">Miner picks</text>
+      <text x="330" y="162" fill="#b3b1ac" font-size="9" font-family="Space Grotesk" text-anchor="middle">highest first</text>
+
+      <!-- Block -->
+      <rect x="380" y="45" width="190" height="165" rx="10" fill="rgba(89,195,195,0.06)" stroke="#59c3c3" stroke-width="2"/>
+      <text x="475" y="65" fill="#59c3c3" font-size="11" font-family="Fraunces" text-anchor="middle" font-weight="700">Next Block</text>
+
+      <rect x="395" y="78" width="160" height="24" rx="4" fill="rgba(42,157,143,0.25)"/>
+      <text x="405" y="95" fill="#2a9d8f" font-size="10" font-family="monospace">Tx A  ~10 min</text>
+
+      <rect x="395" y="108" width="160" height="24" rx="4" fill="rgba(42,157,143,0.18)"/>
+      <text x="405" y="125" fill="#2a9d8f" font-size="10" font-family="monospace">Tx B  ~10 min</text>
+
+      <rect x="395" y="138" width="160" height="24" rx="4" fill="rgba(244,162,97,0.15)"/>
+      <text x="405" y="155" fill="#f4a261" font-size="10" font-family="monospace">Tx C  ~30 min</text>
+
+      <!-- Tx D waiting -->
+      <text x="160" y="210" fill="#e76f51" font-size="10" font-family="Space Grotesk" text-anchor="middle">Tx D waits... maybe hours, maybe next block</text>
+    </svg>
+    <div class="diagram-label">Higher fees get confirmed faster. Low-fee transactions wait until there's room.</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 9: WALLETS -->
+<section class="section" id="wallets">
+  <h2>Your Wallet: Keys, Not Coins</h2>
+  <p>A Bitcoin "wallet" doesn't hold coins the way a physical wallet holds cash. <strong>Your coins live on the blockchain (the shared notebook).</strong> Your wallet holds the <em>keys</em> that prove you own them.</p>
+
+  <div class="analogy-box">
+    <h4>The Mailbox Analogy</h4>
+    <p>Your wallet is like a transparent mailbox on the street. <strong>Anyone can see what's inside</strong> (the blockchain is public). <strong>Anyone can drop money in</strong> (send you Bitcoin using your public address). But <strong>only you have the key to open it and take money out</strong> (your private key). Lose the key? The money stays in the mailbox forever -- nobody can open it, including you.</p>
+  </div>
+
+  <h3>The Two Keys</h3>
+  <div class="wallet-pair">
+    <div class="wallet-key">
+      <h4 style="color: var(--green);">Public Key (Your Address)</h4>
+      <div class="key-display key-public">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</div>
+      <p style="font-size: 0.85rem; color: var(--muted); margin: 0;">Share this freely. It's like an email address. Anyone who knows it can send you Bitcoin. You can generate unlimited addresses from one wallet.</p>
+    </div>
+    <div class="wallet-key">
+      <h4 style="color: var(--red);">Private Key (Your Password)</h4>
+      <div class="key-display key-private">5HueCGU8rMjxEXxiPuD5BDk...do not share</div>
+      <p style="font-size: 0.85rem; color: var(--muted); margin: 0;"><strong>Never share this. Ever.</strong> Anyone with your private key can spend your Bitcoin. There is no "forgot password" -- no bank, no customer support, no reset. If you lose it, your coins are gone forever.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 2rem;">Types of Wallets</h3>
+  <div class="grid-3">
+    <div class="card" style="border-top: 3px solid var(--warm);">
+      <span class="pill pill-warm" style="margin-bottom: 0.8rem; display: inline-block;">Easiest</span>
+      <h3>Exchange Wallet</h3>
+      <p style="font-size: 0.85rem; color: var(--muted);">The exchange (Coinbase, Kraken, etc.) holds your private keys for you. Convenient, but you're trusting a company -- exactly what Bitcoin was designed to avoid.</p>
+      <p style="font-size: 0.8rem; color: var(--muted); margin: 0;"><strong>Best for:</strong> Beginners, small amounts, active trading</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--accent);">
+      <span class="pill pill-accent" style="margin-bottom: 0.8rem; display: inline-block;">Balanced</span>
+      <h3>Software Wallet</h3>
+      <p style="font-size: 0.85rem; color: var(--muted);">An app on your phone or computer. You control your private keys. Examples: Electrum (desktop), BlueWallet, Muun (mobile). Free to use.</p>
+      <p style="font-size: 0.8rem; color: var(--muted); margin: 0;"><strong>Best for:</strong> Regular use, moderate amounts</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <span class="pill pill-green" style="margin-bottom: 0.8rem; display: inline-block;">Most Secure</span>
+      <h3>Hardware Wallet</h3>
+      <p style="font-size: 0.85rem; color: var(--muted);">A physical device (like a USB stick) that keeps your private keys offline. Examples: Ledger, Trezor, ColdCard. Costs $60-200.</p>
+      <p style="font-size: 0.8rem; color: var(--muted); margin: 0;"><strong>Best for:</strong> Long-term storage, large amounts</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 2rem;">How to Get Bitcoin</h3>
+  <p>There are several ways to acquire Bitcoin:</p>
+
+  <div class="flow-steps" id="getBtcSteps">
+    <div class="flow-step active" onclick="activateStep(this)">
+      <span class="step-num">1</span>
+      <div class="step-text">
+        <h4>Buy on an Exchange (most common)</h4>
+        <p>Create an account on an exchange (Coinbase, Kraken, Binance, etc.). Verify your identity (government-required KYC). Link a bank account, debit card, or wire transfer. Buy any amount -- you don't need a whole Bitcoin. You can buy $10 worth (that's about 0.0001 BTC).</p>
+      </div>
+    </div>
+    <div class="flow-step" onclick="activateStep(this)">
+      <span class="step-num">2</span>
+      <div class="step-text">
+        <h4>Bitcoin ATMs</h4>
+        <p>Physical machines in convenience stores and malls. Insert cash, scan your wallet QR code, receive Bitcoin. Convenient but fees are high (5-15%). Good for small purchases without creating an exchange account.</p>
+      </div>
+    </div>
+    <div class="flow-step" onclick="activateStep(this)">
+      <span class="step-num">3</span>
+      <div class="step-text">
+        <h4>Receive from Someone</h4>
+        <p>Anyone can send you Bitcoin if you share your public address. No account needed. This is how peer-to-peer payments work -- a friend, employer, or business sends BTC directly to your wallet address.</p>
+      </div>
+    </div>
+    <div class="flow-step" onclick="activateStep(this)">
+      <span class="step-num">4</span>
+      <div class="step-text">
+        <h4>Earn It</h4>
+        <p>Some employers and freelance platforms pay in Bitcoin. Some websites offer Bitcoin rewards. And of course, you could mine it -- though that now requires industrial-scale operations to be profitable.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout-box">
+    <h4>You Don't Need a Whole Coin</h4>
+    <p>A common misconception: you don't need to buy 1 full Bitcoin. <strong>Bitcoin is divisible to 8 decimal places.</strong> The smallest unit (0.00000001 BTC) is called a <em>satoshi</em>. You can buy $5 of Bitcoin just as easily as $5,000.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 10: SENDING BITCOIN -->
+<section class="section" id="sending">
+  <h2>Sending Bitcoin: The Full Journey</h2>
+  <p>Let's say you want to send 0.05 BTC (~$5,000) to your friend Dave. Here's exactly what happens, from your tap to Dave seeing the money.</p>
+
+  <!-- Transaction flow diagram -->
+  <div class="diagram-container">
+    <svg viewBox="0 0 700 340" role="img" aria-label="End-to-end journey of sending Bitcoin from one person to another">
+      <!-- Step 1: You -->
+      <rect x="20" y="30" width="120" height="70" rx="10" fill="#1f2538" stroke="#59c3c3" stroke-width="2"/>
+      <text x="80" y="58" fill="#59c3c3" font-size="11" font-family="Space Grotesk" text-anchor="middle" font-weight="600">YOU</text>
+      <text x="80" y="78" fill="#b3b1ac" font-size="9" font-family="Space Grotesk" text-anchor="middle">Open wallet app</text>
+
+      <line x1="140" y1="65" x2="175" y2="65" stroke="#59c3c3" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+      <!-- Step 2: Create Tx -->
+      <rect x="180" y="30" width="130" height="70" rx="10" fill="#1f2538" stroke="#f4a261" stroke-width="2"/>
+      <text x="245" y="52" fill="#f4a261" font-size="10" font-family="Space Grotesk" text-anchor="middle" font-weight="600">CREATE TX</text>
+      <text x="245" y="68" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">Enter Dave's address</text>
+      <text x="245" y="80" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">Amount + Fee</text>
+      <text x="245" y="92" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">Sign with private key</text>
+
+      <line x1="310" y1="65" x2="345" y2="65" stroke="#f4a261" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+      <!-- Step 3: Broadcast -->
+      <rect x="350" y="30" width="130" height="70" rx="10" fill="#1f2538" stroke="#9d8df1" stroke-width="2"/>
+      <text x="415" y="52" fill="#9d8df1" font-size="10" font-family="Space Grotesk" text-anchor="middle" font-weight="600">BROADCAST</text>
+      <text x="415" y="68" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">Sent to Bitcoin network</text>
+      <text x="415" y="80" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">Enters the mempool</text>
+      <text x="415" y="92" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">(waiting room)</text>
+
+      <line x1="480" y1="65" x2="515" y2="65" stroke="#9d8df1" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+      <!-- Step 4: Verification -->
+      <rect x="520" y="30" width="150" height="70" rx="10" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+      <text x="595" y="52" fill="#2a9d8f" font-size="10" font-family="Space Grotesk" text-anchor="middle" font-weight="600">NODES VERIFY</text>
+      <text x="595" y="68" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">Valid signature?</text>
+      <text x="595" y="80" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">Enough balance?</text>
+      <text x="595" y="92" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">Not a double-spend?</text>
+
+      <!-- Down arrow to mining -->
+      <line x1="595" y1="100" x2="595" y2="135" stroke="#2a9d8f" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+      <!-- Step 5: Mining -->
+      <rect x="450" y="140" width="220" height="70" rx="10" fill="#1f2538" stroke="#f4a261" stroke-width="2"/>
+      <text x="560" y="162" fill="#f4a261" font-size="10" font-family="Space Grotesk" text-anchor="middle" font-weight="600">MINER INCLUDES IN BLOCK</text>
+      <text x="560" y="178" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">Wins the hash puzzle</text>
+      <text x="560" y="190" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">Your tx is now in a sealed block</text>
+      <text x="560" y="202" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">~10 min avg wait (1 confirmation)</text>
+
+      <!-- Down arrow to confirmations -->
+      <line x1="560" y1="210" x2="560" y2="245" stroke="#f4a261" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+      <!-- Step 6: Confirmations -->
+      <rect x="400" y="250" width="270" height="70" rx="10" fill="#1f2538" stroke="#59c3c3" stroke-width="2"/>
+      <text x="535" y="272" fill="#59c3c3" font-size="10" font-family="Space Grotesk" text-anchor="middle" font-weight="600">CONFIRMATIONS STACK UP</text>
+      <text x="535" y="288" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">Each new block on top = +1 confirmation</text>
+      <text x="535" y="300" fill="#b3b1ac" font-size="8.5" font-family="Space Grotesk" text-anchor="middle">6 confirmations (~1 hour) = considered final</text>
+      <text x="535" y="312" fill="#2a9d8f" font-size="8.5" font-family="Space Grotesk" text-anchor="middle" font-weight="600">Irreversible. No chargebacks. Done.</text>
+
+      <!-- Arrow to Dave -->
+      <line x1="400" y1="285" x2="290" y2="285" stroke="#59c3c3" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+      <!-- Dave -->
+      <rect x="100" y="250" width="185" height="70" rx="10" fill="rgba(42,157,143,0.1)" stroke="#2a9d8f" stroke-width="2"/>
+      <text x="192" y="275" fill="#2a9d8f" font-size="12" font-family="Fraunces" text-anchor="middle" font-weight="700">DAVE SEES 0.05 BTC</text>
+      <text x="192" y="295" fill="#b3b1ac" font-size="9" font-family="Space Grotesk" text-anchor="middle">Visible after 1 confirmation</text>
+      <text x="192" y="308" fill="#b3b1ac" font-size="9" font-family="Space Grotesk" text-anchor="middle">"Final" after 6 confirmations</text>
+
+      <!-- Arrowhead marker -->
+      <defs>
+        <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#59c3c3"/>
+        </marker>
+      </defs>
+    </svg>
+    <div class="diagram-label">The full journey from your tap to Dave's wallet. No bank, no intermediary, no permission needed.</div>
+  </div>
+
+  <h3>Step by Step: What You Actually Do</h3>
+  <div class="flow-steps" id="sendSteps">
+    <div class="flow-step active" onclick="activateStep(this)">
+      <span class="step-num">1</span>
+      <div class="step-text">
+        <h4>Get Dave's Bitcoin address</h4>
+        <p>Dave opens his wallet and shows you a QR code or copies a string like <code style="color: var(--accent); background: var(--panel-strong); padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.8rem;">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</code>. This is his public address -- safe to share, like an email.</p>
+      </div>
+    </div>
+    <div class="flow-step" onclick="activateStep(this)">
+      <span class="step-num">2</span>
+      <div class="step-text">
+        <h4>Open your wallet and enter the details</h4>
+        <p>Paste Dave's address (or scan his QR code). Enter the amount: 0.05 BTC. Your wallet shows a suggested fee based on current network congestion -- say, $2.50 for confirmation in ~10 minutes, or $0.80 if you're willing to wait an hour.</p>
+      </div>
+    </div>
+    <div class="flow-step" onclick="activateStep(this)">
+      <span class="step-num">3</span>
+      <div class="step-text">
+        <h4>Confirm and sign</h4>
+        <p>You tap "Send." Behind the scenes, your wallet uses your private key to create a cryptographic signature -- mathematical proof that you, and only you, authorized this payment. The signed transaction is broadcast to the Bitcoin network.</p>
+      </div>
+    </div>
+    <div class="flow-step" onclick="activateStep(this)">
+      <span class="step-num">4</span>
+      <div class="step-text">
+        <h4>Wait for confirmation</h4>
+        <p>Your transaction sits in the mempool (waiting room). A miner picks it up, includes it in a block, and wins the hash contest. This takes ~10 minutes on average. Dave's wallet shows "pending" immediately and "confirmed" once a block is mined.</p>
+      </div>
+    </div>
+    <div class="flow-step" onclick="activateStep(this)">
+      <span class="step-num">5</span>
+      <div class="step-text">
+        <h4>Done -- irreversibly</h4>
+        <p>After 6 blocks (~1 hour), the transaction is considered final. There is no chargeback, no reversal, no dispute process. Dave has the money. This finality is both a feature (no fraud risk for merchants) and a risk (send to the wrong address and it's gone).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3>What Bitcoin Does Well</h3>
+      <p style="font-size: 0.85rem; color: var(--muted);"><strong>International transfers.</strong> Sending $50,000 from the US to India takes 3-5 business days via bank wire and costs $40-80+ in fees with unfavorable exchange rates. Bitcoin takes ~1 hour, costs ~$2, works on weekends, and arrives the same whether it's across the street or across the planet.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--red);">
+      <h3>Where It's Worse</h3>
+      <p style="font-size: 0.85rem; color: var(--muted);"><strong>Everyday small purchases.</strong> Buying coffee with Bitcoin is impractical on the main chain -- $2 fee on a $5 coffee, plus a 10-minute wait. Layer 2 solutions like the Lightning Network fix this (instant, near-zero fees), but they add complexity.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 2rem;">What About Other Cryptocurrencies?</h3>
+  <p>Bitcoin was the first blockchain (2009), but thousands of alternatives exist. The sending process is similar for all of them, though the details differ:</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Cryptocurrency</th>
+        <th>Block Time</th>
+        <th>Typical Fee</th>
+        <th>Main Difference</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Bitcoin (BTC)</strong></td>
+        <td>~10 min</td>
+        <td>$1 - $5</td>
+        <td>First, most secure, digital gold</td>
+      </tr>
+      <tr>
+        <td><strong>Ethereum (ETH)</strong></td>
+        <td>~12 sec</td>
+        <td>$0.50 - $20</td>
+        <td>Smart contracts -- programmable money and apps</td>
+      </tr>
+      <tr>
+        <td><strong>Litecoin (LTC)</strong></td>
+        <td>~2.5 min</td>
+        <td>$0.01 - $0.05</td>
+        <td>Faster, cheaper Bitcoin alternative</td>
+      </tr>
+      <tr>
+        <td><strong>Solana (SOL)</strong></td>
+        <td>~0.4 sec</td>
+        <td>$0.001</td>
+        <td>Very fast, lower decentralization</td>
+      </tr>
+      <tr>
+        <td><strong>Lightning (BTC L2)</strong></td>
+        <td>Instant</td>
+        <td>< $0.01</td>
+        <td>Bitcoin payments layer -- fast and cheap, but less simple</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout-box">
+    <h4>Important Distinction</h4>
+    <p><strong>Each cryptocurrency has its own blockchain.</strong> You cannot send Bitcoin to an Ethereum address or vice versa -- they are separate networks with separate notebooks. Always make sure you're sending to an address on the correct network. Sending to the wrong network usually means losing the funds permanently.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 11: WHY IT MATTERS -->
+<section class="section" id="why">
+  <h2>Why Does Any of This Matter?</h2>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Traditional Ledger</th>
+        <th>Blockchain</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Trust</strong></td>
+        <td>Trust the institution</td>
+        <td>Trust the math</td>
+      </tr>
+      <tr>
+        <td><strong>Censorship</strong></td>
+        <td>Bank can freeze your account</td>
+        <td>No single entity can block transactions</td>
+      </tr>
+      <tr>
+        <td><strong>Transparency</strong></td>
+        <td>Opaque internal records</td>
+        <td>Every transaction publicly verifiable</td>
+      </tr>
+      <tr>
+        <td><strong>Downtime</strong></td>
+        <td>Servers can go offline</td>
+        <td>Network runs 24/7 since 2009</td>
+      </tr>
+      <tr>
+        <td><strong>Tampering</strong></td>
+        <td>Insider can alter records</td>
+        <td>Requires overpowering 15,000+ nodes</td>
+      </tr>
+      <tr>
+        <td><strong>Inflation</strong></td>
+        <td>Central bank prints more money</td>
+        <td>Fixed supply, known schedule</td>
+      </tr>
+      <tr>
+        <td><strong>International</strong></td>
+        <td>Days, high fees, FX markup</td>
+        <td>Same speed and cost anywhere on Earth</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid">
+    <div class="card">
+      <h3 style="color: var(--green);">What Blockchain Is Good For</h3>
+      <p style="font-size: 0.85rem;">Situations where you need a shared record that <strong>nobody can unilaterally rewrite</strong>: international remittances, storing value outside the banking system, supply chain provenance, ownership registries, censorship-resistant payments.</p>
+    </div>
+    <div class="card">
+      <h3 style="color: var(--red);">What Blockchain Is Not</h3>
+      <p style="font-size: 0.85rem;">A magic fix for everything. If you already trust the record keeper, a blockchain adds complexity for no benefit. It's slow (~7 tx/sec for Bitcoin), energy-intensive by design, and irreversible (no consumer protection for mistakes).</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- BOTTOM LINE -->
+<section class="section" id="bottom-line">
+  <div class="glow-box">
+    <div class="card" style="border: 2px solid var(--accent);">
+      <h3 style="color: var(--accent); font-family: 'Fraunces', serif; font-size: 1.4rem;">The Bottom Line</h3>
+      <p style="color: var(--text); font-size: 1.05rem; line-height: 1.8;">
+        A blockchain is a <strong>shared notebook</strong> where every page is sealed with a fingerprint that depends on the page before it. Thousands of people hold identical copies. Miners compete to write the next page by solving a computational puzzle, earning <strong>newly created coins</strong> (from the protocol itself, not from anyone's pocket) <strong>plus transaction fees</strong> (set by senders, based on urgency, not amount).
+      </p>
+      <p style="color: var(--text); font-size: 1.05rem; line-height: 1.8;">
+        To use it: get a wallet (an app that holds your keys), buy Bitcoin on an exchange or receive it from someone, and send it by entering the recipient's address and choosing a fee. The transaction is permanent within an hour, costs a few dollars regardless of amount, and works the same whether the recipient is next door or on another continent.
+      </p>
+      <p style="color: var(--text); font-size: 1.05rem; line-height: 1.8;">
+        <strong>The result:</strong> a financial system that nobody owns, nobody controls, and nobody can shut down. Whether that's revolutionary or redundant depends entirely on whether you needed to remove the middleman in the first place.
+      </p>
+    </div>
+  </div>
+
+  <!-- Glossary -->
+  <div style="margin-top: 2.5rem;">
+    <h3 style="margin-bottom: 1rem;">Quick Glossary</h3>
+    <div class="grid">
+      <div class="card" style="padding: 1.2rem;">
+        <p style="margin: 0;"><strong style="color: var(--accent);">Hash</strong> &mdash; A fixed-length fingerprint computed from any data. Change one bit of input, the output changes completely.</p>
+      </div>
+      <div class="card" style="padding: 1.2rem;">
+        <p style="margin: 0;"><strong style="color: var(--accent);">Node</strong> &mdash; A computer running the blockchain software, keeping its own copy of the ledger.</p>
+      </div>
+      <div class="card" style="padding: 1.2rem;">
+        <p style="margin: 0;"><strong style="color: var(--accent);">Mining</strong> &mdash; The computational contest to find a valid hash. Winner writes the next page and earns new coins + fees.</p>
+      </div>
+      <div class="card" style="padding: 1.2rem;">
+        <p style="margin: 0;"><strong style="color: var(--accent);">Block Reward</strong> &mdash; New coins created by the protocol for the winning miner. Currently 3.125 BTC, halves every ~4 years.</p>
+      </div>
+      <div class="card" style="padding: 1.2rem;">
+        <p style="margin: 0;"><strong style="color: var(--accent);">Mempool</strong> &mdash; The waiting room where unconfirmed transactions sit until a miner picks them up.</p>
+      </div>
+      <div class="card" style="padding: 1.2rem;">
+        <p style="margin: 0;"><strong style="color: var(--accent);">Private Key</strong> &mdash; The secret that proves ownership. Lose it and your coins are gone forever. Share it and your coins are stolen.</p>
+      </div>
+      <div class="card" style="padding: 1.2rem;">
+        <p style="margin: 0;"><strong style="color: var(--accent);">Satoshi</strong> &mdash; The smallest unit of Bitcoin: 0.00000001 BTC. Named after Bitcoin's pseudonymous creator, Satoshi Nakamoto.</p>
+      </div>
+      <div class="card" style="padding: 1.2rem;">
+        <p style="margin: 0;"><strong style="color: var(--accent);">Confirmation</strong> &mdash; Each new block mined on top of yours is +1 confirmation. 6 confirmations (~1 hour) = considered irreversible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Visual explainer generated by Claude &middot; Topic: Blockchain fundamentals, mining, wallets, and payments
+</footer>
+
+<script>
+function tamperChain() {
+  document.getElementById('ib2-data').textContent = 'Alice -> Bob: 300 BTC';
+  document.getElementById('ib2-hash').innerHTML = 'prev: a1b2c3...d4e5<br>hash: <span style="color:var(--red)">XX9z4k...BROKEN</span>';
+  document.getElementById('ib2').classList.remove('valid');
+  document.getElementById('ib2').classList.add('tampered');
+
+  document.getElementById('ib3-hash').innerHTML = 'prev: <span style="color:var(--red)">f6g7h8...i9j0 &#10005;</span><br>hash: <span style="color:var(--red)">INVALID</span>';
+  document.getElementById('ib3').classList.remove('valid');
+  document.getElementById('ib3').classList.add('tampered');
+
+  document.getElementById('ib4-hash').innerHTML = 'prev: <span style="color:var(--red)">k1l2m3...n4o5 &#10005;</span><br>hash: <span style="color:var(--red)">INVALID</span>';
+  document.getElementById('ib4').classList.remove('valid');
+  document.getElementById('ib4').classList.add('tampered');
+
+  document.getElementById('arrow2').classList.add('broken');
+  document.getElementById('arrow2').innerHTML = '&#10005;';
+  document.getElementById('arrow3').classList.add('broken');
+  document.getElementById('arrow3').innerHTML = '&#10005;';
+
+  document.getElementById('tamperBtn').style.display = 'none';
+  document.getElementById('resetBtn').style.display = 'inline-block';
+  document.getElementById('tamperMsg').style.display = 'block';
+  document.getElementById('validMsg').style.display = 'none';
+}
+
+function resetChain() {
+  document.getElementById('ib2-data').textContent = 'Alice -> Bob: 3 BTC';
+  document.getElementById('ib2-hash').innerHTML = 'prev: a1b2c3...d4e5<br>hash: f6g7h8...i9j0';
+  document.getElementById('ib2').classList.remove('tampered');
+  document.getElementById('ib2').classList.add('valid');
+
+  document.getElementById('ib3-hash').innerHTML = 'prev: f6g7h8...i9j0<br>hash: k1l2m3...n4o5';
+  document.getElementById('ib3').classList.remove('tampered');
+  document.getElementById('ib3').classList.add('valid');
+
+  document.getElementById('ib4-hash').innerHTML = 'prev: k1l2m3...n4o5<br>hash: p6q7r8...s9t0';
+  document.getElementById('ib4').classList.remove('tampered');
+  document.getElementById('ib4').classList.add('valid');
+
+  document.getElementById('arrow2').classList.remove('broken');
+  document.getElementById('arrow2').innerHTML = '&#8594;';
+  document.getElementById('arrow3').classList.remove('broken');
+  document.getElementById('arrow3').innerHTML = '&#8594;';
+
+  document.getElementById('tamperBtn').style.display = 'inline-block';
+  document.getElementById('resetBtn').style.display = 'none';
+  document.getElementById('tamperMsg').style.display = 'none';
+  document.getElementById('validMsg').style.display = 'block';
+}
+
+function activateStep(el) {
+  const parent = el.closest('.flow-steps');
+  parent.querySelectorAll('.flow-step').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Nav active state
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('nav a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const id = entry.target.getAttribute('id');
+      const link = document.querySelector(`nav a[href="#${id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

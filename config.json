@@ -1,0 +1,16 @@
+{
+  "title": "Visual Explainers",
+  "subtitle": "Complex topics, explained visually",
+  "author": "Sunil Dhaka",
+  "explainers": [
+    {
+      "id": "blockchain",
+      "title": "Blockchain, Demystified",
+      "description": "How a shared notebook that nobody controls and nobody can erase actually works -- from mining to wallets to why it matters.",
+      "date": "2026-03-22",
+      "tags": ["crypto", "technology", "fundamentals"],
+      "link": "blockchain/",
+      "color": "accent"
+    }
+  ]
+}
