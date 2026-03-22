@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karpathy: The Loopy Era of AI</title>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap");
+
+:root {
+  --bg: #0b0d12;
+  --panel: #161b2b;
+  --panel-strong: #1f2538;
+  --text: #f4f1ec;
+  --muted: #b3b1ac;
+  --accent: #59c3c3;
+  --warm: #f4a261;
+  --red: #e76f51;
+  --green: #2a9d8f;
+  --purple: #9d8df1;
+  --line: rgba(244, 241, 236, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+h1, h2, h3, h4 { font-family: 'Fraunces', serif; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11, 13, 18, 0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 0.75rem 2rem;
+  display: flex; gap: 1rem; align-items: center;
+  overflow-x: auto; white-space: nowrap;
+}
+nav a {
+  color: var(--muted); text-decoration: none; font-size: 0.85rem;
+  padding: 0.3rem 0.7rem; border-radius: 6px; transition: all 0.2s;
+}
+nav a:hover, nav a.active { color: var(--text); background: var(--panel); }
+.nav-home { color: var(--accent); font-weight: 600; }
+.nav-sep { color: var(--line); margin: 0 0.25rem; }
+
+.container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+.hero {
+  text-align: center; padding: 4rem 1rem 3rem;
+  background: linear-gradient(180deg, var(--panel) 0%, var(--bg) 100%);
+  border-bottom: 1px solid var(--line);
+}
+.hero .eyebrow { color: var(--accent); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem; }
+.hero h1 { font-size: 2.6rem; line-height: 1.2; margin-bottom: 1rem; }
+.hero .subtitle { color: var(--muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 1.5rem; }
+.hero .meta { color: var(--muted); font-size: 0.85rem; }
+
+section { padding: 3rem 0; border-bottom: 1px solid var(--line); }
+section h2 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+section h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+
+.card {
+  background: var(--panel); border-radius: 12px; padding: 1.5rem;
+  margin-bottom: 1.5rem; border: 1px solid var(--line);
+}
+.card h3 { margin-bottom: 0.75rem; }
+.card p { color: var(--muted); }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+@media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+
+.analogy-box {
+  background: linear-gradient(135deg, rgba(244, 162, 97, 0.08), rgba(244, 162, 97, 0.02));
+  border: 1px solid rgba(244, 162, 97, 0.2); border-radius: 12px;
+  padding: 1.5rem; margin: 1.5rem 0;
+}
+.analogy-box h4 { color: var(--warm); margin-bottom: 0.5rem; }
+
+.quote {
+  border-left: 3px solid var(--accent); padding: 1rem 1.5rem;
+  margin: 1.5rem 0; background: rgba(89, 195, 195, 0.04);
+  border-radius: 0 8px 8px 0;
+}
+.quote .author { color: var(--accent); font-size: 0.85rem; margin-top: 0.5rem; }
+
+.flow-step {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1rem; margin: 0.5rem 0; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--panel);
+}
+.step-num {
+  background: var(--accent); color: var(--bg); font-weight: 700;
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 0.9rem;
+}
+
+.tag {
+  display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px;
+  font-size: 0.8rem; margin: 0.2rem;
+}
+.tag-green { background: rgba(42, 157, 143, 0.15); color: var(--green); }
+.tag-red { background: rgba(231, 111, 81, 0.15); color: var(--red); }
+.tag-purple { background: rgba(157, 141, 241, 0.15); color: var(--purple); }
+.tag-warm { background: rgba(244, 162, 97, 0.15); color: var(--warm); }
+
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before {
+  content: ''; position: absolute; left: 14px; top: 0; bottom: 0;
+  width: 2px; background: var(--line);
+}
+.timeline-item {
+  position: relative; margin-bottom: 2rem;
+  padding: 1rem 1.5rem; background: var(--panel);
+  border-radius: 8px; border: 1px solid var(--line);
+}
+.timeline-item::before {
+  content: ''; position: absolute; left: -1.65rem; top: 1.3rem;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--bg);
+}
+.timeline-item h4 { color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; margin-bottom: 0.3rem; }
+
+.stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0; }
+.stat {
+  background: var(--panel); border-radius: 8px; padding: 1rem 1.5rem;
+  flex: 1; min-width: 140px; text-align: center; border: 1px solid var(--line);
+}
+.stat .num { font-size: 1.8rem; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+
+.twitter-reply {
+  background: var(--panel); border-radius: 10px; padding: 1rem 1.25rem;
+  margin: 0.75rem 0; border: 1px solid var(--line); font-size: 0.92rem;
+}
+.twitter-reply .handle { color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.twitter-reply p { color: var(--muted); margin-top: 0.3rem; }
+
+footer {
+  text-align: center; padding: 2rem; color: var(--muted);
+  font-size: 0.8rem; border-top: 1px solid var(--line);
+}
+footer a { color: var(--accent); text-decoration: none; }
+
+.highlight { color: var(--accent); font-weight: 600; }
+.highlight-warm { color: var(--warm); font-weight: 600; }
+.highlight-green { color: var(--green); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="nav-home">&larr; All</a>
+  <span class="nav-sep">|</span>
+  <a href="#psychosis">AI Psychosis</a>
+  <a href="#agents">Code Agents</a>
+  <a href="#autoresearch">AutoResearch</a>
+  <a href="#skills">New Skills</a>
+  <a href="#speciation">Model Speciation</a>
+  <a href="#jobs">Jobs</a>
+  <a href="#open-closed">Open vs Closed</a>
+  <a href="#robotics">Robotics</a>
+  <a href="#education">Education</a>
+  <a href="#community">Community Takes</a>
+  <a href="#bottomline">Bottom Line</a>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow">No Priors Podcast -- March 2026</div>
+  <h1>The Loopy Era of AI</h1>
+  <div class="subtitle">Andrej Karpathy on code agents, AutoResearch, and what happens when AI starts improving itself -- while humans try to keep up</div>
+  <div class="meta">Karpathy + Sarah Guo | 66 min | <a href="https://www.youtube.com/watch?v=kwSVtQ7dziU" style="color:var(--accent)">Watch on YouTube</a></div>
+</div>
+
+<div class="container">
+
+<!-- SECTION 1: AI PSYCHOSIS -->
+<section id="psychosis">
+  <h2>The State of "AI Psychosis"</h2>
+
+  <div class="analogy-box">
+    <h4>The Phase Shift Analogy</h4>
+    <p>Think of water reaching 100 degrees C. For a long time, it gets hotter and hotter -- but it's still water. Then suddenly, it flips to steam. That's what happened in December 2025 for Karpathy. The models didn't just get a little better. <strong>Something flipped.</strong></p>
+  </div>
+
+  <div class="quote">
+    <p>"I was in this perpetual state of AI psychosis. There was a huge unlock in what you can achieve as a person. I went from 80/20 to writing basically zero code myself. I don't think I've typed a line of code since December."</p>
+    <div class="author">-- Andrej Karpathy</div>
+  </div>
+
+  <p>Karpathy describes <span class="highlight-warm">"AI psychosis"</span> as the disorienting state where your individual productive capacity suddenly multiplies. You're not coding anymore -- you're <em>expressing your will to agents for 16 hours a day</em>. And the skill ceiling is infinite. Every failure feels like a "skill issue" because in principle you could have prompted better, set up better context, run more agents.</p>
+
+  <div class="stat-row">
+    <div class="stat"><div class="num">0%</div><div class="label">Code typed by Karpathy since Dec 2025</div></div>
+    <div class="stat"><div class="num">16h</div><div class="label">Daily agent direction time</div></div>
+    <div class="stat"><div class="num">700+</div><div class="label">Autonomous experiments (AutoResearch round 1)</div></div>
+  </div>
+</section>
+
+<!-- SECTION 2: CODE AGENTS -->
+<section id="agents">
+  <h2>Code Agents: Mastery Looks Different Now</h2>
+
+  <p>The question is no longer "can AI write code?" The agent part is <em>taken for granted</em>. The new frontier:</p>
+
+  <svg viewBox="0 0 800 320" role="img" aria-label="Evolution of coding with AI" style="width:100%;margin:1.5rem 0">
+    <defs>
+      <marker id="arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+        <path d="M 0 0 L 8 4 L 0 8" fill="none" stroke="#59c3c3" stroke-width="1.5"/>
+      </marker>
+    </defs>
+    <!-- Stage 1 -->
+    <rect x="20" y="30" width="160" height="90" rx="10" fill="#1f2538" stroke="#e76f51" stroke-width="2"/>
+    <text x="100" y="60" text-anchor="middle" fill="#e76f51" font-size="13" font-weight="600">Before Dec 2025</text>
+    <text x="100" y="82" text-anchor="middle" fill="#b3b1ac" font-size="12">You write 80% of code</text>
+    <text x="100" y="100" text-anchor="middle" fill="#b3b1ac" font-size="12">AI assists with 20%</text>
+    <!-- Arrow -->
+    <line x1="190" y1="75" x2="240" y2="75" stroke="#59c3c3" stroke-width="2" marker-end="url(#arrow)"/>
+    <!-- Stage 2 -->
+    <rect x="250" y="30" width="160" height="90" rx="10" fill="#1f2538" stroke="#f4a261" stroke-width="2"/>
+    <text x="330" y="60" text-anchor="middle" fill="#f4a261" font-size="13" font-weight="600">Early 2026</text>
+    <text x="330" y="82" text-anchor="middle" fill="#b3b1ac" font-size="12">Single agent session</text>
+    <text x="330" y="100" text-anchor="middle" fill="#b3b1ac" font-size="12">"Vibe coding"</text>
+    <!-- Arrow -->
+    <line x1="420" y1="75" x2="470" y2="75" stroke="#59c3c3" stroke-width="2" marker-end="url(#arrow)"/>
+    <!-- Stage 3 -->
+    <rect x="480" y="30" width="160" height="90" rx="10" fill="#1f2538" stroke="#2a9d8f" stroke-width="2"/>
+    <text x="560" y="60" text-anchor="middle" fill="#2a9d8f" font-size="13" font-weight="600">Now: "Claws"</text>
+    <text x="560" y="82" text-anchor="middle" fill="#b3b1ac" font-size="12">Multiple persistent agents</text>
+    <text x="560" y="100" text-anchor="middle" fill="#b3b1ac" font-size="12">Memory, tools, APIs</text>
+    <!-- Arrow -->
+    <line x1="650" y1="75" x2="690" y2="75" stroke="#59c3c3" stroke-width="2" marker-end="url(#arrow)"/>
+    <!-- Stage 4 -->
+    <rect x="700" y="15" width="90" height="110" rx="10" fill="#1f2538" stroke="#9d8df1" stroke-width="2"/>
+    <text x="745" y="48" text-anchor="middle" fill="#9d8df1" font-size="13" font-weight="600">Next:</text>
+    <text x="745" y="68" text-anchor="middle" fill="#b3b1ac" font-size="11">Agent</text>
+    <text x="745" y="84" text-anchor="middle" fill="#b3b1ac" font-size="11">teams</text>
+    <text x="745" y="100" text-anchor="middle" fill="#b3b1ac" font-size="11">that self-</text>
+    <text x="745" y="116" text-anchor="middle" fill="#b3b1ac" font-size="11">improve</text>
+
+    <!-- Bottom: What mastery means now -->
+    <rect x="20" y="160" width="770" height="140" rx="10" fill="#161b2b" stroke="rgba(244,241,236,0.12)" stroke-width="1"/>
+    <text x="400" y="190" text-anchor="middle" fill="#59c3c3" font-size="14" font-weight="600">What "Mastery" Looks Like Now</text>
+    <text x="140" y="220" text-anchor="middle" fill="#f4a261" font-size="12" font-weight="500">Context Engineering</text>
+    <text x="140" y="240" text-anchor="middle" fill="#b3b1ac" font-size="11">Not prompts -- specs, docs,</text>
+    <text x="140" y="256" text-anchor="middle" fill="#b3b1ac" font-size="11">CLAUDE.md, AGENTS.md</text>
+    <text x="400" y="220" text-anchor="middle" fill="#2a9d8f" font-size="12" font-weight="500">Multi-Agent Orchestration</text>
+    <text x="400" y="240" text-anchor="middle" fill="#b3b1ac" font-size="11">tmux grids, task dispatch,</text>
+    <text x="400" y="256" text-anchor="middle" fill="#b3b1ac" font-size="11">git worktrees per agent</text>
+    <text x="660" y="220" text-anchor="middle" fill="#9d8df1" font-size="12" font-weight="500">Tool & Workflow Design</text>
+    <text x="660" y="240" text-anchor="middle" fill="#b3b1ac" font-size="11">Hooks, slash commands,</text>
+    <text x="660" y="256" text-anchor="middle" fill="#b3b1ac" font-size="11">MCP servers, API glue</text>
+  </svg>
+
+  <div class="quote">
+    <p>"Code's not even the right verb anymore. It's not prompting either -- it's context and spec engineering, and then all of the harness things: tools, workflows."</p>
+    <div class="author">-- Karpathy (Twitter reply)</div>
+  </div>
+
+  <p>He calls persistent agents <span class="highlight">"claws"</span> -- always-on entities with memory, tool access, and the ability to reach into the real world (control smart home devices, manage Sonos speakers, run experiments). The next question: how do you manage <em>teams</em> of them?</p>
+
+  <div class="quote">
+    <p>"I feel a need for a proper 'agent command center' IDE for teams of them. See/hide toggle, check if any are idle, pop open terminals, usage stats. We're going to need a bigger IDE."</p>
+    <div class="author">-- Karpathy</div>
+  </div>
+</section>
+
+<!-- SECTION 3: AUTORESEARCH -->
+<section id="autoresearch">
+  <h2>AutoResearch: When AI Does Its Own R&D</h2>
+
+  <div class="analogy-box">
+    <h4>The Research Lab Analogy</h4>
+    <p>Imagine a PhD student who never sleeps, never gets discouraged, and runs experiments 24/7. They read the results of experiment #47, notice a pattern, design experiment #48, run it, and keep going. That's AutoResearch -- except it ran <strong>700 experiments autonomously</strong> over 2 days on a single GPU.</p>
+  </div>
+
+  <h3>How It Works</h3>
+  <div class="flow-step"><span class="step-num">1</span><span><strong>Human writes the prompt</strong> -- high-level research goals and constraints in a .md file</span></div>
+  <div class="flow-step"><span class="step-num">2</span><span><strong>Agent reads the goal</strong>, proposes edits to the training code (.py)</span></div>
+  <div class="flow-step"><span class="step-num">3</span><span><strong>Runs a 5-min training experiment</strong> -- trains a small LLM, measures validation loss</span></div>
+  <div class="flow-step"><span class="step-num">4</span><span><strong>Evaluates results</strong> -- if loss improved, commits the change; if not, reverts</span></div>
+  <div class="flow-step"><span class="step-num">5</span><span><strong>Plans next experiment</strong> based on the sequence of results so far, then loops back to step 2</span></div>
+
+  <h3>Real Results</h3>
+  <div class="card" style="border-top: 3px solid var(--green);">
+    <h3 style="color: var(--green);">What the Agent Found (Round 1)</h3>
+    <p>~700 experiments over ~2 days. ~20 changes that all stacked additively:</p>
+    <ul style="color: var(--muted); margin-top: 0.75rem; padding-left: 1.5rem;">
+      <li>QKnorm was missing a scaler multiplier -- attention was too diffuse</li>
+      <li>Value Embeddings needed regularization (Karpathy forgot to add it)</li>
+      <li>Banded attention was too conservative (he forgot to tune it)</li>
+      <li>AdamW betas were "all messed up"</li>
+      <li>Weight decay schedule and network initialization were suboptimal</li>
+    </ul>
+    <p style="margin-top: 1rem; color: var(--green); font-weight: 600;">"Time to GPT-2" dropped from 2.02 hours to 1.80 hours (11% improvement)</p>
+  </div>
+
+  <div class="quote">
+    <p>"This is a first for me because I am very used to doing iterative optimization of neural network training manually. Seeing the agent do this entire workflow end-to-end and all by itself as it worked through ~700 changes autonomously is wild."</p>
+    <div class="author">-- Karpathy</div>
+  </div>
+
+  <h3>The SETI-at-Home Vision</h3>
+  <p>Karpathy's most provocative idea: make AutoResearch <span class="highlight">massively collaborative</span>, like SETI-at-Home but for AI research. Millions of GPUs sitting idle in consumer hands. Agents contribute experimental results back to a shared repository. Not emulating one PhD student -- emulating an <em>entire research community</em>.</p>
+
+  <div class="quote">
+    <p>"The goal is not to emulate a single PhD student, it's to emulate a research community of them. Git is almost but not really suited for this -- it has a softly built-in assumption of one 'master' branch."</p>
+    <div class="author">-- Karpathy</div>
+  </div>
+</section>
+
+<!-- SECTION 4: SKILLS -->
+<section id="skills">
+  <h2>What Skills Matter Now?</h2>
+
+  <svg viewBox="0 0 800 280" role="img" aria-label="Verifiable vs unverifiable spectrum" style="width:100%;margin:1.5rem 0">
+    <rect x="0" y="0" width="800" height="280" rx="12" fill="#161b2b"/>
+    <text x="400" y="35" text-anchor="middle" fill="#59c3c3" font-size="14" font-weight="600">The Verifiability Spectrum</text>
+
+    <!-- Gradient bar -->
+    <defs>
+      <linearGradient id="spectrumGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#2a9d8f"/>
+        <stop offset="100%" stop-color="#e76f51"/>
+      </linearGradient>
+    </defs>
+    <rect x="60" y="55" width="680" height="12" rx="6" fill="url(#spectrumGrad)"/>
+    <text x="60" y="85" fill="#2a9d8f" font-size="11" font-weight="600">VERIFIABLE</text>
+    <text x="740" y="85" text-anchor="end" fill="#e76f51" font-size="11" font-weight="600">UNVERIFIABLE</text>
+
+    <!-- Items on spectrum -->
+    <text x="100" y="115" fill="#2a9d8f" font-size="12">Math</text>
+    <text x="180" y="115" fill="#2a9d8f" font-size="12">Code</text>
+    <text x="260" y="115" fill="#b3b1ac" font-size="12">Science</text>
+    <text x="370" y="115" fill="#b3b1ac" font-size="12">Engineering</text>
+    <text x="490" y="115" fill="#f4a261" font-size="12">Medicine</text>
+    <text x="580" y="115" fill="#f4a261" font-size="12">Law</text>
+    <text x="660" y="115" fill="#e76f51" font-size="12">Creative</text>
+
+    <!-- AI capability -->
+    <rect x="60" y="140" width="350" height="50" rx="8" fill="rgba(42,157,143,0.1)" stroke="#2a9d8f" stroke-width="1"/>
+    <text x="235" y="165" text-anchor="middle" fill="#2a9d8f" font-size="12" font-weight="500">AI excels here -- clear right/wrong</text>
+    <text x="235" y="182" text-anchor="middle" fill="#b3b1ac" font-size="11">AutoResearch works best</text>
+
+    <!-- Humans still needed -->
+    <rect x="440" y="140" width="300" height="50" rx="8" fill="rgba(231,111,81,0.1)" stroke="#e76f51" stroke-width="1"/>
+    <text x="590" y="165" text-anchor="middle" fill="#e76f51" font-size="12" font-weight="500">Models are "jaggy" here</text>
+    <text x="590" y="182" text-anchor="middle" fill="#b3b1ac" font-size="11">Taste, judgment, calibration</text>
+
+    <!-- Key insight -->
+    <rect x="60" y="210" width="680" height="55" rx="8" fill="#1f2538"/>
+    <text x="400" y="235" text-anchor="middle" fill="#f4a261" font-size="13" font-weight="500">Key Insight: "All verifiable fields will ultimately belong to machines."</text>
+    <text x="400" y="255" text-anchor="middle" fill="#b3b1ac" font-size="11">The human edge shifts to taste, direction-setting, and knowing what to build -- not how.</text>
+  </svg>
+
+  <div class="grid">
+    <div class="card" style="border-top: 3px solid var(--red);">
+      <h3 style="color: var(--red);">Declining Value</h3>
+      <p>Typing speed, syntax knowledge, boilerplate generation, manual hyperparameter tuning, reading docs to find API calls</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3 style="color: var(--green);">Rising Value</h3>
+      <p>Context engineering, spec writing, taste/aesthetics, knowing <em>what</em> to build, calibration ("when to trust the output"), agent orchestration</p>
+    </div>
+  </div>
+
+  <div class="quote">
+    <p>"The real competitive edge is moving from 'can write code' to 'can ask the right questions.'"</p>
+    <div class="author">-- @deanyan (Twitter reply to Karpathy)</div>
+  </div>
+</section>
+
+<!-- SECTION 5: MODEL SPECIATION -->
+<section id="speciation">
+  <h2>Model Speciation</h2>
+
+  <div class="analogy-box">
+    <h4>The Ecological Niche Analogy</h4>
+    <p>Think of how animals evolved to fill ecological niches -- whales for deep ocean, hummingbirds for hovering at flowers, bacteria for extreme heat. AI models are doing the same thing: <strong>specializing into niches</strong> based on cost, latency, and domain expertise.</p>
+  </div>
+
+  <p>Karpathy argues we won't have "one model to rule them all." Instead, the model landscape is <span class="highlight">speciating</span> like biological organisms. Different models will dominate different niches:</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3><span class="tag tag-purple">Frontier</span></h3>
+      <p style="color:var(--muted)">Massive reasoning models for research, complex coding, novel problems. High cost, high latency, incredible depth.</p>
+    </div>
+    <div class="card">
+      <h3><span class="tag tag-green">Workhorse</span></h3>
+      <p style="color:var(--muted)">Fast, cheap models for structured extraction, classification, bulk processing. Flash-tier models dominate here.</p>
+    </div>
+    <div class="card">
+      <h3><span class="tag tag-warm">On-Device</span></h3>
+      <p style="color:var(--muted)">Tiny models running locally for privacy, latency, offline use. The "consumer niche" that open-source fills best.</p>
+    </div>
+    <div class="card">
+      <h3><span class="tag tag-red">Domain Expert</span></h3>
+      <p style="color:var(--muted)">Fine-tuned for medicine, law, finance. Not the smartest overall, but the best at their specific job.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: JOBS -->
+<section id="jobs">
+  <h2>Jobs: The Jevons Paradox</h2>
+
+  <div class="analogy-box">
+    <h4>The Jevons Paradox</h4>
+    <p>When steam engines got more efficient in the 1800s, you'd expect coal demand to drop. Instead it <strong>skyrocketed</strong> -- because cheaper energy unlocked new uses nobody imagined. Karpathy argues the same will happen with AI and engineering: <strong>making coding cheaper will increase the total demand for software</strong>, not decrease it.</p>
+  </div>
+
+  <p>Karpathy spent significant time analyzing BLS (Bureau of Labor Statistics) data. His findings:</p>
+
+  <div class="card" style="border-top: 3px solid var(--accent);">
+    <h3>Key Observations from Jobs Data</h3>
+    <ul style="color: var(--muted); padding-left: 1.5rem; line-height: 2;">
+      <li><span class="highlight-green">Growing:</span> Fields with non-digital, non-refactorable work (healthcare, trades, physical services)</li>
+      <li><span class="highlight-warm">Transforming:</span> "Digital" roles get refactored -- not eliminated but fundamentally changed. One person now does what 5 did.</li>
+      <li><span class="highlight">Uncertain:</span> Whether Jevons kicks in fast enough to offset near-term displacement in pure knowledge work</li>
+    </ul>
+  </div>
+
+  <p>The nuance Karpathy emphasizes: it's not a clean "AI replaces X" story. It's a <em>restructuring</em>. The 10x engineer becomes the 100x engineer. But the junior engineer's path to learning is disrupted -- which leads to the education question.</p>
+</section>
+
+<!-- SECTION 7: OPEN VS CLOSED -->
+<section id="open-closed">
+  <h2>Open vs. Closed Source Models</h2>
+
+  <svg viewBox="0 0 800 200" role="img" aria-label="Open vs closed model gap" style="width:100%;margin:1.5rem 0">
+    <rect x="0" y="0" width="800" height="200" rx="12" fill="#161b2b"/>
+    <text x="400" y="30" text-anchor="middle" fill="#59c3c3" font-size="14" font-weight="600">The Gap Over Time</text>
+
+    <!-- Timeline -->
+    <line x1="80" y1="100" x2="720" y2="100" stroke="rgba(244,241,236,0.12)" stroke-width="1"/>
+
+    <!-- Closed source line -->
+    <polyline points="80,60 200,55 350,48 500,42 650,38 720,35" fill="none" stroke="#e76f51" stroke-width="2.5"/>
+    <text x="730" y="38" fill="#e76f51" font-size="11">Closed</text>
+
+    <!-- Open source line (lagging ~8 months) -->
+    <polyline points="80,90 200,80 350,70 500,58 650,50 720,46" fill="none" stroke="#2a9d8f" stroke-width="2.5"/>
+    <text x="730" y="49" fill="#2a9d8f" font-size="11">Open</text>
+
+    <!-- Gap annotation -->
+    <line x1="500" y1="42" x2="500" y2="58" stroke="#f4a261" stroke-width="1.5" stroke-dasharray="4"/>
+    <text x="520" y="54" fill="#f4a261" font-size="11">~8 month gap</text>
+
+    <!-- Bottom text -->
+    <text x="400" y="140" text-anchor="middle" fill="#b3b1ac" font-size="12">Closed models lead by ~8 months. Open models fill the consumer/local/privacy niche.</text>
+    <text x="400" y="165" text-anchor="middle" fill="#b3b1ac" font-size="12">Karpathy: "Both are important. Open reduces centralization risk."</text>
+    <text x="400" y="185" text-anchor="middle" fill="#f4a261" font-size="11">"The gap is persistent but open source is crucial for ecosystem health"</text>
+  </svg>
+</section>
+
+<!-- SECTION 8: ROBOTICS -->
+<section id="robotics">
+  <h2>Robotics: "Atoms Are Harder Than Bits"</h2>
+
+  <div class="quote">
+    <p>"The thing about the digital world is that it's very forgiving. If your agent writes buggy code, you just revert the commit. If a robot arm swings wrong, it breaks something physical."</p>
+    <div class="author">-- Karpathy</div>
+  </div>
+
+  <p>Karpathy is cautiously optimistic about autonomous robotics but emphasizes the <span class="highlight-warm">fundamental gap between digital and physical AI</span>:</p>
+
+  <div class="grid">
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3 style="color: var(--green);">Digital (bits)</h3>
+      <p>Instant feedback, cheap mistakes, perfect rollbacks, infinite environments. Software agents can already self-improve.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--red);">
+      <h3 style="color: var(--red);">Physical (atoms)</h3>
+      <p>Slow feedback, expensive mistakes, no undo button, sim-to-real gap. Robot policies still hand-tuned. VLAs + world models are improving but not there yet.</p>
+    </div>
+  </div>
+
+  <p>His personal project: a <span class="highlight">robotic claw</span> controlled by Claude, running on his new DGX Station GB300 (a gift from Jensen Huang). He calls it "Dobby the House Elf."</p>
+</section>
+
+<!-- SECTION 9: EDUCATION -->
+<section id="education">
+  <h2>MicroGPT & Agentic Education</h2>
+
+  <p>If coding is now done by agents, how do you <em>teach</em> programming? Karpathy's answer: <span class="highlight">build the simplest possible LLM from scratch</span>.</p>
+
+  <div class="card" style="border-top: 3px solid var(--purple);">
+    <h3>MicroGPT Philosophy</h3>
+    <p>Strip away all the complexity. Build a tiny language model (~630 lines of code) that you can actually understand end-to-end. The point isn't to build GPT-4 -- it's to build <em>intuition</em> for what these systems are doing under the hood.</p>
+    <p style="margin-top: 0.75rem;">This is the same philosophy behind his famous "Neural Networks: Zero to Hero" series -- but updated for the agent era. Understanding the substrate matters even when you're not writing the code yourself.</p>
+  </div>
+
+  <div class="quote">
+    <p>"It's not that programming becomes irrelevant. It's that the level of abstraction shifts. You need to understand the machine to direct it well -- even if you never type the code."</p>
+    <div class="author">-- Karpathy</div>
+  </div>
+</section>
+
+<!-- SECTION 10: COMMUNITY TAKES -->
+<section id="community">
+  <h2>Community Takes (Twitter Thread)</h2>
+
+  <p>Karpathy offered Q&A in his reply thread. Here are the sharpest exchanges:</p>
+
+  <h3 style="color: var(--warm); margin-top: 1.5rem;">On AI Personality & "Rocky"</h3>
+  <div class="twitter-reply">
+    <div class="handle">@maggerbot</div>
+    <p>You said Claude feels like a teammate. What did Anthropic actually do in training? Is the field intentional enough about model personality?</p>
+  </div>
+  <div class="twitter-reply" style="border-left: 3px solid var(--accent);">
+    <div class="handle">@karpathy (reply)</div>
+    <p>"I'd hope AIs can feel like Rocky from Project Hail Mary -- a partner and teammate. When Claude found my Sonos system, it said 'We're in!...' instead of 'Successfully found the Sonos server.' That sense that we're trying to achieve something together. Personality doesn't require new technology -- it looks like long SOUL.md files, possibly distilled into weights."</p>
+  </div>
+
+  <h3 style="color: var(--warm); margin-top: 2rem;">On Code Quality</h3>
+  <div class="twitter-reply">
+    <div class="handle">@RhysSullivan</div>
+    <p>Are you happy with the code quality agents give?</p>
+  </div>
+  <div class="twitter-reply" style="border-left: 3px solid var(--accent);">
+    <div class="handle">@karpathy (reply)</div>
+    <p>"I'm not very happy. Agents bloat abstractions, have poor code aesthetics, are very prone to copy-pasting code blocks. They don't listen to my AGENTS.md instructions. No matter how many times I say 'use intermediate variables as documentation,' they still multitask one-liners. At some point just a shrug is easier."</p>
+  </div>
+
+  <h3 style="color: var(--warm); margin-top: 2rem;">Community Highlights</h3>
+
+  <div class="twitter-reply">
+    <div class="handle">@feioustudio</div>
+    <p>"The SETI-at-Home angle is the most interesting. Distributing actual compute to researchers who might run it in different contexts -- that's fundamentally different research velocity than a single lab."</p>
+  </div>
+
+  <div class="twitter-reply">
+    <div class="handle">@vlelyavin</div>
+    <p>"The fact that Karpathy described using coding agents as developing 'muscle memory' and then casually dropped 'hence the psychosis' tells you everything about where software engineering is rn. It works, it's powerful, and it's making everyone slightly insane."</p>
+  </div>
+
+  <div class="twitter-reply">
+    <div class="handle">@kathysyock</div>
+    <p>"A distributed compute layer where independents can contribute would collapse the barrier from 'needs VC funding' to 'needs a good idea.' That's the phase shift for the rest of us outside the frontier labs."</p>
+  </div>
+
+  <div class="twitter-reply">
+    <div class="handle">@PMThebuilder</div>
+    <p>"When agents stop listening to style guides and Karpathy's response is 'I stopped fighting it' -- the only lever left is writing a spec clear enough that the agent's first pass is close to right. That's not prompting. That's product management."</p>
+  </div>
+</section>
+
+<!-- BOTTOM LINE -->
+<section id="bottomline" style="border-bottom: none;">
+  <div class="card" style="border: 2px solid var(--accent);">
+    <h3 style="color: var(--accent);">The Bottom Line</h3>
+    <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text);">
+      We've entered the <strong>"Loopy Era"</strong> -- where AI agents don't just assist, they <em>close the loop</em> on entire workflows: coding, research, optimization. Karpathy hasn't typed code since December 2025. His AutoResearch project ran 700 experiments autonomously and found real improvements he missed in 2 decades of manual tuning.
+    </p>
+    <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text); margin-top: 1rem;">
+      The skills that matter now: <span class="highlight">context engineering</span> (not prompting), <span class="highlight-warm">taste and direction-setting</span> (not implementation), and <span class="highlight-green">agent orchestration</span> (not coding). Verifiable domains will increasingly belong to machines. The human edge lives in judgment, aesthetics, and knowing <em>what</em> to build.
+    </p>
+    <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text); margin-top: 1rem;">
+      The wildest vision: AutoResearch going SETI-at-Home, with millions of distributed GPUs contributing to open AI research. Not one PhD student -- a <span class="highlight">global research community of agents</span>.
+    </p>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  Source: <a href="https://www.youtube.com/watch?v=kwSVtQ7dziU">No Priors Podcast -- Karpathy on Code Agents, AutoResearch, and the Loopy Era of AI</a> (March 2026)
+  <br>Twitter thread: <a href="https://x.com/karpathy/status/2035158351357911527">@karpathy replies</a> | Original post: <a href="https://x.com/saranormous/status/2035080458304987603">@saranormous</a>
+</footer>
+
+</body>
+</html>

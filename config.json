@@ -4,6 +4,15 @@
   "author": "Sunil Dhaka",
   "explainers": [
     {
+      "id": "karpathy-loopy-era-ai",
+      "title": "The Loopy Era of AI",
+      "description": "Andrej Karpathy on code agents, AutoResearch, and what happens when AI starts improving itself -- while humans try to keep up",
+      "date": "2026-03-22",
+      "tags": ["ai", "agents", "karpathy"],
+      "link": "karpathy-loopy-era-ai/",
+      "color": "purple"
+    },
+    {
       "id": "blockchain",
       "title": "Blockchain, Demystified",
       "description": "How a shared notebook that nobody controls and nobody can erase actually works -- from mining to wallets to why it matters.",
