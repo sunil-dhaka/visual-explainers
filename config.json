@@ -4,6 +4,15 @@
   "author": "Sunil Dhaka",
   "explainers": [
     {
+      "id": "strong-towns-machine-builds-danger",
+      "title": "The Machine That Builds Danger",
+      "description": "How federal funding, car-centric engineering, and accounting tricks create cities that look prosperous but are slowly bankrupting themselves -- and killing people along the way.",
+      "date": "2026-03-26",
+      "tags": ["urbanism", "strong-towns", "infrastructure", "policy"],
+      "link": "strong-towns-machine-builds-danger/",
+      "color": "red"
+    },
+    {
       "id": "karpathy-loopy-era-ai",
       "title": "The Loopy Era of AI",
       "description": "Andrej Karpathy on code agents, AutoResearch, and what happens when AI starts improving itself -- while humans try to keep up",

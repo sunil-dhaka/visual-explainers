@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Machine That Builds Danger | Strong Towns Visual Explainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0d12;
+  --panel: #161b2b;
+  --panel-strong: #1f2538;
+  --text: #f4f1ec;
+  --muted: #b3b1ac;
+  --accent: #59c3c3;
+  --warm: #f4a261;
+  --red: #e76f51;
+  --green: #2a9d8f;
+  --purple: #9d8df1;
+  --line: rgba(244, 241, 236, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* === NAV === */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11, 13, 18, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 0.6rem 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+  overflow-x: auto; white-space: nowrap;
+}
+nav a {
+  color: var(--muted); text-decoration: none; font-size: 0.82rem;
+  font-weight: 500; padding: 0.3rem 0.7rem; border-radius: 6px;
+  transition: all 0.2s;
+}
+nav a:hover, nav a.active { color: var(--accent); background: rgba(89,195,195,0.1); }
+.nav-home { color: var(--accent); font-weight: 600; }
+.nav-sep { color: var(--line); margin: 0 0.25rem; }
+.nav-brand {
+  font-family: 'Fraunces', serif; font-weight: 700; color: var(--text);
+  font-size: 0.95rem; margin-right: 0.5rem; flex-shrink: 0;
+}
+
+/* === HERO === */
+.hero {
+  text-align: center;
+  padding: 5rem 1.5rem 3.5rem;
+  background: linear-gradient(180deg, rgba(89,195,195,0.06) 0%, transparent 70%);
+  position: relative;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.3;
+}
+.eyebrow {
+  text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem;
+  color: var(--accent); font-weight: 600; margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: 'Fraunces', serif; font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700; line-height: 1.2; margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero .subtitle {
+  color: var(--muted); font-size: 1.1rem; max-width: 620px; margin: 0 auto 2rem;
+}
+.hero-stats {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat .num {
+  font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700;
+}
+.hero-stat .label { font-size: 0.75rem; color: var(--muted); display: block; }
+
+/* === SECTIONS === */
+main { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+section { padding: 3.5rem 0; }
+section + section { border-top: 1px solid var(--line); }
+
+h2 {
+  font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+h3 {
+  font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.section-sub { color: var(--muted); margin-bottom: 2rem; font-size: 0.95rem; }
+p { margin-bottom: 1rem; }
+
+/* === CARDS & GRIDS === */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin: 1.5rem 0; }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+.card {
+  background: var(--panel); border-radius: 12px; padding: 1.5rem;
+  border: 1px solid var(--line); transition: transform 0.2s, border-color 0.2s;
+}
+.card:hover { transform: translateY(-2px); border-color: rgba(89,195,195,0.25); }
+.card h3 { font-size: 1.1rem; }
+.card .meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.6rem; }
+.card p { font-size: 0.9rem; color: var(--muted); margin-bottom: 0; }
+.card .tag {
+  display: inline-block; font-size: 0.7rem; font-weight: 600;
+  padding: 0.15rem 0.5rem; border-radius: 4px; margin-top: 0.8rem;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+
+/* === ANALOGY BOX === */
+.analogy-box {
+  background: linear-gradient(135deg, rgba(244,162,97,0.08), rgba(244,162,97,0.03));
+  border: 1px solid rgba(244,162,97,0.2);
+  border-radius: 12px; padding: 1.5rem 1.8rem; margin: 1.5rem 0;
+}
+.analogy-box h4 {
+  color: var(--warm); font-size: 0.85rem; text-transform: uppercase;
+  letter-spacing: 1.5px; margin-bottom: 0.6rem;
+}
+.analogy-box p { color: var(--text); margin-bottom: 0; font-size: 0.95rem; }
+
+/* === FLOW DIAGRAM === */
+.flow {
+  display: flex; flex-direction: column; gap: 0; margin: 2rem 0;
+  position: relative;
+}
+.flow::before {
+  content: ''; position: absolute; left: 18px; top: 18px; bottom: 18px;
+  width: 2px; background: var(--line);
+}
+.flow-step {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1rem 0; position: relative;
+}
+.step-num {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 0.85rem; z-index: 1;
+  background: var(--panel-strong); border: 2px solid var(--line);
+  color: var(--muted);
+}
+.flow-step.red .step-num { border-color: var(--red); color: var(--red); background: rgba(231,111,81,0.1); }
+.flow-step.green .step-num { border-color: var(--green); color: var(--green); background: rgba(42,157,143,0.1); }
+.flow-step.warm .step-num { border-color: var(--warm); color: var(--warm); background: rgba(244,162,97,0.1); }
+.flow-step.accent .step-num { border-color: var(--accent); color: var(--accent); background: rgba(89,195,195,0.1); }
+.flow-content h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.2rem; }
+.flow-content p { font-size: 0.85rem; color: var(--muted); margin-bottom: 0; }
+
+/* === COMPARISON === */
+.comparison {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; margin: 2rem 0;
+  align-items: stretch;
+}
+.comp-side {
+  background: var(--panel); border-radius: 12px; padding: 1.5rem;
+  border: 1px solid var(--line);
+}
+.comp-vs {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 1rem; font-family: 'Fraunces', serif; font-weight: 700;
+  color: var(--muted); font-size: 0.9rem;
+}
+.comp-side.bad { border-top: 3px solid var(--red); }
+.comp-side.good { border-top: 3px solid var(--green); }
+.comp-side h4 { font-size: 1rem; margin-bottom: 0.8rem; }
+.comp-side ul { list-style: none; padding: 0; }
+.comp-side ul li {
+  font-size: 0.85rem; color: var(--muted); padding: 0.35rem 0;
+  padding-left: 1.2rem; position: relative;
+}
+.comp-side.bad ul li::before { content: ''; color: var(--red); position: absolute; left: 0; }
+.comp-side.good ul li::before { content: ''; color: var(--green); position: absolute; left: 0; }
+
+/* === STAT CALLOUT === */
+.stat-row {
+  display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0;
+  justify-content: center;
+}
+.stat-box {
+  background: var(--panel); border-radius: 10px; padding: 1.2rem 1.5rem;
+  text-align: center; flex: 1; min-width: 140px; max-width: 200px;
+  border: 1px solid var(--line);
+}
+.stat-box .num {
+  font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 700;
+  display: block;
+}
+.stat-box .label { font-size: 0.72rem; color: var(--muted); line-height: 1.3; }
+
+/* === QUOTE === */
+.quote {
+  border-left: 3px solid var(--accent); padding: 1rem 1.5rem;
+  margin: 1.5rem 0; background: rgba(89,195,195,0.04);
+  border-radius: 0 8px 8px 0;
+}
+.quote p { font-style: italic; color: var(--text); margin-bottom: 0.3rem; font-size: 0.95rem; }
+.quote cite { font-size: 0.75rem; color: var(--muted); font-style: normal; }
+
+/* === SVG === */
+svg text { font-family: 'Space Grotesk', sans-serif; }
+.svg-container { margin: 2rem 0; text-align: center; }
+.svg-container svg { max-width: 100%; height: auto; }
+
+/* === ARTICLE LINK === */
+.article-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.78rem; color: var(--accent); text-decoration: none;
+  opacity: 0.7; transition: opacity 0.2s;
+}
+.article-link:hover { opacity: 1; text-decoration: underline; }
+
+/* === BOTTOM LINE === */
+.bottom-line {
+  background: var(--panel);
+  border: 2px solid var(--accent);
+  border-radius: 14px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+.bottom-line h3 { color: var(--accent); font-size: 1.3rem; margin-bottom: 1rem; }
+.bottom-line p { max-width: 640px; margin: 0 auto; color: var(--muted); font-size: 0.95rem; }
+
+/* === FOOTER === */
+footer {
+  text-align: center; padding: 3rem 1.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted); font-size: 0.75rem;
+}
+footer a { color: var(--accent); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* === RESPONSIVE === */
+@media (max-width: 700px) {
+  .comparison { grid-template-columns: 1fr; gap: 0.5rem; }
+  .comp-vs { padding: 0.5rem; }
+  nav { padding: 0.5rem 1rem; }
+  .hero { padding: 3rem 1rem 2.5rem; }
+  .hero-stats { gap: 1rem; }
+}
+
+/* === THEME SECTION ACCENTS === */
+.theme-label {
+  display: inline-block; font-size: 0.7rem; font-weight: 600;
+  padding: 0.2rem 0.6rem; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.8rem;
+}
+
+/* === CONNECTIONS DIAGRAM === */
+.connections-wrap { margin: 2.5rem 0; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../" class="nav-home">&larr; All</a>
+  <span class="nav-sep">|</span>
+  <span class="nav-brand">ST</span>
+  <a href="#analogy">The Analogy</a>
+  <a href="#machine">The Machine</a>
+  <a href="#streets">Dangerous by Design</a>
+  <a href="#costs">Hidden Costs</a>
+  <a href="#solutions">Ways Out</a>
+  <a href="#connections">How It Connects</a>
+  <a href="#bottom-line">Bottom Line</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">10 Articles / March 2026 / Strong Towns</div>
+  <h1>The Machine That Builds Danger</h1>
+  <p class="subtitle">How federal funding, car-centric engineering, and accounting tricks create cities that look prosperous but are slowly bankrupting themselves -- and killing people along the way.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="num" style="color: var(--red);">-$1.2B</span>
+      <span class="label">Albuquerque's real deficit</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num" style="color: var(--warm);">$560K</span>
+      <span class="label">Median home, Longmont CO</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num" style="color: var(--accent);">455</span>
+      <span class="label">Cars/day on both streets</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num" style="color: var(--purple);">250+</span>
+      <span class="label">Days/yr parking lots sit empty</span>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ========== SECTION 1: THE ANALOGY ========== -->
+<section id="analogy">
+  <div class="analogy-box">
+    <h4>The Factory Analogy</h4>
+    <p>Imagine a factory that has only one product line: wider, faster roads. The factory's conveyor belt runs 24/7 with guaranteed funding. Now imagine a second workshop next door that makes safety improvements, bike lanes, and neighborhood fixes -- but this workshop has to write a grant application and wait in line every time it wants to build anything. The factory's output keeps making the workshop's job harder, because every wider road creates new dangers that need fixing. That's the American transportation system: a machine that mass-produces danger, with a tiny repair shop struggling to keep up.</p>
+  </div>
+  <p style="color: var(--muted); font-size: 0.85rem;">This analogy threads through all 10 articles from Strong Towns this month. The factory is the funding structure. The conveyor belt is the engineering standards. The product is streets that move cars fast but fail everyone else. And the repair shop? That's every city trying to patch the damage.</p>
+</section>
+
+<!-- ========== SECTION 2: THE MACHINE ========== -->
+<section id="machine">
+  <span class="theme-label" style="background: rgba(231,111,81,0.15); color: var(--red);">Part 1</span>
+  <h2>The Funding Machine</h2>
+  <p class="section-sub">Three articles reveal how money flows through the system -- and how it warps everything it touches.</p>
+
+  <!-- Article: Highway Expansion Lightning Lane -->
+  <h3>Two Lines, One System</h3>
+  <p>Charles Marohn describes federal transportation funding as two queues. Highway expansion gets a "Lightning Lane" -- fast, reliable, generously funded. Everything else (street safety, bike infrastructure, neighborhood reconnection) enters a slow, competitive grant process with uncertain outcomes.</p>
+
+  <div class="comparison">
+    <div class="comp-side bad">
+      <h4 style="color: var(--red);">The Lightning Lane</h4>
+      <ul>
+        <li>Highway expansion projects</li>
+        <li>Guaranteed, substantial funding</li>
+        <li>Minimal scrutiny</li>
+        <li>Streamlined approval</li>
+        <li>Runs continuously</li>
+      </ul>
+    </div>
+    <div class="comp-vs">vs</div>
+    <div class="comp-side good">
+      <h4 style="color: var(--green);">The Grant Line</h4>
+      <ul>
+        <li>Safety & community projects</li>
+        <li>Small, competitive pots</li>
+        <li>Extensive applications</li>
+        <li>Uncertain outcomes</li>
+        <li>Celebrated like victories</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quote">
+    <p>"Competitive grant programs serve as a marketing budget masking the underlying expansion bias."</p>
+    <cite>-- Charles Marohn, "The Highway Expansion Lightning Lane"</cite>
+  </div>
+  <a class="article-link" href="https://www.strongtowns.org/journal/2026-3-9-the-highway-expansion-lightning-lane" target="_blank">Read full article &rarr;</a>
+
+  <div style="height: 2.5rem;"></div>
+
+  <!-- Article: Highway in a Neighborhood -->
+  <h3>How Funding Hijacks a Street</h3>
+  <p>In Brainerd, Minnesota, two parallel streets carry the same traffic: roughly 455 vehicles per day. But 4th Street looks like a minor highway -- wide lanes, fast traffic, long sightlines -- while 5th Street feels calm and residential. The difference? 4th Street was classified in the state-aid system to access federal dollars, locking it into highway-grade design standards that don't match its actual use.</p>
+
+  <div class="svg-container">
+    <svg viewBox="0 0 700 260" role="img" aria-label="Diagram comparing two parallel streets in Brainerd with identical traffic but different designs due to funding classification">
+      <!-- Background -->
+      <rect x="0" y="0" width="700" height="260" fill="none"/>
+
+      <!-- Left: 4th Street -->
+      <rect x="20" y="30" width="300" height="200" rx="10" fill="#161b2b" stroke="rgba(231,111,81,0.4)" stroke-width="1.5"/>
+      <text x="170" y="58" text-anchor="middle" fill="#e76f51" font-weight="600" font-size="14">4th Street (State-Aid)</text>
+      <text x="170" y="82" text-anchor="middle" fill="#b3b1ac" font-size="11">455 cars/day</text>
+
+      <!-- 4th St road illustration -->
+      <rect x="60" y="100" width="220" height="60" rx="4" fill="#2a2a3a"/>
+      <line x1="170" y1="100" x2="170" y2="160" stroke="#f4a261" stroke-width="2" stroke-dasharray="8,6"/>
+      <rect x="60" y="115" width="50" height="30" rx="3" fill="rgba(231,111,81,0.3)" stroke="#e76f51" stroke-width="1"/>
+      <text x="85" y="134" text-anchor="middle" fill="#e76f51" font-size="9">WIDE</text>
+      <rect x="230" y="115" width="50" height="30" rx="3" fill="rgba(231,111,81,0.3)" stroke="#e76f51" stroke-width="1"/>
+      <text x="255" y="134" text-anchor="middle" fill="#e76f51" font-size="9">WIDE</text>
+
+      <text x="170" y="190" text-anchor="middle" fill="#b3b1ac" font-size="10">Feels like a highway</text>
+      <text x="170" y="206" text-anchor="middle" fill="#e76f51" font-size="10" font-weight="600">Design forced by funding</text>
+
+      <!-- Right: 5th Street -->
+      <rect x="380" y="30" width="300" height="200" rx="10" fill="#161b2b" stroke="rgba(42,157,143,0.4)" stroke-width="1.5"/>
+      <text x="530" y="58" text-anchor="middle" fill="#2a9d8f" font-weight="600" font-size="14">5th Street (Local)</text>
+      <text x="530" y="82" text-anchor="middle" fill="#b3b1ac" font-size="11">455 cars/day</text>
+
+      <!-- 5th St road illustration -->
+      <rect x="430" y="110" width="200" height="40" rx="4" fill="#2a2a3a"/>
+      <line x1="530" y1="110" x2="530" y2="150" stroke="#f4a261" stroke-width="1.5" stroke-dasharray="6,5"/>
+      <rect x="405" y="110" width="20" height="40" rx="3" fill="rgba(42,157,143,0.2)"/>
+      <text x="415" y="134" text-anchor="middle" fill="#2a9d8f" font-size="7">TREE</text>
+      <rect x="635" y="110" width="20" height="40" rx="3" fill="rgba(42,157,143,0.2)"/>
+      <text x="645" y="134" text-anchor="middle" fill="#2a9d8f" font-size="7">TREE</text>
+
+      <text x="530" y="185" text-anchor="middle" fill="#b3b1ac" font-size="10">Feels like a neighborhood</text>
+      <text x="530" y="201" text-anchor="middle" fill="#2a9d8f" font-size="10" font-weight="600">Design matches reality</text>
+
+      <!-- Equals sign -->
+      <text x="350" y="130" text-anchor="middle" fill="#b3b1ac" font-size="20" font-weight="700">=</text>
+      <text x="350" y="148" text-anchor="middle" fill="#b3b1ac" font-size="9">Same traffic</text>
+    </svg>
+  </div>
+
+  <p>The trap: removing 4th Street from the state-aid system would fix the design but force the city to pay full maintenance costs locally. Federal funding creates dependency -- the "rational response" even when everyone agrees the result is wrong.</p>
+  <a class="article-link" href="https://www.strongtowns.org/journal/a-highway-in-the-middle-of-a-neighborhood" target="_blank">Read full article &rarr;</a>
+
+  <div style="height: 2.5rem;"></div>
+
+  <!-- Article: Albuquerque's Hidden Deficit -->
+  <h3>The Fiscal Illusion</h3>
+  <p>Albuquerque reports $3.7 billion in assets. But Michelen and Bean show that counting roads as "assets" is an accounting trick -- you can't sell a road to pay debts. Strip away the pavement and the city's net financial position is <strong style="color: var(--red);">negative $1.2 billion</strong>.</p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <span class="num" style="color: var(--green);">$3.7B</span>
+      <span class="label">Official "net position"<br>(includes roads)</span>
+    </div>
+    <div class="stat-box">
+      <span class="num" style="color: var(--red);">-$1.2B</span>
+      <span class="label">Actual financial position<br>(liquid assets only)</span>
+    </div>
+    <div class="stat-box">
+      <span class="num" style="color: var(--warm);">73% &rarr; 57%</span>
+      <span class="label">Infrastructure condition<br>ratio decline</span>
+    </div>
+  </div>
+
+  <div class="quote">
+    <p>"Cities pay their debts from revenues and liquid resources, not by selling roads or city hall."</p>
+    <cite>-- Michelen & Bean, "Albuquerque's Hidden Deficit"</cite>
+  </div>
+
+  <p>The infrastructure condition ratio (from 73% to 57%) tells the real story: roads are deteriorating faster than they're being maintained. The city looks solvent to bondholders while residents experience declining services. A "slowly worsening soft default" hidden by GASB accounting rules.</p>
+  <a class="article-link" href="https://www.strongtowns.org/journal/2026-3-5-albuquerques-hidden-deficit" target="_blank">Read full article &rarr;</a>
+</section>
+
+<!-- ========== SECTION 3: DANGEROUS BY DESIGN ========== -->
+<section id="streets">
+  <span class="theme-label" style="background: rgba(244,162,97,0.15); color: var(--warm);">Part 2</span>
+  <h2>Dangerous by Design</h2>
+  <p class="section-sub">The machine's output: streets that betray their neighborhoods, endanger children, and kill people at crosswalks.</p>
+
+  <!-- Article: School on Arterial -->
+  <h3>When a School Ends Up on an Arterial Road</h3>
+  <p>In Langley, BC, the city had to execute a land swap and build an entirely new school -- all because the original neighborhood was designed with wide arterials running through residential cores instead of around them. Children crossing two busy, wide roads to reach school. Arterial standards prevent traffic calming. The school was supposed to be "torn down and relocated" but that assumption never materialized.</p>
+
+  <div class="svg-container">
+    <svg viewBox="0 0 700 300" role="img" aria-label="Diagram comparing arterial grid design vs perimeter ring design for neighborhoods">
+      <!-- Bad design -->
+      <rect x="20" y="20" width="300" height="260" rx="10" fill="#161b2b" stroke="rgba(231,111,81,0.3)" stroke-width="1"/>
+      <text x="170" y="50" text-anchor="middle" fill="#e76f51" font-weight="600" font-size="13">Arterial Grid (Yorkson)</text>
+
+      <!-- Grid of arterials through neighborhood -->
+      <rect x="50" y="70" width="240" height="180" rx="4" fill="rgba(42,42,58,0.5)"/>
+      <!-- Vertical arterials -->
+      <rect x="110" y="70" width="16" height="180" fill="rgba(231,111,81,0.25)"/>
+      <rect x="194" y="70" width="16" height="180" fill="rgba(231,111,81,0.25)"/>
+      <!-- Horizontal arterials -->
+      <rect x="50" y="130" width="240" height="16" fill="rgba(231,111,81,0.25)"/>
+      <rect x="50" y="190" width="240" height="16" fill="rgba(231,111,81,0.25)"/>
+      <!-- School icon -->
+      <rect x="140" y="150" width="40" height="30" rx="3" fill="rgba(89,195,195,0.3)" stroke="var(--accent)" stroke-width="1"/>
+      <text x="160" y="169" text-anchor="middle" fill="var(--accent)" font-size="8" font-weight="600">SCHOOL</text>
+      <!-- Danger markers -->
+      <circle cx="118" cy="165" r="6" fill="var(--red)" opacity="0.7"/>
+      <text x="118" y="168" text-anchor="middle" fill="white" font-size="7" font-weight="700">!</text>
+      <circle cx="160" cy="138" r="6" fill="var(--red)" opacity="0.7"/>
+      <text x="160" y="141" text-anchor="middle" fill="white" font-size="7" font-weight="700">!</text>
+
+      <text x="170" y="270" text-anchor="middle" fill="#e76f51" font-size="10">Arterials cut through, trapping the school</text>
+
+      <!-- Good design -->
+      <rect x="380" y="20" width="300" height="260" rx="10" fill="#161b2b" stroke="rgba(42,157,143,0.3)" stroke-width="1"/>
+      <text x="530" y="50" text-anchor="middle" fill="#2a9d8f" font-weight="600" font-size="13">Perimeter Ring (Better)</text>
+
+      <!-- Ring of arterials around neighborhood -->
+      <rect x="410" y="70" width="240" height="180" rx="4" fill="rgba(42,42,58,0.5)"/>
+      <!-- Perimeter arterials -->
+      <rect x="410" y="70" width="240" height="12" fill="rgba(42,157,143,0.25)"/>
+      <rect x="410" y="238" width="240" height="12" fill="rgba(42,157,143,0.25)"/>
+      <rect x="410" y="70" width="12" height="180" fill="rgba(42,157,143,0.25)"/>
+      <rect x="638" y="70" width="12" height="180" fill="rgba(42,157,143,0.25)"/>
+      <!-- School safely inside -->
+      <rect x="510" y="140" width="40" height="30" rx="3" fill="rgba(89,195,195,0.3)" stroke="var(--accent)" stroke-width="1"/>
+      <text x="530" y="159" text-anchor="middle" fill="var(--accent)" font-size="8" font-weight="600">SCHOOL</text>
+      <!-- Safe checkmarks -->
+      <circle cx="500" cy="155" r="6" fill="var(--green)" opacity="0.7"/>
+      <text x="500" y="158" text-anchor="middle" fill="white" font-size="8">&#10003;</text>
+      <circle cx="530" cy="130" r="6" fill="var(--green)" opacity="0.7"/>
+      <text x="530" y="133" text-anchor="middle" fill="white" font-size="8">&#10003;</text>
+
+      <text x="530" y="270" text-anchor="middle" fill="#2a9d8f" font-size="10">Arterials on edges, safe streets inside</text>
+    </svg>
+  </div>
+  <a class="article-link" href="https://www.strongtowns.org/journal/when-a-school-ends-up-on-an-arterial-road" target="_blank">Read full article &rarr;</a>
+
+  <div style="height: 2.5rem;"></div>
+
+  <!-- Article: Greenways Meet Highways -->
+  <h3>A Disaster Waiting to Happen</h3>
+  <p>The East Coast Greenway is a 3,000-mile trail hosting 50 million annual visits. At Kenilworth Boulevard in New Jersey, trail users are separated from four lanes of speeding traffic by... a painted crosswalk. No lights. No signals. No design elements compelling drivers to slow down.</p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <span class="num" style="color: var(--red);">65%</span>
+      <span class="label">Of the Greenway involves<br>high-speed traffic interaction</span>
+    </div>
+    <div class="stat-box">
+      <span class="num" style="color: var(--warm);">20 ft</span>
+      <span class="label">Original lane widths<br>(encouraging speeding)</span>
+    </div>
+    <div class="stat-box">
+      <span class="num" style="color: var(--accent);">50M</span>
+      <span class="label">Annual trail visits<br>on the ECG</span>
+    </div>
+  </div>
+
+  <p>People have died at these crossings. A 65-year-old cyclist was struck by a tractor-trailer. 16-year-old Emma Kleinz died crossing an arterial with slip lanes. The response? Stop signs placed on the <em>trail</em>, not road redesign. County road standards prioritize vehicular throughput over human life.</p>
+  <a class="article-link" href="https://www.strongtowns.org/journal/2024-11-26-a-disaster-waiting-to-happen-where-our-greenways-meet-our-highways" target="_blank">Read full article &rarr;</a>
+
+  <div style="height: 2.5rem;"></div>
+
+  <!-- Article: When Doing Everything Right -->
+  <h3>When Doing Everything Right Still Isn't Enough</h3>
+  <p>Even cities that adopt Vision Zero goals, crash analysis teams, and safe-streets policies freeze after fatal crashes. Erfurt explains why: responsibility fragments across police, legal, and leadership. No one owns the question "what can we do <em>right now</em> to prevent the next death?"</p>
+
+  <div class="flow">
+    <div class="flow-step red">
+      <span class="step-num">1</span>
+      <div class="flow-content">
+        <h4>Fatal crash occurs</h4>
+        <p>Community urgency is immediate and intense</p>
+      </div>
+    </div>
+    <div class="flow-step warm">
+      <span class="step-num">2</span>
+      <div class="flow-content">
+        <h4>Responsibility fragments</h4>
+        <p>Police investigate fault. Legal manages liability. Leadership respects due process.</p>
+      </div>
+    </div>
+    <div class="flow-step warm">
+      <span class="step-num">3</span>
+      <div class="flow-content">
+        <h4>Action freezes</h4>
+        <p>Taking visible action risks appearing to admit fault. Waiting feels safer than acting.</p>
+      </div>
+    </div>
+    <div class="flow-step red">
+      <span class="step-num">4</span>
+      <div class="flow-content">
+        <h4>Narrative shifts to "human error"</h4>
+        <p>Impairment, distraction, speed -- attention goes to what can't be controlled, not what could be changed.</p>
+      </div>
+    </div>
+    <div class="flow-step red">
+      <span class="step-num">5</span>
+      <div class="flow-content">
+        <h4>Advocacy vacuum opens</h4>
+        <p>Community demands intensify, positions harden, staff get trapped. Nothing changes before the next crash.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote">
+    <p>"Outside city hall, there is great urgency. Inside city hall, everything slows down."</p>
+    <cite>-- Edward Erfurt, "When Doing Everything Right Still Isn't Enough"</cite>
+  </div>
+  <a class="article-link" href="https://www.strongtowns.org/journal/2026-3-4-when-doing-everything-right-still-isnt-enough" target="_blank">Read full article &rarr;</a>
+</section>
+
+<!-- ========== SECTION 4: HIDDEN COSTS ========== -->
+<section id="costs">
+  <span class="theme-label" style="background: rgba(157,141,241,0.15); color: var(--purple);">Part 3</span>
+  <h2>The Hidden Costs</h2>
+  <p class="section-sub">Beyond physical danger, car-centric design hollows out neighborhoods, wastes land, and prices people out of their own cities.</p>
+
+  <!-- Article: Myth of Mobility -->
+  <h3>The Myth of Mobility</h3>
+  <p>Palacio Romeiras challenges the assumption that speed equals access. Cities designed for fast cars separate homes from shops, schools, and workplaces. The result: environments that exclude everyone who isn't driving -- the elderly, children, people with disabilities, those who can't afford cars.</p>
+
+  <div class="analogy-box">
+    <h4>The Paradox</h4>
+    <p>Building a highway to get somewhere faster is like widening a restaurant's doorway so more people can enter at once -- but moving the kitchen three miles away. You've optimized the entrance while destroying the reason people came.</p>
+  </div>
+
+  <p>When streets empty of walkers, Jane Jacobs's "eyes on the street" disappear. Safety declines. Fewer people walk. A self-reinforcing cycle. The fix: reframe mobility as <strong>accessibility</strong> -- measure success by how easily people reach daily needs, not by vehicle speed.</p>
+  <a class="article-link" href="https://www.strongtowns.org/journal/the-myth-of-mobility-why-faster-cities-often-leave-people-behind" target="_blank">Read full article &rarr;</a>
+
+  <div style="height: 2.5rem;"></div>
+
+  <!-- Article: Street Is a Terrible Thing to Waste -->
+  <h3>A Street Is a Terrible Thing to Waste</h3>
+  <p>Petersman traces how streets went from being the primary element of cities -- "platforms for building local prosperity" -- to being treated as "spaces between meaningful things." The 1926 Zoning Act shifted planning focus from street networks to land uses. Post-WWII suburbia completed the transformation: widen, separate, mandate parking.</p>
+
+  <div class="svg-container">
+    <svg viewBox="0 0 700 220" role="img" aria-label="Diagram showing how streets evolved from community platforms to car conduits">
+      <!-- Traditional -->
+      <rect x="20" y="15" width="300" height="190" rx="10" fill="#161b2b" stroke="rgba(42,157,143,0.3)" stroke-width="1"/>
+      <text x="170" y="42" text-anchor="middle" fill="#2a9d8f" font-weight="600" font-size="13">Traditional Street</text>
+      <text x="170" y="60" text-anchor="middle" fill="#b3b1ac" font-size="10">Primary element of city life</text>
+
+      <!-- Mixed use buildings -->
+      <rect x="45" y="80" width="55" height="50" rx="3" fill="rgba(42,157,143,0.15)" stroke="rgba(42,157,143,0.3)" stroke-width="1"/>
+      <text x="72" y="100" text-anchor="middle" fill="#2a9d8f" font-size="7">SHOP</text>
+      <text x="72" y="115" text-anchor="middle" fill="#2a9d8f" font-size="7">+HOME</text>
+
+      <rect x="110" y="80" width="55" height="50" rx="3" fill="rgba(42,157,143,0.15)" stroke="rgba(42,157,143,0.3)" stroke-width="1"/>
+      <text x="137" y="100" text-anchor="middle" fill="#2a9d8f" font-size="7">CAFE</text>
+      <text x="137" y="115" text-anchor="middle" fill="#2a9d8f" font-size="7">+HOME</text>
+
+      <rect x="175" y="80" width="55" height="50" rx="3" fill="rgba(42,157,143,0.15)" stroke="rgba(42,157,143,0.3)" stroke-width="1"/>
+      <text x="202" y="100" text-anchor="middle" fill="#2a9d8f" font-size="7">OFFICE</text>
+      <text x="202" y="115" text-anchor="middle" fill="#2a9d8f" font-size="7">+HOME</text>
+
+      <rect x="240" y="80" width="55" height="50" rx="3" fill="rgba(42,157,143,0.15)" stroke="rgba(42,157,143,0.3)" stroke-width="1"/>
+      <text x="267" y="100" text-anchor="middle" fill="#2a9d8f" font-size="7">MARKET</text>
+      <text x="267" y="115" text-anchor="middle" fill="#2a9d8f" font-size="7">+HOME</text>
+
+      <!-- People dots -->
+      <circle cx="80" cy="155" r="4" fill="var(--accent)" opacity="0.6"/>
+      <circle cx="105" cy="160" r="4" fill="var(--accent)" opacity="0.6"/>
+      <circle cx="140" cy="152" r="4" fill="var(--accent)" opacity="0.6"/>
+      <circle cx="170" cy="158" r="4" fill="var(--accent)" opacity="0.6"/>
+      <circle cx="210" cy="155" r="4" fill="var(--accent)" opacity="0.6"/>
+      <circle cx="245" cy="160" r="4" fill="var(--accent)" opacity="0.6"/>
+      <circle cx="270" cy="153" r="4" fill="var(--accent)" opacity="0.6"/>
+      <text x="170" y="185" text-anchor="middle" fill="#b3b1ac" font-size="9">People gather, businesses thrive</text>
+
+      <!-- Arrow -->
+      <text x="350" y="110" text-anchor="middle" fill="#b3b1ac" font-size="20">&rarr;</text>
+      <text x="350" y="128" text-anchor="middle" fill="#b3b1ac" font-size="8">1926-now</text>
+
+      <!-- Modern stroad -->
+      <rect x="380" y="15" width="300" height="190" rx="10" fill="#161b2b" stroke="rgba(231,111,81,0.3)" stroke-width="1"/>
+      <text x="530" y="42" text-anchor="middle" fill="#e76f51" font-weight="600" font-size="13">Modern Stroad</text>
+      <text x="530" y="60" text-anchor="middle" fill="#b3b1ac" font-size="10">"Space between meaningful things"</text>
+
+      <!-- Wide road -->
+      <rect x="410" y="90" width="240" height="50" rx="3" fill="#2a2a3a"/>
+      <line x1="530" y1="90" x2="530" y2="140" stroke="#f4a261" stroke-width="2" stroke-dasharray="8,6"/>
+      <!-- Cars -->
+      <rect x="435" y="101" width="30" height="15" rx="3" fill="rgba(231,111,81,0.4)"/>
+      <rect x="480" y="101" width="30" height="15" rx="3" fill="rgba(231,111,81,0.4)"/>
+      <rect x="555" y="121" width="30" height="15" rx="3" fill="rgba(231,111,81,0.4)"/>
+      <rect x="610" y="121" width="30" height="15" rx="3" fill="rgba(231,111,81,0.4)"/>
+
+      <!-- Parking lots -->
+      <rect x="410" y="155" width="100" height="35" rx="3" fill="rgba(231,111,81,0.1)" stroke="rgba(231,111,81,0.2)" stroke-width="1"/>
+      <text x="460" y="176" text-anchor="middle" fill="#e76f51" font-size="8">PARKING</text>
+      <rect x="530" y="155" width="120" height="35" rx="3" fill="rgba(231,111,81,0.1)" stroke="rgba(231,111,81,0.2)" stroke-width="1"/>
+      <text x="590" y="176" text-anchor="middle" fill="#e76f51" font-size="8">MORE PARKING</text>
+    </svg>
+  </div>
+
+  <p>A striking insight: <strong>cul-de-sacs exist as defense mechanisms</strong>. In a connected grid, any street can be escalated into a stroad. Cul-de-sacs resist this because widening them means demolishing homes. The system requires "severance as a safeguard" -- a damning indictment.</p>
+  <a class="article-link" href="https://www.strongtowns.org/journal/2026-3-12-a-street-is-a-terrible-thing-to-waste" target="_blank">Read full article &rarr;</a>
+
+  <div style="height: 2.5rem;"></div>
+
+  <!-- Article: Church Parking -->
+  <h3>Separation of Church and Parking Lot</h3>
+  <p>In Hickory, NC, a church near Union Square maintains massive parking lots required at 0.2 spaces per seat. These lots sit empty 250-300 days per year, creating dead streetscapes where "the commuter's view is restricted to asphalt on the left and more asphalt on the right."</p>
+
+  <div class="svg-container">
+    <svg viewBox="0 0 700 160" role="img" aria-label="Bar chart showing church parking lot utilization - used only 65-115 days per year out of 365">
+      <text x="350" y="20" text-anchor="middle" fill="#b3b1ac" font-size="12" font-weight="600">Church Parking Lot: Days Used vs Empty</text>
+      <!-- Full year bar -->
+      <rect x="80" y="40" width="540" height="50" rx="6" fill="rgba(231,111,81,0.15)" stroke="rgba(231,111,81,0.3)" stroke-width="1"/>
+      <!-- Used portion -->
+      <rect x="80" y="40" width="108" height="50" rx="6" fill="rgba(42,157,143,0.3)" stroke="rgba(42,157,143,0.5)" stroke-width="1"/>
+      <text x="134" y="70" text-anchor="middle" fill="#2a9d8f" font-weight="600" font-size="13">~70 days</text>
+      <text x="134" y="84" text-anchor="middle" fill="#2a9d8f" font-size="9">used</text>
+
+      <!-- Empty portion label -->
+      <text x="404" y="70" text-anchor="middle" fill="#e76f51" font-weight="600" font-size="13">~295 days empty</text>
+      <text x="404" y="84" text-anchor="middle" fill="#e76f51" font-size="9">dead asphalt streetscape</text>
+
+      <!-- Legend -->
+      <text x="80" y="120" fill="#b3b1ac" font-size="10">Solutions proposed: shared parking with businesses / grass lots / asphalt art & playgrounds</text>
+      <text x="80" y="140" fill="#b3b1ac" font-size="10">Sprawl is the root cause: congregants drive from dispersed locations, requiring ample parking</text>
+    </svg>
+  </div>
+  <a class="article-link" href="https://www.strongtowns.org/journal/2026-3-10-separation-of-church-and-parking-lot" target="_blank">Read full article &rarr;</a>
+
+  <div style="height: 2.5rem;"></div>
+
+  <!-- Article: Townhomes -->
+  <h3>It Takes Just One Letter to Legalize Townhomes</h3>
+  <p>In Longmont, CO, the median home costs $560,000 -- requiring $200K household income to avoid being cost-burdened. Only 12% of residents earn that much. School enrollment is declining as families flee to cheaper towns. A $740 million school bond reflects the demographic shift.</p>
+
+  <p>The fix? Adding the letter <strong style="color: var(--accent); font-size: 1.2rem;">"P"</strong> (for "Permitted") to one cell in a zoning table. This single character would legalize townhomes, duplexes, fourplexes, and cottage courts across the city -- "missing middle" housing that was historically normal and architecturally compatible. The math: roughly one fourplex per three blocks could address the shortage.</p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <span class="num" style="color: var(--warm);">$560K</span>
+      <span class="label">Median home price</span>
+    </div>
+    <div class="stat-box">
+      <span class="num" style="color: var(--red);">12%</span>
+      <span class="label">Of residents who can<br>afford to buy</span>
+    </div>
+    <div class="stat-box">
+      <span class="num" style="color: var(--accent);">1 per 3</span>
+      <span class="label">Fourplexes per blocks<br>needed to help</span>
+    </div>
+    <div class="stat-box">
+      <span class="num" style="color: var(--purple);">$740M</span>
+      <span class="label">School bond driven<br>by enrollment decline</span>
+    </div>
+  </div>
+  <a class="article-link" href="https://www.strongtowns.org/journal/2026-3-6-a-housing-ready-city-begins-with-one-simple-tweak" target="_blank">Read full article &rarr;</a>
+</section>
+
+<!-- ========== SECTION 5: SOLUTIONS ========== -->
+<section id="solutions">
+  <span class="theme-label" style="background: rgba(42,157,143,0.15); color: var(--green);">Part 4</span>
+  <h2>Ways Out</h2>
+  <p class="section-sub">Across all 10 articles, a consistent set of principles emerges.</p>
+
+  <div class="grid grid-3">
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3>Measure Accessibility, Not Speed</h3>
+      <p>Success = how easily people reach daily needs on foot, not how fast cars move through. Courtyard block neighborhoods over highway corridors.</p>
+      <span class="tag" style="background: rgba(42,157,143,0.15); color: var(--green);">Myth of Mobility</span>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3>Fund Locally, Design Locally</h3>
+      <p>Neighborhood streets should be shaped by neighborhood priorities. Break the dependency on federal dollars that force highway-grade design on local roads.</p>
+      <span class="tag" style="background: rgba(42,157,143,0.15); color: var(--green);">Highway in a Neighborhood</span>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3>Perimeter Arterials, Not Grid</h3>
+      <p>Push high-speed roads to neighborhood edges. Keep internal streets safe, narrow, and human-scaled. Prevents schools and homes from being stranded on dangerous roads.</p>
+      <span class="tag" style="background: rgba(42,157,143,0.15); color: var(--green);">School on Arterial</span>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3>Streets as Platforms</h3>
+      <p>Treat public rights-of-way as the primary element of cities -- shared spaces for prosperity, not conduits for traffic. Return to pre-1926 thinking.</p>
+      <span class="tag" style="background: rgba(42,157,143,0.15); color: var(--green);">Terrible Thing to Waste</span>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3>Activate Dead Space</h3>
+      <p>Share parking, plant grass, paint playgrounds. 250+ empty days per year is wasted land. Sprawl is the root cause; creative reuse is the interim fix.</p>
+      <span class="tag" style="background: rgba(42,157,143,0.15); color: var(--green);">Church & Parking Lot</span>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3>Legalize Missing Middle</h3>
+      <p>One zoning change can unlock townhomes, duplexes, and fourplexes. Distribute modest growth across the city instead of concentrating it or blocking it entirely.</p>
+      <span class="tag" style="background: rgba(42,157,143,0.15); color: var(--green);">One Letter</span>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3>Honest Accounting</h3>
+      <p>Stop counting roads as assets. Publish net financial position, not just net position. Track infrastructure condition ratios. Show residents the real picture.</p>
+      <span class="tag" style="background: rgba(42,157,143,0.15); color: var(--green);">Hidden Deficit</span>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3>Act Under Uncertainty</h3>
+      <p>Build systems that learn and act incrementally after crashes. Low-risk visible action beats paralysis. Don't let liability fear prevent prevention.</p>
+      <span class="tag" style="background: rgba(42,157,143,0.15); color: var(--green);">Everything Right</span>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <h3>Redesign Crossings, Not Blame</h3>
+      <p>When trail users die at highway crossings, redesign the road -- don't put stop signs on the trail. Prioritize hyperlocal safety over regional throughput.</p>
+      <span class="tag" style="background: rgba(42,157,143,0.15); color: var(--green);">Greenways & Highways</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 6: CONNECTIONS ========== -->
+<section id="connections">
+  <span class="theme-label" style="background: rgba(89,195,195,0.15); color: var(--accent);">The System</span>
+  <h2>How It All Connects</h2>
+  <p class="section-sub">These aren't 10 separate problems. They're one machine with many outputs.</p>
+
+  <div class="svg-container connections-wrap">
+    <svg viewBox="0 0 700 460" role="img" aria-label="System diagram showing how federal funding drives design standards which create danger and fiscal illusion">
+      <!-- Central node -->
+      <circle cx="350" cy="230" r="55" fill="rgba(231,111,81,0.15)" stroke="var(--red)" stroke-width="2"/>
+      <text x="350" y="222" text-anchor="middle" fill="var(--red)" font-weight="700" font-size="12">FEDERAL</text>
+      <text x="350" y="238" text-anchor="middle" fill="var(--red)" font-weight="700" font-size="12">FUNDING</text>
+      <text x="350" y="252" text-anchor="middle" fill="var(--red)" font-weight="700" font-size="10">MACHINE</text>
+
+      <!-- Top: Design Standards -->
+      <line x1="350" y1="175" x2="350" y2="90" stroke="var(--warm)" stroke-width="2" marker-end="url(#arrow-warm)"/>
+      <rect x="265" y="40" width="170" height="50" rx="8" fill="var(--panel)" stroke="var(--warm)" stroke-width="1.5"/>
+      <text x="350" y="63" text-anchor="middle" fill="var(--warm)" font-weight="600" font-size="11">DESIGN STANDARDS</text>
+      <text x="350" y="78" text-anchor="middle" fill="#b3b1ac" font-size="9">Wide lanes, high speed, no calming</text>
+
+      <!-- Top-right: Dangerous Streets -->
+      <line x1="400" y1="185" x2="530" y2="90" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <rect x="480" y="40" width="190" height="60" rx="8" fill="var(--panel)" stroke="var(--red)" stroke-width="1.5"/>
+      <text x="575" y="62" text-anchor="middle" fill="var(--red)" font-weight="600" font-size="11">DANGEROUS STREETS</text>
+      <text x="575" y="78" text-anchor="middle" fill="#b3b1ac" font-size="8">Schools on arterials</text>
+      <text x="575" y="90" text-anchor="middle" fill="#b3b1ac" font-size="8">Deadly crossings / Frozen response</text>
+
+      <!-- Top-left: Highway Expansion -->
+      <line x1="300" y1="190" x2="160" y2="90" stroke="var(--warm)" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <rect x="40" y="40" width="190" height="50" rx="8" fill="var(--panel)" stroke="var(--warm)" stroke-width="1.5"/>
+      <text x="135" y="63" text-anchor="middle" fill="var(--warm)" font-weight="600" font-size="11">EXPANSION BIAS</text>
+      <text x="135" y="78" text-anchor="middle" fill="#b3b1ac" font-size="9">Lightning Lane vs. Grant Line</text>
+
+      <!-- Right: Car Dependency -->
+      <line x1="405" y1="230" x2="520" y2="230" stroke="var(--purple)" stroke-width="2" marker-end="url(#arrow-purple)"/>
+      <rect x="520" y="200" width="160" height="60" rx="8" fill="var(--panel)" stroke="var(--purple)" stroke-width="1.5"/>
+      <text x="600" y="225" text-anchor="middle" fill="var(--purple)" font-weight="600" font-size="11">CAR DEPENDENCY</text>
+      <text x="600" y="240" text-anchor="middle" fill="#b3b1ac" font-size="8">Speed over access</text>
+      <text x="600" y="252" text-anchor="middle" fill="#b3b1ac" font-size="8">Empty parking / Dead streets</text>
+
+      <!-- Left: Fiscal Illusion -->
+      <line x1="295" y1="230" x2="180" y2="230" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow-accent)"/>
+      <rect x="20" y="200" width="160" height="60" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="100" y="222" text-anchor="middle" fill="var(--accent)" font-weight="600" font-size="11">FISCAL ILLUSION</text>
+      <text x="100" y="238" text-anchor="middle" fill="#b3b1ac" font-size="8">Roads counted as assets</text>
+      <text x="100" y="250" text-anchor="middle" fill="#b3b1ac" font-size="8">$3.7B on paper / -$1.2B real</text>
+
+      <!-- Bottom: Housing Crisis -->
+      <line x1="350" y1="285" x2="350" y2="350" stroke="var(--green)" stroke-width="2" marker-end="url(#arrow-green)"/>
+      <rect x="255" y="350" width="190" height="60" rx="8" fill="var(--panel)" stroke="var(--green)" stroke-width="1.5"/>
+      <text x="350" y="375" text-anchor="middle" fill="var(--green)" font-weight="600" font-size="11">HOUSING CRISIS</text>
+      <text x="350" y="390" text-anchor="middle" fill="#b3b1ac" font-size="8">Zoning blocks missing middle</text>
+      <text x="350" y="402" text-anchor="middle" fill="#b3b1ac" font-size="8">$560K median / 12% can afford</text>
+
+      <!-- Bottom-left: Declining communities -->
+      <line x1="100" y1="260" x2="100" y2="350" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="100" y1="350" x2="255" y2="380" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>
+
+      <!-- Bottom-right: Loop back -->
+      <line x1="600" y1="260" x2="600" y2="350" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="600" y1="350" x2="445" y2="380" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>
+
+      <!-- Feedback loop label -->
+      <text x="350" y="440" text-anchor="middle" fill="var(--muted)" font-size="10" font-style="italic">Each output reinforces the others. More roads = more sprawl = more car dependency = more "need" for roads.</text>
+
+      <!-- Arrow markers -->
+      <defs>
+        <marker id="arrow-warm" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6" fill="var(--warm)"/>
+        </marker>
+        <marker id="arrow-purple" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6" fill="var(--purple)"/>
+        </marker>
+        <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+          <path d="M8,0 L0,3 L8,6" fill="var(--accent)"/>
+        </marker>
+        <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6" fill="var(--green)"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+</section>
+
+<!-- ========== BOTTOM LINE ========== -->
+<section id="bottom-line">
+  <div class="bottom-line">
+    <h3>The Bottom Line</h3>
+    <p>America's transportation system is a machine optimized for one output: wider, faster roads. Federal funding forces highway-grade design on neighborhood streets. Accounting rules disguise the resulting liabilities as assets. The human cost -- dangerous crossings, unaffordable housing, empty parking lots, paralyzed institutions -- is treated as a series of separate problems rather than symptoms of one system. The fix isn't more competitive grants or better crash investigations. It's redesigning the machine itself: fund locally, design for people, count honestly, and let neighborhoods build what they actually need.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>Based on 10 articles from <a href="https://www.strongtowns.org" target="_blank">Strong Towns</a> (March 4 - March 17, 2026)</p>
+  <p style="margin-top: 0.5rem;">
+    <a href="https://www.strongtowns.org/journal/the-myth-of-mobility-why-faster-cities-often-leave-people-behind">Myth of Mobility</a> &middot;
+    <a href="https://www.strongtowns.org/journal/a-highway-in-the-middle-of-a-neighborhood">Highway in a Neighborhood</a> &middot;
+    <a href="https://www.strongtowns.org/journal/when-a-school-ends-up-on-an-arterial-road">School on Arterial</a> &middot;
+    <a href="https://www.strongtowns.org/journal/2026-3-12-a-street-is-a-terrible-thing-to-waste">Terrible Thing to Waste</a> &middot;
+    <a href="https://www.strongtowns.org/journal/2026-3-10-separation-of-church-and-parking-lot">Church & Parking</a> &middot;
+    <a href="https://www.strongtowns.org/journal/2026-3-9-the-highway-expansion-lightning-lane">Lightning Lane</a> &middot;
+    <a href="https://www.strongtowns.org/journal/2026-3-6-a-housing-ready-city-begins-with-one-simple-tweak">One Letter</a> &middot;
+    <a href="https://www.strongtowns.org/journal/2026-3-5-albuquerques-hidden-deficit">Hidden Deficit</a> &middot;
+    <a href="https://www.strongtowns.org/journal/2026-3-4-when-doing-everything-right-still-isnt-enough">Everything Right</a> &middot;
+    <a href="https://www.strongtowns.org/journal/2024-11-26-a-disaster-waiting-to-happen-where-our-greenways-meet-our-highways">Greenways & Highways</a>
+  </p>
+</footer>
+
+</body>
+</html>
