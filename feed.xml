@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:ns0="http://www.w3.org/2005/Atom" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>Visual Explainers</title>
+    <link>https://sunil-dhaka.github.io/visual-explainers/</link>
+    <description>Complex topics, explained visually</description>
+    <language>en</language>
+    <lastBuildDate>2026-03-26T00:00:00+05:30</lastBuildDate>
+    <ns0:link href="https://sunil-dhaka.github.io/visual-explainers/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>The Machine That Builds Danger</title>
+      <link>https://sunil-dhaka.github.io/visual-explainers/strong-towns-machine-builds-danger/</link>
+      <description>How federal funding, car-centric engineering, and accounting tricks create cities that look prosperous but are slowly bankrupting themselves -- and killing people along the way.</description>
+      <guid isPermaLink="true">https://sunil-dhaka.github.io/visual-explainers/strong-towns-machine-builds-danger/</guid>
+      <pubDate>2026-03-26T00:00:00+05:30</pubDate>
+    </item>
+    <item>
+      <title>The Loopy Era of AI</title>
+      <link>https://sunil-dhaka.github.io/visual-explainers/karpathy-loopy-era-ai/</link>
+      <description>Andrej Karpathy on code agents, AutoResearch, and what happens when AI starts improving itself -- while humans try to keep up</description>
+      <guid isPermaLink="true">https://sunil-dhaka.github.io/visual-explainers/karpathy-loopy-era-ai/</guid>
+      <pubDate>2026-03-22T00:00:00+05:30</pubDate>
+    </item>
+    <item>
+      <title>Blockchain, Demystified</title>
+      <link>https://sunil-dhaka.github.io/visual-explainers/blockchain/</link>
+      <description>How a shared notebook that nobody controls and nobody can erase actually works -- from mining to wallets to why it matters.</description>
+      <guid isPermaLink="true">https://sunil-dhaka.github.io/visual-explainers/blockchain/</guid>
+      <pubDate>2026-03-22T00:00:00+05:30</pubDate>
+    </item>
+  </channel>
+</rss>
