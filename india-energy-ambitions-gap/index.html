@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>India's Energy Ambitions vs Reality</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0d12;
+  --panel: #161b2b;
+  --panel-strong: #1f2538;
+  --text: #f4f1ec;
+  --muted: #b3b1ac;
+  --accent: #59c3c3;
+  --warm: #f4a261;
+  --red: #e76f51;
+  --green: #2a9d8f;
+  --purple: #9d8df1;
+  --line: rgba(244, 241, 236, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1.7;
+  font-size: 17px;
+}
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11, 13, 18, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 0.7rem 2rem;
+  display: flex; align-items: center; gap: 1.5rem;
+  overflow-x: auto;
+}
+
+nav a {
+  color: var(--muted); text-decoration: none; font-size: 0.85rem;
+  white-space: nowrap; transition: color 0.2s;
+}
+nav a:hover { color: var(--accent); }
+.nav-home { color: var(--accent); font-weight: 600; }
+.nav-sep { color: var(--line); margin: 0 0.25rem; }
+
+.hero {
+  max-width: 900px; margin: 0 auto;
+  padding: 5rem 2rem 3rem;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px;
+  color: var(--warm); margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: 'Fraunces', serif; font-size: 2.8rem;
+  line-height: 1.2; margin-bottom: 1rem;
+}
+
+.subtitle { color: var(--muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem; }
+
+main { max-width: 860px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+section { margin-bottom: 4rem; }
+
+h2 {
+  font-family: 'Fraunces', serif; font-size: 1.8rem;
+  margin-bottom: 1.5rem; color: var(--text);
+}
+
+h3 { font-size: 1.1rem; margin-bottom: 0.8rem; }
+
+p { margin-bottom: 1rem; color: var(--muted); }
+p strong { color: var(--text); }
+
+.card {
+  background: var(--panel); border-radius: 12px;
+  padding: 1.8rem; margin-bottom: 1.2rem;
+}
+
+.analogy-box {
+  background: linear-gradient(135deg, rgba(244, 162, 97, 0.08), rgba(244, 162, 97, 0.03));
+  border: 1px solid rgba(244, 162, 97, 0.25);
+  border-radius: 12px; padding: 1.8rem; margin-bottom: 2rem;
+}
+.analogy-box h4 { color: var(--warm); margin-bottom: 0.6rem; font-size: 1rem; }
+.analogy-box p { color: var(--text); margin-bottom: 0; }
+
+.grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.2rem; margin-bottom: 1.5rem;
+}
+@media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+
+.grid-3 {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem; margin-bottom: 1.5rem;
+}
+@media (max-width: 700px) { .grid-3 { grid-template-columns: 1fr; } }
+
+.stat-card {
+  background: var(--panel); border-radius: 10px;
+  padding: 1.4rem; text-align: center;
+}
+.stat-card .num {
+  font-family: 'Fraunces', serif; font-size: 2.2rem;
+  font-weight: 700; display: block; margin-bottom: 0.3rem;
+}
+.stat-card .label { font-size: 0.85rem; color: var(--muted); }
+
+.bar-chart { margin: 1.5rem 0; }
+.bar-row {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1rem;
+}
+.bar-label { width: 140px; font-size: 0.9rem; text-align: right; flex-shrink: 0; }
+.bar-track {
+  flex: 1; height: 36px; background: var(--panel-strong);
+  border-radius: 6px; position: relative; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; border-radius: 6px;
+  display: flex; align-items: center; padding-left: 10px;
+  font-size: 0.85rem; font-weight: 600; color: var(--bg);
+  transition: width 1s ease;
+}
+.bar-ghost {
+  position: absolute; top: 0; height: 100%;
+  border-right: 2px dashed var(--muted); opacity: 0.5;
+}
+
+.funnel { margin: 2rem 0; }
+.funnel-step {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 0.6rem;
+}
+.funnel-bar {
+  height: 44px; border-radius: 6px;
+  display: flex; align-items: center; padding: 0 1rem;
+  font-weight: 600; font-size: 0.95rem;
+  transition: width 0.8s ease;
+}
+.funnel-label { font-size: 0.85rem; color: var(--muted); white-space: nowrap; }
+.funnel-arrow {
+  text-align: center; color: var(--muted); font-size: 0.8rem;
+  margin: 0.3rem 0 0.3rem 2rem; opacity: 0.6;
+}
+
+.flow-step {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1rem 1.2rem; border-radius: 8px;
+  margin-bottom: 0.5rem; background: var(--panel);
+  border-left: 3px solid var(--line);
+}
+.flow-step.red { border-left-color: var(--red); }
+.flow-step.green { border-left-color: var(--green); }
+.flow-step.warn { border-left-color: var(--warm); }
+.step-num {
+  background: var(--panel-strong); width: 28px; height: 28px;
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 0.8rem; font-weight: 600;
+  flex-shrink: 0;
+}
+.flow-step .detail { font-size: 0.9rem; color: var(--muted); }
+.flow-step .detail strong { color: var(--text); }
+
+.tag {
+  display: inline-block; padding: 0.2rem 0.7rem;
+  border-radius: 4px; font-size: 0.8rem; font-weight: 600;
+}
+
+.map-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.8rem; margin: 1rem 0;
+}
+.map-item {
+  background: var(--panel); border-radius: 8px;
+  padding: 1rem; text-align: center;
+}
+.map-item .state { font-weight: 600; margin-bottom: 0.3rem; }
+.map-item .speed { font-size: 0.85rem; }
+
+.callout {
+  border-left: 3px solid var(--accent);
+  padding: 1rem 1.5rem; margin: 1.5rem 0;
+  background: rgba(89, 195, 195, 0.05);
+  border-radius: 0 8px 8px 0;
+}
+.callout p { color: var(--text); margin: 0; font-style: italic; }
+
+.separator {
+  border: none; border-top: 1px solid var(--line);
+  margin: 3rem 0;
+}
+
+footer {
+  max-width: 860px; margin: 0 auto;
+  padding: 2rem; border-top: 1px solid var(--line);
+  font-size: 0.8rem; color: var(--muted);
+}
+footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="nav-home">&larr; All</a>
+  <span class="nav-sep">|</span>
+  <a href="#analogy">The Analogy</a>
+  <a href="#ambition">The Ambition</a>
+  <a href="#funnel">The Funnel</a>
+  <a href="#shortfall">The Shortfall</a>
+  <a href="#factors">What Matters</a>
+  <a href="#barriers">Barriers</a>
+  <a href="#bottomline">Bottom Line</a>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow">Research Explainer</div>
+  <h1>India's Energy Ambitions vs Reality</h1>
+  <p class="subtitle">8,540 energy projects analyzed. The gap between announcing capacity and actually building it is enormous -- and 2030 targets are in trouble.</p>
+</div>
+
+<main>
+
+<!-- ANALOGY -->
+<section id="analogy">
+  <div class="analogy-box">
+    <h4>The Wedding Invitation Analogy</h4>
+    <p>Imagine you send 100 wedding invitations. 30 people RSVP yes. On the day, only 15 actually show up. India's energy project pipeline works like this: thousands of projects are <strong>announced</strong> (invited), far fewer get <strong>implemented</strong> (RSVP), and even fewer are <strong>completed</strong> (show up). The country is planning its seating chart based on RSVPs, but the chairs will be half-empty.</p>
+  </div>
+</section>
+
+<!-- THE AMBITION -->
+<section id="ambition">
+  <h2>The Scale of India's Ambition</h2>
+  <p>India's electricity demand has been growing at <strong>9% per year</strong> since 2021. To keep up, the country needs massive capacity additions by 2030.</p>
+
+  <div class="grid-3">
+    <div class="stat-card">
+      <span class="num" style="color: var(--accent);">777 GW</span>
+      <span class="label">Total installed capacity needed by 2030</span>
+    </div>
+    <div class="stat-card">
+      <span class="num" style="color: var(--green);">500 GW</span>
+      <span class="label">Non-fossil capacity target by 2030</span>
+    </div>
+    <div class="stat-card">
+      <span class="num" style="color: var(--warm);">56 GW</span>
+      <span class="label">Non-fossil additions needed <em>per year</em> (2025-2030)</span>
+    </div>
+  </div>
+
+  <p>Renewable capacity has grown impressively -- from <strong>74 GW in 2018</strong> to <strong>162 GW by end of 2024</strong>. In 2025 alone, <strong>45 GW</strong> was added. But is this enough?</p>
+
+  <!-- Growth SVG -->
+  <div class="card">
+    <h3>Renewable Capacity Growth</h3>
+    <svg viewBox="0 0 700 200" role="img" aria-label="Renewable energy capacity growth from 2018 to 2030 target" style="width:100%;height:auto;">
+      <!-- Axis -->
+      <line x1="80" y1="170" x2="660" y2="170" stroke="rgba(244,241,236,0.12)" stroke-width="1"/>
+      <!-- Bars -->
+      <rect x="100" y="138" width="80" height="32" rx="4" fill="#2a9d8f" opacity="0.8"/>
+      <text x="140" y="132" fill="#f4f1ec" font-size="13" text-anchor="middle" font-weight="600">74 GW</text>
+      <text x="140" y="188" fill="#b3b1ac" font-size="11" text-anchor="middle">2018</text>
+
+      <rect x="240" y="100" width="80" height="70" rx="4" fill="#2a9d8f" opacity="0.9"/>
+      <text x="280" y="94" fill="#f4f1ec" font-size="13" text-anchor="middle" font-weight="600">162 GW</text>
+      <text x="280" y="188" fill="#b3b1ac" font-size="11" text-anchor="middle">2024</text>
+
+      <rect x="380" y="76" width="80" height="94" rx="4" fill="#2a9d8f"/>
+      <text x="420" y="70" fill="#f4f1ec" font-size="13" text-anchor="middle" font-weight="600">207 GW</text>
+      <text x="420" y="188" fill="#b3b1ac" font-size="11" text-anchor="middle">2025</text>
+
+      <!-- Target -->
+      <rect x="520" y="20" width="80" height="150" rx="4" fill="none" stroke="#f4a261" stroke-width="2" stroke-dasharray="6,4"/>
+      <text x="560" y="16" fill="#f4a261" font-size="13" text-anchor="middle" font-weight="600">500 GW</text>
+      <text x="560" y="188" fill="#f4a261" font-size="11" text-anchor="middle">2030 target</text>
+
+      <!-- Gap arrow -->
+      <line x1="560" y1="76" x2="560" y2="40" stroke="#e76f51" stroke-width="2" marker-end="url(#arrowRed)"/>
+      <text x="610" y="58" fill="#e76f51" font-size="11" font-weight="600">~293 GW gap</text>
+      <defs><marker id="arrowRed" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#e76f51"/></marker></defs>
+    </svg>
+  </div>
+
+  <p>The gap between where India is and where it needs to be is still <strong>~293 GW in 5 years</strong>. That means building roughly <strong>the entire current renewable capacity again</strong> -- and then some.</p>
+</section>
+
+<hr class="separator">
+
+<!-- THE FUNNEL -->
+<section id="funnel">
+  <h2>The Project Completion Funnel</h2>
+  <p>Researchers analyzed <strong>8,540 electricity generation projects</strong> announced between 1957 and 2024 using CMIE CapEx data. The drop-off from announcement to completion is staggering.</p>
+
+  <div class="card">
+    <h3 style="margin-bottom: 1.5rem;">Conventional Energy Projects</h3>
+    <div class="funnel">
+      <div class="funnel-step">
+        <div class="funnel-bar" style="width: 100%; background: var(--accent);">100% Announced</div>
+      </div>
+      <div class="funnel-arrow">only half make it to implementation</div>
+      <div class="funnel-step">
+        <div class="funnel-bar" style="width: 50%; background: var(--warm);">~50% Implemented</div>
+        <span class="funnel-label">Financing, approvals, construction starts</span>
+      </div>
+      <div class="funnel-arrow">and then half of those actually finish</div>
+      <div class="funnel-step">
+        <div class="funnel-bar" style="width: 15%; background: var(--red);">15% Completed</div>
+        <span class="funnel-label">Operational capacity</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom: 1.5rem;">Renewable Energy Projects</h3>
+    <div class="funnel">
+      <div class="funnel-step">
+        <div class="funnel-bar" style="width: 100%; background: var(--accent);">100% Announced</div>
+      </div>
+      <div class="funnel-arrow">even fewer make it to implementation</div>
+      <div class="funnel-step">
+        <div class="funnel-bar" style="width: 40%; background: var(--warm);">~40% Implemented</div>
+        <span class="funnel-label">Contract awarded, construction begins</span>
+      </div>
+      <div class="funnel-arrow">and completion rate is worse</div>
+      <div class="funnel-step">
+        <div class="funnel-bar" style="width: 9%; background: var(--red);">9% Completed</div>
+        <span class="funnel-label">Operational capacity</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="stat-card" style="border-top: 3px solid var(--red);">
+      <span class="num" style="color: var(--red);">85%</span>
+      <span class="label">of announced conventional capacity never gets built</span>
+    </div>
+    <div class="stat-card" style="border-top: 3px solid var(--red);">
+      <span class="num" style="color: var(--red);">91%</span>
+      <span class="label">of announced renewable capacity never gets built</span>
+    </div>
+  </div>
+
+  <p>This isn't a new problem. Across <strong>67 years of data</strong>, the pattern is consistent: India announces far more energy capacity than it ever delivers.</p>
+</section>
+
+<hr class="separator">
+
+<!-- THE SHORTFALL -->
+<section id="shortfall">
+  <h2>The 2030 Shortfall</h2>
+  <p>Using survival modeling on the current project pipeline (everything announced or under implementation as of December 2024), the researchers projected what India will actually have by 2030.</p>
+
+  <div class="card">
+    <h3>Projected Shortfalls Against 2030 Targets</h3>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">Total Capacity<br><span style="font-size:0.8rem;color:var(--muted)">Target: 777 GW</span></div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width: 87%; background: var(--accent);">~676 GW projected</div>
+          <div class="bar-ghost" style="width: 100%;"></div>
+        </div>
+      </div>
+      <p style="text-align:right;font-size:0.85rem;margin-bottom:1.5rem;">
+        <span class="tag" style="background:rgba(231,111,81,0.15);color:var(--red);">~101 GW short</span>
+        <span style="color:var(--muted);font-size:0.8rem;margin-left:0.5rem;">(56 GW CE + 45 GW RE)</span>
+      </p>
+
+      <div class="bar-row">
+        <div class="bar-label">Non-Fossil<br><span style="font-size:0.8rem;color:var(--muted)">Target: 500 GW</span></div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width: 85%; background: var(--green);">~423 GW projected</div>
+          <div class="bar-ghost" style="width: 100%;"></div>
+        </div>
+      </div>
+      <p style="text-align:right;font-size:0.85rem;">
+        <span class="tag" style="background:rgba(231,111,81,0.15);color:var(--red);">~77 GW short</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>"Meeting the 500 GW non-fossil target requires completing 77 GW of entirely new projects -- projects that haven't even been announced yet -- within six years."</p>
+  </div>
+
+  <p>To put <strong>77 GW</strong> in perspective: that's roughly <strong>half of India's entire renewable capacity in 2018</strong>. It needs to appear from projects that don't yet exist in the pipeline.</p>
+</section>
+
+<hr class="separator">
+
+<!-- WHAT AFFECTS COMPLETION -->
+<section id="factors">
+  <h2>What Makes Projects Actually Get Built?</h2>
+  <p>Not all projects are equally likely to finish. The research identifies clear patterns.</p>
+
+  <div class="flow-step green">
+    <span class="step-num" style="background:var(--green);color:var(--bg);">+</span>
+    <div class="detail"><strong>Private ownership</strong> -- Private projects complete faster than public sector projects. Less bureaucracy, faster decision-making.</div>
+  </div>
+  <div class="flow-step green">
+    <span class="step-num" style="background:var(--green);color:var(--bg);">+</span>
+    <div class="detail"><strong>Top-tier developers</strong> -- Firms with larger market share have better completion rates. Experience and capital matter.</div>
+  </div>
+  <div class="flow-step green">
+    <span class="step-num" style="background:var(--green);color:var(--bg);">+</span>
+    <div class="detail"><strong>Right location</strong> -- Gujarat, Rajasthan, and Andhra Pradesh have the fastest RE project completions. Stronger renewable ecosystems and state-level support.</div>
+  </div>
+
+  <div style="height: 1rem;"></div>
+
+  <div class="flow-step red">
+    <span class="step-num" style="background:var(--red);color:var(--bg);">-</span>
+    <div class="detail"><strong>Larger project size</strong> -- Bigger projects take longer to implement and complete. Complexity scales non-linearly.</div>
+  </div>
+  <div class="flow-step red">
+    <span class="step-num" style="background:var(--red);color:var(--bg);">-</span>
+    <div class="detail"><strong>Public sector ownership</strong> -- Government-led projects face longer timelines. Approvals, procurement cycles, political changes all add delay.</div>
+  </div>
+  <div class="flow-step warn">
+    <span class="step-num" style="background:var(--warm);color:var(--bg);">!</span>
+    <div class="detail"><strong>Post-2022 announcements</strong> -- Paradoxically, RE projects announced after 2022 face <em>longer</em> implementation timelines. The easy sites may already be taken; remaining projects hit harder constraints.</div>
+  </div>
+
+  <div style="height: 1.5rem;"></div>
+
+  <h3>State Performance for Renewable Energy</h3>
+  <div class="map-grid">
+    <div class="map-item" style="border-bottom: 3px solid var(--green);">
+      <div class="state">Gujarat</div>
+      <div class="speed" style="color:var(--green);">Fastest</div>
+    </div>
+    <div class="map-item" style="border-bottom: 3px solid var(--green);">
+      <div class="state">Rajasthan</div>
+      <div class="speed" style="color:var(--green);">Fastest</div>
+    </div>
+    <div class="map-item" style="border-bottom: 3px solid var(--green);">
+      <div class="state">Andhra Pradesh</div>
+      <div class="speed" style="color:var(--green);">Fast</div>
+    </div>
+    <div class="map-item" style="border-bottom: 3px solid var(--warm);">
+      <div class="state">Other States</div>
+      <div class="speed" style="color:var(--warm);">Slower</div>
+    </div>
+  </div>
+  <p>States with established renewable ecosystems -- land policies, grid infrastructure, developer familiarity -- dramatically outperform others. Location is less critical for conventional energy projects.</p>
+</section>
+
+<hr class="separator">
+
+<!-- BARRIERS -->
+<section id="barriers">
+  <h2>Why Projects Get Stuck</h2>
+
+  <div class="stat-card" style="border-top: 3px solid var(--red); margin-bottom: 1.5rem;">
+    <span class="num" style="color: var(--red);">50 GW</span>
+    <span class="label">of awarded renewable capacity stranded as of June 2025</span>
+  </div>
+
+  <p>These are projects that <em>won bids</em> -- they have contracts -- but can't move forward. Why?</p>
+
+  <div class="grid">
+    <div class="card" style="border-top: 3px solid var(--red);">
+      <h3>Transmission Constraints</h3>
+      <p>Power plants built where the sun shines and wind blows -- but the grid can't carry the electricity to where people live. The wires aren't there yet.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--red);">
+      <h3>No Buyers (Off-take Risk)</h3>
+      <p>Projects built without guaranteed power purchase agreements. Generation capacity exists on paper but has no customer.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--warm);">
+      <h3>Land & Environment Disputes</h3>
+      <p>Clearances stuck in litigation, land acquisition conflicts, environmental objections. Each can stall a project for years.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--warm);">
+      <h3>Cost Overruns & Delays</h3>
+      <p>Projects that made financial sense at bid time become unviable as costs escalate and timelines stretch. Investor confidence erodes.</p>
+    </div>
+  </div>
+
+  <div class="analogy-box">
+    <h4>The Highway Analogy</h4>
+    <p>India is building power plants like building shops in a desert -- before building the roads to reach them. The <strong>50 GW of stranded capacity</strong> is like having fully stocked shops with no highway connecting them to customers. The problem isn't generation ambition; it's the <strong>infrastructure connecting generation to consumption</strong>.</p>
+  </div>
+</section>
+
+<hr class="separator">
+
+<!-- BOTTOM LINE -->
+<section id="bottomline">
+  <h2>The Bottom Line</h2>
+
+  <div class="card" style="border: 2px solid var(--accent);">
+    <h3 style="color: var(--accent); margin-bottom: 1rem;">India's energy targets are announcement-heavy, completion-light.</h3>
+    <p style="color: var(--text); font-size: 1.05rem; margin-bottom: 1rem;">Across 67 years and 8,540 projects, only <strong>15% of conventional</strong> and <strong>9% of renewable</strong> announced capacity actually gets built. At current completion rates, India will miss its 2030 non-fossil target by <strong>~77 GW</strong> -- capacity that hasn't even been announced yet.</p>
+    <p style="color: var(--text); font-size: 1.05rem; margin-bottom: 1rem;">The bottleneck isn't ambition or announcements. It's <strong>execution</strong>: transmission infrastructure, land clearances, off-take agreements, and the gap between winning a bid and delivering a working power plant.</p>
+    <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 0;">Private developers in Gujarat, Rajasthan, and Andhra Pradesh show it <em>can</em> be done fast. The question is whether the system can replicate those conditions everywhere else before 2030.</p>
+  </div>
+
+  <div class="callout" style="border-left-color: var(--warm); background: rgba(244,162,97,0.05); margin-top: 2rem;">
+    <p>"The challenge is not just the announcement of new capacity but ensuring projects are implemented and completed on time."<br><span style="color: var(--muted); font-size: 0.85rem;">-- Borah, Jaitly & Sane (2026)</span></p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>
+    Based on: <a href="https://blog.theleapjournal.org/2026/04/evaluating-indias-energy-ambitions.html" target="_blank">"Evaluating India's Energy Ambitions: Evidence from Electricity Generation Project-Level Data"</a><br>
+    By Upasa Borah, Akshay Jaitly, and Renuka Sane | TrustBridge Rule of Law Foundation | April 2026<br>
+    Visual explainer created April 2026
+  </p>
+</footer>
+
+</body>
+</html>
