@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From SEO to Agent-Led Growth | Visual Explainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap");
+
+:root {
+  --bg: #0b0d12;
+  --panel: #161b2b;
+  --panel-strong: #1f2538;
+  --text: #f4f1ec;
+  --muted: #b3b1ac;
+  --accent: #59c3c3;
+  --warm: #f4a261;
+  --red: #e76f51;
+  --green: #2a9d8f;
+  --purple: #9d8df1;
+  --line: rgba(244, 241, 236, 0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { font-family: 'Fraunces', serif; font-weight: 700; line-height: 1.25; }
+
+/* Sticky Nav */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(11, 13, 18, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 0.6rem 1rem;
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sticky-nav::-webkit-scrollbar { display: none; }
+.sticky-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.35rem 0.7rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.sticky-nav a:hover, .sticky-nav a:focus {
+  color: var(--text);
+  background: var(--panel);
+}
+.nav-home { color: var(--accent); font-weight: 600; }
+.nav-sep { color: var(--line); margin: 0 0.25rem; }
+
+.container { max-width: 900px; margin: 0 auto; padding: 0 1.25rem; }
+
+/* Hero */
+.hero {
+  padding: 5rem 0 3.5rem;
+  text-align: center;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  margin-bottom: 1.2rem;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .subtitle {
+  font-size: 1.15rem;
+  color: var(--muted);
+  max-width: 620px;
+  margin: 0 auto 1.8rem;
+}
+.hero-meta {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.hero-meta a { color: var(--accent); text-decoration: none; }
+.hero-meta a:hover { text-decoration: underline; }
+
+/* Section */
+section { padding: 3.5rem 0; }
+section + section { border-top: 1px solid var(--line); }
+
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+.section-title {
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  margin-bottom: 1.2rem;
+}
+.section-body {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Analogy Box */
+.analogy-box {
+  background: var(--panel);
+  border-left: 4px solid var(--warm);
+  border-radius: 0 10px 10px 0;
+  padding: 1.5rem 1.8rem;
+  margin: 1.5rem 0;
+}
+.analogy-box .label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--warm);
+  margin-bottom: 0.5rem;
+}
+.analogy-box p {
+  color: var(--text);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+/* Cards */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem 1.8rem;
+  margin: 1.2rem 0;
+}
+.card-accent { border-left: 4px solid var(--accent); }
+.card-green { border-left: 4px solid var(--green); }
+.card-red { border-left: 4px solid var(--red); }
+.card-warm { border-left: 4px solid var(--warm); }
+.card-purple { border-left: 4px solid var(--purple); }
+
+.card h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Two-column comparison */
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+@media (max-width: 680px) { .comparison { grid-template-columns: 1fr; } }
+
+.compare-col {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+}
+.compare-col.old { border-top: 3px solid var(--red); }
+.compare-col.new { border-top: 3px solid var(--green); }
+.compare-col h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+}
+.compare-col .tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  margin-bottom: 0.6rem;
+}
+.old .tag { background: rgba(231, 111, 81, 0.18); color: var(--red); }
+.new .tag { background: rgba(42, 157, 143, 0.18); color: var(--green); }
+
+/* SVG diagrams */
+.diagram-wrap {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.2rem;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+.diagram-wrap svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Platform grid */
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+@media (max-width: 680px) { .platform-grid { grid-template-columns: 1fr; } }
+.platform-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.3rem;
+  text-align: center;
+}
+.platform-card h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
+}
+.platform-card .sources {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.platform-card .sources strong { color: var(--text); }
+
+/* Takeaway list */
+.takeaway-list {
+  list-style: none;
+  counter-reset: takeaway;
+  margin: 1.5rem 0;
+}
+.takeaway-list li {
+  counter-increment: takeaway;
+  position: relative;
+  padding-left: 3rem;
+  margin-bottom: 1.3rem;
+}
+.takeaway-list li::before {
+  content: counter(takeaway);
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  width: 2rem;
+  height: 2rem;
+  background: var(--panel-strong);
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.takeaway-list li strong { color: var(--text); display: block; margin-bottom: 0.15rem; }
+
+/* Bottom line card */
+.bottom-line {
+  background: linear-gradient(135deg, var(--panel-strong) 0%, var(--panel) 100%);
+  border: 2px solid var(--accent);
+  border-radius: 16px;
+  padding: 2rem 2.2rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+.bottom-line h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  color: var(--accent);
+}
+.bottom-line p {
+  font-size: 1.08rem;
+  color: var(--text);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* Highlight spans */
+.hl-accent { color: var(--accent); font-weight: 600; }
+.hl-warm { color: var(--warm); font-weight: 600; }
+.hl-green { color: var(--green); font-weight: 600; }
+.hl-red { color: var(--red); font-weight: 600; }
+.hl-purple { color: var(--purple); font-weight: 600; }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+footer a { color: var(--accent); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* Timeline */
+.timeline {
+  position: relative;
+  margin: 2rem 0;
+  padding-left: 2.5rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.75rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--line);
+}
+.timeline-step {
+  position: relative;
+  margin-bottom: 1.8rem;
+}
+.timeline-step::before {
+  content: '';
+  position: absolute;
+  left: -1.95rem;
+  top: 0.45rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--red);
+  border: 2px solid var(--bg);
+}
+.timeline-step:last-child::before { background: var(--warm); }
+.timeline-step h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+.timeline-step p {
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+/* Jargon tooltip style */
+.jargon {
+  border-bottom: 1px dashed var(--accent);
+  cursor: help;
+  position: relative;
+}
+.jargon:hover::after {
+  content: attr(data-def);
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--panel-strong);
+  border: 1px solid var(--accent);
+  color: var(--text);
+  font-size: 0.78rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  white-space: normal;
+  width: max-content;
+  max-width: 280px;
+  z-index: 50;
+  line-height: 1.45;
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<!-- Sticky Navigation -->
+<nav class="sticky-nav" aria-label="Section navigation">
+  <a href="../" class="nav-home">&larr; All</a>
+  <span class="nav-sep">|</span>
+  <a href="#analogy">Analogy</a>
+  <a href="#core">Core Shift</a>
+  <a href="#comparison">Old vs New</a>
+  <a href="#platforms">Platforms</a>
+  <a href="#content">Content Strategy</a>
+  <a href="#dead-internet">Dead Internet</a>
+  <a href="#future-ads">Future Ads</a>
+  <a href="#takeaways">Takeaways</a>
+  <a href="#bottom-line">Bottom Line</a>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-badge">Visual Explainer</div>
+    <h1>From SEO to Agent-Led Growth</h1>
+    <p class="subtitle">
+      AI agents now browse the internet on behalf of humans, visiting 65+ pages per query.
+      Marketing will never be the same.
+    </p>
+    <p class="hero-meta">
+      Based on <a href="https://www.youtube.com/watch?v=RyTwRCKeDo4" target="_blank" rel="noopener">Sequoia Capital's conversation</a> with James Cadwallader (Profound) &middot; 31 min
+    </p>
+  </div>
+</header>
+
+<!-- 1. Simple Analogy -->
+<section id="analogy">
+  <div class="container">
+    <p class="section-label">Start Here</p>
+    <h2 class="section-title">The Simplest Way to Think About It</h2>
+
+    <div class="analogy-box">
+      <p class="label">Real-World Analogy</p>
+      <p>
+        Imagine hiring a personal shopper who reads every review, visits every store in the city,
+        compares every price, and comes back with a single best recommendation &mdash; all before
+        you finish your morning coffee. Now imagine this shopper works for
+        <span class="hl-accent">billions of people simultaneously</span>.
+        That is what AI agents are doing to the internet right now.
+      </p>
+    </div>
+
+    <p class="section-body">
+      When you ask ChatGPT "what's the best shower head under $100," it doesn't just know the answer.
+      An agent goes out, crawls <span class="hl-warm">65+ web pages</span>, reads reviews, compares specs,
+      and synthesizes a recommendation. The human never touches a search engine. The human never
+      clicks a link. The human never sees an ad.
+    </p>
+    <p class="section-body">
+      This changes everything about how products get discovered, how brands get chosen, and how
+      marketing works.
+    </p>
+  </div>
+</section>
+
+<!-- 2. Core Concept: SEO to ALG -->
+<section id="core">
+  <div class="container">
+    <p class="section-label">The Fundamental Shift</p>
+    <h2 class="section-title">SEO Is Dying. ALG Is Here.</h2>
+
+    <p class="section-body">
+      <span class="jargon" data-def="Search Engine Optimization: creating content that ranks well on Google so humans can find and click on it.">SEO</span>
+      was the art of making your content discoverable by search algorithms &mdash; but it was always
+      <em>consumed by humans</em>. A person typed a query, clicked a link, read your page.
+    </p>
+    <p class="section-body">
+      <span class="jargon" data-def="Agent-Led Growth: optimizing your brand and content so that AI agents discover, read, and recommend you &mdash; without a human ever visiting your site.">ALG (Agent-Led Growth)</span>
+      flips this entirely. Content is now both <span class="hl-green">discovered by agents</span> and
+      <span class="hl-green">consumed by agents</span>. The human never visits your website. The agent does,
+      on their behalf.
+    </p>
+
+    <!-- SVG: Core Concept Diagram -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 800 260" role="img" aria-label="Diagram showing the shift from SEO (human reads content) to ALG (agent reads content on behalf of human)">
+        <!-- SEO side -->
+        <rect x="20" y="20" width="360" height="220" rx="12" fill="none" stroke="#e76f51" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.5"/>
+        <text x="200" y="50" text-anchor="middle" font-family="Fraunces, serif" font-size="16" font-weight="700" fill="#e76f51">SEO Era</text>
+
+        <!-- Human figure -->
+        <circle cx="80" cy="110" r="20" fill="none" stroke="#f4f1ec" stroke-width="1.5"/>
+        <text x="80" y="115" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#f4f1ec">You</text>
+
+        <!-- Arrow: Human -> Google -->
+        <line x1="105" y1="110" x2="155" y2="110" stroke="#b3b1ac" stroke-width="1.5" marker-end="url(#arrow-muted)"/>
+        <text x="130" y="100" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="9" fill="#b3b1ac">query</text>
+
+        <!-- Google box -->
+        <rect x="160" y="90" width="72" height="40" rx="8" fill="#1f2538" stroke="#b3b1ac" stroke-width="1"/>
+        <text x="196" y="115" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#f4f1ec">Google</text>
+
+        <!-- Arrow: Google -> links -->
+        <line x1="237" y1="110" x2="275" y2="110" stroke="#b3b1ac" stroke-width="1.5" marker-end="url(#arrow-muted)"/>
+        <text x="256" y="100" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="9" fill="#b3b1ac">links</text>
+
+        <!-- Page -->
+        <rect x="280" y="90" width="72" height="40" rx="8" fill="#1f2538" stroke="#e76f51" stroke-width="1"/>
+        <text x="316" y="115" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#f4f1ec">Website</text>
+
+        <!-- Arrow: Human reads website -->
+        <path d="M 80 135 Q 80 180 280 180 L 280 135" fill="none" stroke="#e76f51" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-red)"/>
+        <text x="180" y="198" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="10" fill="#e76f51">Human reads the page</text>
+
+        <!-- ALG side -->
+        <rect x="420" y="20" width="360" height="220" rx="12" fill="none" stroke="#2a9d8f" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.5"/>
+        <text x="600" y="50" text-anchor="middle" font-family="Fraunces, serif" font-size="16" font-weight="700" fill="#2a9d8f">ALG Era</text>
+
+        <!-- Human figure -->
+        <circle cx="480" cy="110" r="20" fill="none" stroke="#f4f1ec" stroke-width="1.5"/>
+        <text x="480" y="115" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#f4f1ec">You</text>
+
+        <!-- Arrow: Human -> Agent -->
+        <line x1="505" y1="110" x2="545" y2="110" stroke="#59c3c3" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+        <text x="525" y="100" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="9" fill="#59c3c3">ask</text>
+
+        <!-- Agent box -->
+        <rect x="550" y="90" width="72" height="40" rx="8" fill="#1f2538" stroke="#59c3c3" stroke-width="1.5"/>
+        <text x="586" y="115" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#59c3c3">Agent</text>
+
+        <!-- Agent -> many pages -->
+        <line x1="627" y1="98" x2="680" y2="75" stroke="#2a9d8f" stroke-width="1" marker-end="url(#arrow-green)"/>
+        <line x1="627" y1="105" x2="680" y2="100" stroke="#2a9d8f" stroke-width="1" marker-end="url(#arrow-green)"/>
+        <line x1="627" y1="115" x2="680" y2="125" stroke="#2a9d8f" stroke-width="1" marker-end="url(#arrow-green)"/>
+        <line x1="627" y1="122" x2="680" y2="150" stroke="#2a9d8f" stroke-width="1" marker-end="url(#arrow-green)"/>
+
+        <rect x="685" y="62" width="55" height="24" rx="5" fill="#1f2538" stroke="#2a9d8f" stroke-width="0.8"/>
+        <text x="712" y="78" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="8" fill="#b3b1ac">Page 1</text>
+        <rect x="685" y="90" width="55" height="24" rx="5" fill="#1f2538" stroke="#2a9d8f" stroke-width="0.8"/>
+        <text x="712" y="106" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="8" fill="#b3b1ac">Page 2</text>
+        <rect x="685" y="118" width="55" height="24" rx="5" fill="#1f2538" stroke="#2a9d8f" stroke-width="0.8"/>
+        <text x="712" y="134" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="8" fill="#b3b1ac">...</text>
+        <rect x="685" y="146" width="55" height="24" rx="5" fill="#1f2538" stroke="#2a9d8f" stroke-width="0.8"/>
+        <text x="712" y="162" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="8" fill="#b3b1ac">Page 65</text>
+
+        <!-- Agent returns answer -->
+        <path d="M 570 135 Q 570 190 505 190 L 500 135" fill="none" stroke="#2a9d8f" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-green)"/>
+        <text x="550" y="210" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="10" fill="#2a9d8f">Agent returns the answer</text>
+
+        <!-- Arrowhead defs -->
+        <defs>
+          <marker id="arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 Z" fill="#b3b1ac"/>
+          </marker>
+          <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 Z" fill="#59c3c3"/>
+          </marker>
+          <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 Z" fill="#2a9d8f"/>
+          </marker>
+          <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 Z" fill="#e76f51"/>
+          </marker>
+          <marker id="arrow-warm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 Z" fill="#f4a261"/>
+          </marker>
+          <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 Z" fill="#9d8df1"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="analogy-box">
+      <p class="label">Key Insight</p>
+      <p>
+        In SEO, humans were the end consumer of content. In ALG, <span class="hl-accent">agents are both the finder and the reader</span>.
+        Your website's job is no longer to persuade a human &mdash; it's to be legible and useful to a machine
+        that will then make the recommendation.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Visual Comparison: Old World vs New World -->
+<section id="comparison">
+  <div class="container">
+    <p class="section-label">Side by Side</p>
+    <h2 class="section-title">Old World vs. New World</h2>
+
+    <div class="comparison">
+      <div class="compare-col old">
+        <span class="tag">Yesterday</span>
+        <h3>SEO World</h3>
+        <ul style="color: var(--muted); padding-left: 1.2rem; font-size: 0.95rem;">
+          <li>Content discovered by algorithms</li>
+          <li>Content <strong style="color: var(--text);">consumed by humans</strong></li>
+          <li>10 blue links on a search page</li>
+          <li>CTR (click-through rate) is king</li>
+          <li>Keywords and backlinks drive ranking</li>
+          <li>User visits your website directly</li>
+          <li>Ad impressions generate revenue</li>
+        </ul>
+      </div>
+      <div class="compare-col new">
+        <span class="tag">Today</span>
+        <h3>ALG World</h3>
+        <ul style="color: var(--muted); padding-left: 1.2rem; font-size: 0.95rem;">
+          <li>Content discovered by agents</li>
+          <li>Content <strong style="color: var(--text);">consumed by agents</strong></li>
+          <li>65+ pages crawled per query</li>
+          <li>Being "the answer" is king</li>
+          <li>Original insight and brand legibility drive selection</li>
+          <li>User may <em>never</em> visit your website</li>
+          <li>Zero-click economy &mdash; no impressions</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-warm">
+      <h4 style="color: var(--warm);">The Long Tail Explosion</h4>
+      <p style="color: var(--muted); font-size: 0.95rem;">
+        Agents use the <span class="hl-warm">long tail of the internet</span> &mdash; obscure forums, niche blogs,
+        technical docs &mdash; orders of magnitude more surface area than a human would ever browse.
+        A human might check 3-5 pages. An agent checks 65+. This means content that was invisible
+        in the SEO era suddenly matters.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Platform Map -->
+<section id="platforms">
+  <div class="container">
+    <p class="section-label">Platform Intelligence</p>
+    <h2 class="section-title">Where Each AI Pulls Its Answers From</h2>
+
+    <p class="section-body">
+      Not all AI platforms are equal. Each one leans on different sources, which means your
+      optimization strategy changes depending on where your audience asks questions.
+    </p>
+
+    <!-- SVG: Platform Sources Diagram -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 800 380" role="img" aria-label="Diagram showing how ChatGPT, Gemini, and Claude pull from different primary internet sources">
+        <!-- ChatGPT column -->
+        <rect x="30" y="30" width="220" height="330" rx="12" fill="#161b2b" stroke="#2a9d8f" stroke-width="1.5"/>
+        <text x="140" y="65" text-anchor="middle" font-family="Fraunces, serif" font-size="17" font-weight="700" fill="#2a9d8f">ChatGPT</text>
+
+        <!-- Reddit -->
+        <rect x="55" y="90" width="170" height="38" rx="8" fill="#1f2538" stroke="#2a9d8f" stroke-width="1"/>
+        <text x="140" y="114" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#f4f1ec">Reddit</text>
+        <rect x="170" y="96" width="42" height="18" rx="4" fill="rgba(42,157,143,0.2)"/>
+        <text x="191" y="109" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="600" fill="#2a9d8f">B2C</text>
+
+        <!-- LinkedIn -->
+        <rect x="55" y="140" width="170" height="38" rx="8" fill="#1f2538" stroke="#59c3c3" stroke-width="1"/>
+        <text x="140" y="164" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#f4f1ec">LinkedIn</text>
+        <rect x="170" y="146" width="42" height="18" rx="4" fill="rgba(89,195,195,0.2)"/>
+        <text x="191" y="159" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="600" fill="#59c3c3">B2B</text>
+
+        <!-- Web crawl -->
+        <rect x="55" y="190" width="170" height="38" rx="8" fill="#1f2538" stroke="#b3b1ac" stroke-width="0.8"/>
+        <text x="140" y="214" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#b3b1ac">Web Crawl (Bing)</text>
+
+        <text x="140" y="260" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#b3b1ac">Best for: Consumer products,</text>
+        <text x="140" y="278" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#b3b1ac">B2B software, SaaS</text>
+
+        <!-- Gemini column -->
+        <rect x="290" y="30" width="220" height="330" rx="12" fill="#161b2b" stroke="#9d8df1" stroke-width="1.5"/>
+        <text x="400" y="65" text-anchor="middle" font-family="Fraunces, serif" font-size="17" font-weight="700" fill="#9d8df1">Gemini</text>
+
+        <!-- YouTube -->
+        <rect x="315" y="90" width="170" height="38" rx="8" fill="#1f2538" stroke="#9d8df1" stroke-width="1.5"/>
+        <text x="400" y="114" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#f4f1ec">YouTube</text>
+        <rect x="420" y="96" width="55" height="18" rx="4" fill="rgba(157,141,241,0.2)"/>
+        <text x="448" y="109" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="600" fill="#9d8df1">Primary</text>
+
+        <!-- Google Search -->
+        <rect x="315" y="140" width="170" height="38" rx="8" fill="#1f2538" stroke="#b3b1ac" stroke-width="0.8"/>
+        <text x="400" y="164" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#b3b1ac">Google Search Index</text>
+
+        <!-- Maps / Shopping -->
+        <rect x="315" y="190" width="170" height="38" rx="8" fill="#1f2538" stroke="#b3b1ac" stroke-width="0.8"/>
+        <text x="400" y="214" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#b3b1ac">Maps / Shopping</text>
+
+        <text x="400" y="260" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#b3b1ac">Best for: Video-heavy brands,</text>
+        <text x="400" y="278" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#b3b1ac">tutorials, how-tos</text>
+
+        <!-- Claude column -->
+        <rect x="550" y="30" width="220" height="330" rx="12" fill="#161b2b" stroke="#f4a261" stroke-width="1.5"/>
+        <text x="660" y="65" text-anchor="middle" font-family="Fraunces, serif" font-size="17" font-weight="700" fill="#f4a261">Claude</text>
+
+        <!-- Pre-trained knowledge -->
+        <rect x="575" y="90" width="170" height="38" rx="8" fill="#1f2538" stroke="#f4a261" stroke-width="1.5"/>
+        <text x="660" y="114" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#f4f1ec">LLM Knowledge</text>
+        <rect x="690" y="96" width="45" height="18" rx="4" fill="rgba(244,162,97,0.2)"/>
+        <text x="712" y="109" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="600" fill="#f4a261">Core</text>
+
+        <!-- Web (shifting) -->
+        <rect x="575" y="140" width="170" height="38" rx="8" fill="#1f2538" stroke="#2a9d8f" stroke-width="1" stroke-dasharray="4 3"/>
+        <text x="660" y="164" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#b3b1ac">Web Search (growing)</text>
+
+        <!-- Training corpus -->
+        <rect x="575" y="190" width="170" height="38" rx="8" fill="#1f2538" stroke="#b3b1ac" stroke-width="0.8"/>
+        <text x="660" y="214" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#b3b1ac">Training Corpus</text>
+
+        <text x="660" y="260" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#b3b1ac">Best for: Technical, dev tools,</text>
+        <text x="660" y="278" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#b3b1ac">research, B2B</text>
+
+        <!-- Implication text -->
+        <text x="400" y="340" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="600" fill="#59c3c3">Implication: Your ALG strategy must be platform-specific</text>
+      </svg>
+    </div>
+
+    <div class="analogy-box">
+      <p class="label">Why This Matters</p>
+      <p>
+        If your customers use ChatGPT, your Reddit presence and LinkedIn thought leadership are critical.
+        If they use Gemini, your YouTube content is your moat. For Claude users (often technical),
+        you need to <span class="hl-warm">tell the model something it doesn't already know</span> &mdash; because Claude
+        leans heavily on pre-trained knowledge.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Content Strategy -->
+<section id="content">
+  <div class="container">
+    <p class="section-label">Strategy</p>
+    <h2 class="section-title">How to Win in the Agent Era</h2>
+
+    <p class="section-body">
+      James Cadwallader calls humans <span class="hl-warm">"fleshy APIs between reality and the internet."</span>
+      The content that wins in the ALG era is original insight that agents can't find elsewhere.
+    </p>
+
+    <div class="comparison">
+      <div class="card card-green" style="border-radius: 12px;">
+        <h4 style="color: var(--green);">What Works</h4>
+        <ul style="color: var(--muted); padding-left: 1.2rem; font-size: 0.93rem; line-height: 1.7;">
+          <li><strong style="color: var(--text);">Original data and insights</strong> &mdash; Tell the model something it doesn't know</li>
+          <li><strong style="color: var(--text);">Brand legibility</strong> &mdash; Make your brand easy for agents to parse and recommend</li>
+          <li><strong style="color: var(--text);">Structured content</strong> &mdash; Clear, factual, well-organized pages</li>
+          <li><strong style="color: var(--text);">Niche authority</strong> &mdash; Own the long tail topics in your domain</li>
+        </ul>
+      </div>
+      <div class="card card-red" style="border-radius: 12px;">
+        <h4 style="color: var(--red);">What's Risky</h4>
+        <ul style="color: var(--muted); padding-left: 1.2rem; font-size: 0.93rem; line-height: 1.7;">
+          <li><strong style="color: var(--text);">Gaming with listicles</strong> &mdash; "Top 10 VCs" with yourself at #1 works today but will get punished</li>
+          <li><strong style="color: var(--text);">Thin SEO content</strong> &mdash; Keyword-stuffed pages that add no real insight</li>
+          <li><strong style="color: var(--text);">Ignoring agent readability</strong> &mdash; JavaScript-heavy pages that agents can't parse</li>
+          <li><strong style="color: var(--text);">Only optimizing for Google</strong> &mdash; Missing ChatGPT, Gemini, Claude entirely</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-purple">
+      <h4 style="color: var(--purple);">The Gaming Loophole (For Now)</h4>
+      <p style="color: var(--muted); font-size: 0.95rem;">
+        Comparative listicles still work because models prefer <span class="hl-purple">pre-analyzed content</span> &mdash;
+        they take the path of least resistance. If you write "Top 10 CRMs" and put yourself at #1,
+        the model may just cite your list. But this is the "keyword stuffing" of the ALG era &mdash;
+        it will likely be detected and penalized as models get smarter.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Dead Internet Theory -->
+<section id="dead-internet">
+  <div class="container">
+    <p class="section-label">The Dark Timeline</p>
+    <h2 class="section-title">The Dead Internet Feedback Loop</h2>
+
+    <p class="section-body">
+      Here's the uncomfortable economic reality: if humans stop browsing, the entire content economy collapses.
+      This is the "Dead Internet Theory" &mdash; and it could play out in just 3 years.
+    </p>
+
+    <!-- SVG: Dead Internet feedback loop -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 800 340" role="img" aria-label="Circular diagram showing the Dead Internet feedback loop: agents replace browsing, traffic drops, ad revenue drops, content creators quit, less content for agents">
+        <!-- Central label -->
+        <text x="400" y="30" text-anchor="middle" font-family="Fraunces, serif" font-size="15" font-weight="700" fill="#e76f51">The Vicious Cycle</text>
+
+        <!-- Step 1 -->
+        <rect x="290" y="55" width="220" height="45" rx="10" fill="#1f2538" stroke="#e76f51" stroke-width="1.2"/>
+        <text x="400" y="82" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#f4f1ec">Agents answer queries directly</text>
+
+        <!-- Arrow down-right -->
+        <path d="M 510 78 Q 580 78 620 120" fill="none" stroke="#e76f51" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+
+        <!-- Step 2 -->
+        <rect x="540" y="120" width="220" height="45" rx="10" fill="#1f2538" stroke="#e76f51" stroke-width="1.2"/>
+        <text x="650" y="147" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#f4f1ec">Humans stop visiting websites</text>
+
+        <!-- Arrow down -->
+        <path d="M 650 170 Q 650 210 620 240" fill="none" stroke="#e76f51" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+
+        <!-- Step 3 -->
+        <rect x="430" y="230" width="220" height="45" rx="10" fill="#1f2538" stroke="#e76f51" stroke-width="1.2"/>
+        <text x="540" y="250" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#f4f1ec">Ad revenue collapses</text>
+        <text x="540" y="266" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="10" fill="#b3b1ac">(no eyeballs = no money)</text>
+
+        <!-- Arrow left -->
+        <path d="M 430 252 Q 370 270 320 260" fill="none" stroke="#e76f51" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+
+        <!-- Step 4 -->
+        <rect x="110" y="230" width="220" height="45" rx="10" fill="#1f2538" stroke="#e76f51" stroke-width="1.2"/>
+        <text x="220" y="250" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#f4f1ec">Content creators stop creating</text>
+        <text x="220" y="266" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="10" fill="#b3b1ac">(no incentive)</text>
+
+        <!-- Arrow up -->
+        <path d="M 140 228 Q 100 190 120 155" fill="none" stroke="#e76f51" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+
+        <!-- Step 5 -->
+        <rect x="40" y="110" width="220" height="45" rx="10" fill="#1f2538" stroke="#f4a261" stroke-width="1.2"/>
+        <text x="150" y="130" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#f4f1ec">Less fresh content on the web</text>
+        <text x="150" y="146" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="10" fill="#b3b1ac">(agents have less to crawl)</text>
+
+        <!-- Arrow back to top -->
+        <path d="M 210 110 Q 280 70 290 78" fill="none" stroke="#f4a261" stroke-width="1.5" marker-end="url(#arrow-warm)"/>
+
+        <!-- Escape hatch -->
+        <rect x="280" y="290" width="240" height="38" rx="8" fill="rgba(42,157,143,0.12)" stroke="#2a9d8f" stroke-width="1"/>
+        <text x="400" y="314" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="600" fill="#2a9d8f">Escape hatch: AI labs + social media merge</text>
+      </svg>
+    </div>
+
+    <div class="card card-warm">
+      <h4 style="color: var(--warm);">The Predicted Resolution</h4>
+      <p style="color: var(--muted); font-size: 0.95rem;">
+        James predicts AI labs will <span class="hl-warm">vertically integrate with social media</span>
+        (like Grok + X already have). Social media becomes the last "human biozone" &mdash;
+        the only place where humans still create original content, and AI models can
+        feed on fresh data. The rest of the web becomes an agent-to-agent landscape.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Future of Ads -->
+<section id="future-ads">
+  <div class="container">
+    <p class="section-label">What's Coming</p>
+    <h2 class="section-title">The Future of AI Advertising</h2>
+
+    <p class="section-body">
+      Forget banner ads, forget Google Ads. The next generation of advertising will be
+      <span class="hl-accent">conversational, hyper-personalized, and embedded directly in AI responses</span>.
+    </p>
+
+    <div class="comparison">
+      <div class="compare-col old">
+        <span class="tag">Current Ads</span>
+        <h3>Search / Display</h3>
+        <p style="color: var(--muted); font-size: 0.93rem; line-height: 1.65;">
+          You bid on keywords. A user sees your ad among 10 others. Maybe they click.
+          Targeting is broad. The ad feels like an interruption. Click-through rates
+          hover around 2-3%.
+        </p>
+      </div>
+      <div class="compare-col new">
+        <span class="tag">Future Ads</span>
+        <h3>Conversational AI</h3>
+        <p style="color: var(--muted); font-size: 0.93rem; line-height: 1.65;">
+          You configure an ad campaign via <span class="hl-green">system prompts</span>. The AI knows exactly
+          what the user needs, in context. The recommendation feels like helpful advice,
+          not an ad. Hyper-personalized to the conversation.
+        </p>
+      </div>
+    </div>
+
+    <div class="card card-accent">
+      <h4 style="color: var(--accent);">The Most Effective Advertising Ever?</h4>
+      <p style="color: var(--muted); font-size: 0.95rem;">
+        James calls conversational AI ads potentially <span class="hl-accent">"the most effective advertising ever created."</span>
+        When a model knows your exact need, budget, preferences, and context &mdash; and recommends
+        a product naturally within conversation &mdash; conversion rates could be an order of magnitude
+        higher than anything we've seen.
+      </p>
+    </div>
+
+    <div class="card card-red">
+      <h4 style="color: var(--red);">The Trust Problem</h4>
+      <p style="color: var(--muted); font-size: 0.95rem;">
+        For B2B and especially coding/technical agents, users demand <span class="hl-red">objectivity</span>.
+        If developers discover their coding assistant is biased toward a paying sponsor's library,
+        trust evaporates instantly. This creates a tension between monetization and utility
+        that AI labs will have to navigate carefully.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Key Takeaways -->
+<section id="takeaways">
+  <div class="container">
+    <p class="section-label">Action Items</p>
+    <h2 class="section-title">What Marketers Should Do Right Now</h2>
+
+    <ol class="takeaway-list">
+      <li>
+        <strong>Get visibility into how agents see your brand</strong>
+        <span style="color: var(--muted); font-size: 0.93rem;">
+          You can't optimize what you can't measure. Tools like Profound show how your brand
+          appears in AI-generated answers across ChatGPT, Claude, and Gemini.
+        </span>
+      </li>
+      <li>
+        <strong>Create original insight, not SEO content</strong>
+        <span style="color: var(--muted); font-size: 0.93rem;">
+          The winning content tells models something they don't already know. Proprietary data,
+          unique research, first-hand experience &mdash; this is the new moat.
+        </span>
+      </li>
+      <li>
+        <strong>Make your brand legible to machines</strong>
+        <span style="color: var(--muted); font-size: 0.93rem;">
+          Clean structured data, clear value propositions, factual claims that agents can verify.
+          Think less "persuasive copywriting" and more "machine-readable truth."
+        </span>
+      </li>
+      <li>
+        <strong>Go platform-specific</strong>
+        <span style="color: var(--muted); font-size: 0.93rem;">
+          Invest in Reddit if targeting ChatGPT users. YouTube if targeting Gemini.
+          LinkedIn for B2B across the board. Don't treat AI search as monolithic.
+        </span>
+      </li>
+      <li>
+        <strong>Embrace agentic marketing fully</strong>
+        <span style="color: var(--muted); font-size: 0.93rem;">
+          Not using agents in your marketing is like not using the internet in 2000.
+          Deploy AI agents to research competitors, monitor your brand's AI presence,
+          and automate content optimization.
+        </span>
+      </li>
+      <li>
+        <strong>Prepare for the conversational ad era</strong>
+        <span style="color: var(--muted); font-size: 0.93rem;">
+          Start thinking about how your product shows up in AI conversations,
+          not just in search results. The brands that figure out conversational
+          placement first will have a massive advantage.
+        </span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 9. Bottom Line -->
+<section id="bottom-line">
+  <div class="container">
+    <div class="bottom-line">
+      <p class="section-label" style="color: var(--accent);">Bottom Line</p>
+      <h2>The New Front Door Is an Agent</h2>
+      <p>
+        The internet's front door has changed. It's no longer a human typing into Google &mdash;
+        it's an AI agent browsing 65+ pages on their behalf, synthesizing an answer, and making
+        a recommendation. Brands that are legible, original, and present across the right platforms
+        will thrive. Everyone else becomes invisible. The shift from SEO to Agent-Led Growth
+        isn't coming &mdash; it's already here.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>
+      Source: <a href="https://www.youtube.com/watch?v=RyTwRCKeDo4" target="_blank" rel="noopener">"From SEO to Agent-Led Growth: Profound's James Cadwallader"</a> by Sequoia Capital (31:26)
+    </p>
+    <p style="margin-top: 0.4rem;">Visual explainer &middot; Not affiliated with Sequoia Capital or Profound</p>
+  </div>
+</footer>
+
+</body>
+</html>

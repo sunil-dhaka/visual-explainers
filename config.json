@@ -4,6 +4,15 @@
   "author": "Sunil Dhaka",
   "explainers": [
     {
+      "id": "agent-led-growth",
+      "title": "From SEO to Agent-Led Growth",
+      "description": "AI agents now browse the internet on behalf of humans, visiting 65+ pages per query. Marketing will never be the same.",
+      "date": "2026-04-16",
+      "tags": ["marketing", "ai-agents", "seo", "advertising"],
+      "link": "agent-led-growth/",
+      "color": "accent"
+    },
+    {
       "id": "india-energy-ambitions-gap",
       "title": "India's Energy Ambitions vs Reality",
       "description": "8,540 energy projects analyzed. The gap between announcing capacity and actually building it is enormous -- and 2030 targets are in trouble.",
